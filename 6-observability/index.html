@@ -1,0 +1,1978 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Part 6 可观测性建设, “基于云原生的研发效能实战”">
+    <meta name="description" content="
+第十一章    分布式链路追踪系统实践11.1    背景随着分布式系统架构的普及，系统越来越复杂，常常被切分为多个独立子系统并以集群方式部署在数十甚至成百上千的机器上。为掌握系统运行状态，确保系统健康，我们需要一些手段去监控系统，以了解">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Part 6 可观测性建设 | 去哪儿旅行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/rdefficiency/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/rdefficiency/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/rdefficiency/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/rdefficiency/" class="waves-effect waves-light">
+                    
+                    <img src="/rdefficiency/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">去哪儿旅行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/rdefficiency/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">去哪儿旅行</div>
+        <div class="logo-desc">
+            
+            北京趣拿软件科技有限公司 | 基础架构
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/rdefficiency/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/rdefficiency/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/rdefficiency/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/rdefficiency/medias/featureimages/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Part 6 可观测性建设
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/rdefficiency/tags/%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/" target="_blank">
+                            <span class="chip bg-color">可观测性</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    北京趣拿软件科技有限公司 ｜ 基础架构
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    19.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    69 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/rdefficiency/medias/images/cover_part/part_f.jpg" alt="part6"></p>
+<h1 id="第十一章-分布式链路追踪系统实践"><a href="#第十一章-分布式链路追踪系统实践" class="headerlink" title="第十一章    分布式链路追踪系统实践"></a>第十一章    分布式链路追踪系统实践</h1><h2 id="11-1-背景"><a href="#11-1-背景" class="headerlink" title="11.1    背景"></a>11.1    背景</h2><p>随着分布式系统架构的普及，系统越来越复杂，常常被切分为多个独立子系统并以集群方式部署在数十甚至成百上千的机器上。为掌握系统运行状态，确保系统健康，我们需要一些手段去监控系统，以了解系统行为，分析系统的性能，或在系统出现故障时，能发现问题、记录问题并发出告警，从而达到先于运营人员发现问题、定位问题。也可以根据监控数据发现系统瓶颈，提前感知故障，预判系统负载能力等。</p>
+<p>在去哪儿旅行内部，拥有监控体系（ 包括业务线自定义监控指标，通用中间件指标 Knell 体系 )、报警体系（ 监控系统自带报警）、雷达（根据智能预测算法进行报警）以及日志体系(基于 ELK 的实时业务日志体系以及离线日志，和错误日志分析系统），但是缺乏一个串联整体的分布式链路追踪系统。在众多开源的 APM 系统里面我们选择了自主研发，主要基于去哪儿网历史技术框架以及 JavaAgent 技术的实现，在整个实施过程中解决了系统大数据量高并发的性能问题以及 Trace 中断，和整个调用拓扑连通性的问题。</p>
+<h3 id="11-1-1-技术选型"><a href="#11-1-1-技术选型" class="headerlink" title="11.1.1    技术选型"></a>11.1.1    技术选型</h3><p>在云原生的可观测性定义中包含了 Monitoring、Logging 以及 Tracing，如下图11-1所示，这三部分构成了云原生可观测性的三大基石。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/%E5%9B%BE%E7%89%871.png" alt="云原生架构图"></p>
+<center>图11-1 云原生架构图</center>
+
+<p>从图11-1中可以看出，APM 体系是贯穿于整个云原生开发运行过程中的，是对系统最直观的感受，那么我们要建设一套APM系统应该如何选型呢？</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG132.png" alt="APM产品"></p>
+<center>图11-2 APM产品</center>
+
+<ol>
+<li><p><strong>框架选型</strong></p>
+<p>目前有很多开源框架可以选择，监控我们可以选择 Prometheus 和 Grafana 的组合，这个组合已经在业界非常流行，只需要做一些内部的适配，比如和内部的系统关联，指标关联等等。</p>
+</li>
+<li><p><strong>日志选型</strong></p>
+<p>在日志这部分也是有很多选择的，从 ELK 体系到 Loki 有很多可以选择的组件，这里更多的问题可能是数据量的问题，因为每天海量日志的传输存储需要耗费大量的资源，包括存储、传输以及处理分析资源。这块的技术选型需要根据公司产生日志大小以及重要性进行分级处理，比如实时日志可以存储到 ES 或者Clickhouse ，一些非重要的日志可以压缩存储到 HDFS 。</p>
+</li>
+<li><p><strong>技术选型</strong></p>
+<p>最后就是 Trace 这部分的技术选型，国内比较火的框架有 Skywalking，是华为开源的一款 APM 工具，架构简单界面优雅，采用 Agent 插装的模式可以不改动现有框架代码自动增加 Trace 相关功能，非常适合一些体量中小的公司，因为这部分公司大量的采用了开源框架，而且数据量不是特别大，存储也可以有很多选择，Skywalking 适配了非常多的第三方存储。</p>
+<p>Jaeger 是国外比较火的一款 Tracing 工具，可以展示相关的调用链路，有一些简单分析，也是采用了 Agent 插桩的模式，不需要改动代码就可以实现 Tracing 的功能，整体来说各大 APM 工具的基本功能都是很全面的，更多的需要结合公司的一些技术栈来选择，在去哪儿旅行这边， Java 是使用最多的语言，其他还有 Python 和 Go，另外在历史的某个时段，也做过很多中间件的人工插桩，自研的分布式 RPC 调用框架，以及消息中心，分布式配置系统以及分布式任务调度系统都是进行过改造。基于这种情况，我们需要做的事覆盖一些常用的开源插件，就可以完成整个插桩工作。</p>
+</li>
+</ol>
+<h3 id="11-1-2-架构设计"><a href="#11-1-2-架构设计" class="headerlink" title="11.1.2    架构设计"></a>11.1.2    架构设计</h3><p><img src="/rdefficiency/medias/images/qtrace/image2021-8-26_17-49-51.png" alt="整体架构"></p>
+<center>图11-3 架构设计 </center>
+
+<p>基于技术选型的分析，我们采用中间件插桩人工手写代码，其他开源中间件使用 Agent 插桩模式，这样可以快速构建 Traceing 的记录能力，数据传输层我们采用了 Apache Flume 组件以及 Kafka 作为我们的数据传输中介，使用 Flink 作为整体接受以及处理分析的框架，最终将数据存储到 Hbase 中。展示界面 WEB UI自研，前端采用了 React 框架，展示调用拓扑，调用链路，异常日志以及分析结果。</p>
+<h3 id="11-1-3-数据流程图"><a href="#11-1-3-数据流程图" class="headerlink" title="11.1.3    数据流程图"></a>11.1.3    数据流程图</h3><p><img src="/rdefficiency/medias/images/qtrace/image2021-3-12_18-13-55.png" alt="数据流程图"></p>
+<center>图11-4 数据流程图 </center>
+
+<ol>
+<li><p><strong>日志打印和收集上报</strong> </p>
+<p>Agent 部分主要是日志的打印和收集上报，这部分分为两个中间件，一个是本身产生 Trace 的中间件，另外一个是上报的中间件，目前产生 Trace 的中间件是包装现有的开源组件以及部分采用 Agent 的动态插桩实现。上报的 Agent 采用了 Aapache 的 Flume ，对于 Flume 进行部分改造，支持日志轮转不丢日志，针对行级别收集，以及在应用中心下发配置，配置收集不同的日志，不仅包括 Trace 的日志任何的实时收集日志都可以通过这个组件进行上报。</p>
+</li>
+<li><p><strong>日志上传</strong></p>
+<p>日志上传主要通过 Kafka 中间件，目前公司的所有的机器上报日志都是通过公共的 kafka 中间件上传，最终存储会有所不同，Trace 日志经过 Flink 进行聚合得到拓扑、和聚合的结果,拓扑和聚合结果都是在 FLink 分析得到的，聚合的结果主要包括失败的 Trace，超时的 Trace 等等，拓扑的数据主要是整个调用拓扑结构。</p>
+</li>
+<li><p><strong>监控上报</strong></p>
+<p>监控部分的上报主要是通过 内部监控系统进行上报，在 Trace 系统里面进行统一的埋点，这样在 Trace 支持的中间件里面可以统一的打印监控日志，监控日志会推送到监控系统进行展示，报警配置也在监控系统配置。</p>
+</li>
+<li><p><strong>UI展示部分</strong></p>
+<p>通过存储到 Hbase 和 Mysql 的数据可以查询出来具体的 Trace 信息以及相关的拓扑结构，通过聚合结果可以查询到具体的错误量失败率，耗时最大的Span 等等信息。</p>
+</li>
+<li><p><strong>关联日志展示部分</strong></p>
+<p>这部分数据主要存储到 Clog，目前已经转移到数据组统一的ELK平台进行存储和查询关联。</p>
+</li>
+</ol>
+<h2 id="11-2-实施遇到的问题-amp-解决方案"><a href="#11-2-实施遇到的问题-amp-解决方案" class="headerlink" title="11.2    实施遇到的问题&amp;解决方案"></a>11.2    实施遇到的问题&amp;解决方案</h2><h3 id="11-2-1-中间件自编码-插桩JavaAgent"><a href="#11-2-1-中间件自编码-插桩JavaAgent" class="headerlink" title="11.2.1    中间件自编码 + 插桩JavaAgent"></a>11.2.1    中间件自编码 + 插桩JavaAgent</h3><ul>
+<li>常用中间件的支持硬编码方式</li>
+</ul>
+<p>支持内部中间件体系（ Dubbo 消息中心 QunarAsyncHttpClient QunarHttpClient 定时任务 配置中心 ）常见的开源通信中间件（ Apache http client 3 &amp;4  版本  okhttpclient ），tcdev 4.0 一下版本采用硬编码方式支持如下列表中的中间件支持方案。</p>
+<table>
+<thead>
+<tr>
+<th align="left">组件类型</th>
+<th align="left">组件名称</th>
+<th align="left">组件版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">HTTP</td>
+<td align="left">async-http-client</td>
+<td align="left">1.9.x 版本以上</td>
+</tr>
+<tr>
+<td align="left">HTTP</td>
+<td align="left">apache httpcomponents</td>
+<td align="left">4.0.x 版本以上</td>
+</tr>
+<tr>
+<td align="left">HTTP</td>
+<td align="left">okhttp3</td>
+<td align="left">3.0 版本以上</td>
+</tr>
+<tr>
+<td align="left">HTTP</td>
+<td align="left">apachecommons-http client</td>
+<td align="left">3.x 版本</td>
+</tr>
+<tr>
+<td align="left">HTTP</td>
+<td align="left">qmob-commons 内部版本</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">HTTP</td>
+<td align="left">qm-common内部版本</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">HTTP</td>
+<td align="left">meerkat-http 内部版本</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">Dubbo</td>
+<td align="left">QunarDubbo版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">消息中心</td>
+<td align="left">Qunar 消息中心 版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">配置中心</td>
+<td align="left">Qunar 配置中心版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">定时任务</td>
+<td align="left">Qunar定时任务版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">Hystrix</td>
+<td align="left">开源版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">Mybatis</td>
+<td align="left">开源版本支持</td>
+<td align="left">3.2.3 版本以上</td>
+</tr>
+<tr>
+<td align="left">JdbcTemplate</td>
+<td align="left">开源版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">Webflux</td>
+<td align="left">开源版本支持</td>
+<td align="left">任何版本</td>
+</tr>
+<tr>
+<td align="left">Node</td>
+<td align="left">开源版本支持</td>
+<td align="left">node6 以下版本</td>
+</tr>
+</tbody></table>
+<center>图11-5</center>
+
+<ul>
+<li>常用中间件支持 Java Agent 方式</li>
+</ul>
+<p>​    tcdev 4.0 以后支持中间件的版本不仅包含上述列举的中间件，而且不需要通过硬编码的方式来进行支持，采用 Java Agent 探针的模式来支持，内部跨线程问题是导致中断的主要原因，在 Qtrace Agent 里面已经全面解决，包括 Jdk 提供的 Runnable Callable ExecuteService Future Rxjava Reactor java 等跨线程问题都已经解决。</p>
+<table>
+<thead>
+<tr>
+<th align="left">跨线程场景</th>
+<th align="left">支持</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Runnable</td>
+<td align="left">支持</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Callable</td>
+<td align="left">支持</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Lambda表达式</td>
+<td align="left">不支持</td>
+<td align="left">如果lambda表达式，会导致断掉</td>
+</tr>
+<tr>
+<td align="left">ExecutorService</td>
+<td align="left">支持</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Rxjava</td>
+<td align="left">支持</td>
+<td align="left">指定scheular 会默认包装执行线程</td>
+</tr>
+<tr>
+<td align="left">reacotr java</td>
+<td align="left">支持</td>
+<td align="left">会默认包装执行线程</td>
+</tr>
+</tbody></table>
+<center>图11-6</center>
+
+<p>如果没有 Qtracer.wrap 的话，即使有 QtraceAgent 都会中断。</p>
+<pre class="line-numbers language-Java"><code class="language-Java">CompletableFuture<Integer> future = CompletableFuture.supplyAsync(new QTraceSupplier<>(()->&#123;
+
+    LOG.info("supplyAsync------"+QTraceClientGetter.getClient().getCurrentTraceId());
+    return 1;
+&#125;));
+  Integer i = future.get();
+  LOG.info(String.valueOf(i));
+  CompletableFuture<Void> future1= CompletableFuture.runAsync(QTracer.wrap(()->&#123;
+
+      LOG.info("runAsync------"+QTraceClientGetter.getClient().getCurrentTraceId());
+
+  &#125;));
+  future1.get();
+
+  executor.submit(QTracer.wrap(() -> &#123;
+
+      LOG.info("in lambda------"+QTraceClientGetter.getClient().getCurrentTraceId());
+  &#125;));
+
+  executor.submit(new Runnable() &#123;
+      @Override
+      public void run() &#123;
+          LOG.info("in lambda------"+"in runnable"+QTraceClientGetter.getClient().getCurrentTraceId());
+      &#125;
+  &#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<center>图11-7</center>
+
+<ul>
+<li>Java Agent 方式性能问题</li>
+</ul>
+<p>​    性能问题主要体现在请求耗时、吞吐量是否收到影响，先说结论对于这两方面的影响大概在3%-4%之间。首先明确几个概念：</p>
+<ol>
+<li><p><strong>裸请求</strong></p>
+<p>只未使用 agent ，未使用 Qtracer 组件包装，直接发送请求，不支持 qtrace 功能。</p>
+</li>
+<li><p><strong>使用 qtracer 工具包装 http 或者线程池</strong></p>
+<p>对于 http 拦截使用 Qtracer 组件给httpclient增加拦截器，对于跨线程使用 qtracer 组件包装线程池。这两种都是通过编码方式提供 qtrace 支持。</p>
+</li>
+<li><p><strong>使用 agent 拦截请求</strong></p>
+</li>
+<li><p>未使用编码方式而是使用 agent 字节码修改拦截的方式去支持 qtrace ，用户不需要做代码修改。</p>
+</li>
+</ol>
+<h3 id="11-2-2-实验一：对于Http请求的影响"><a href="#11-2-2-实验一：对于Http请求的影响" class="headerlink" title="11.2.2    实验一：对于Http请求的影响"></a>11.2.2    实验一：对于Http请求的影响</h3><table>
+<thead>
+<tr>
+<th align="center">停顿时间（ms）</th>
+<th align="left">10 ms</th>
+<th align="left">50 ms</th>
+<th align="left">100 ms</th>
+<th align="left">200 ms</th>
+<th align="left">400 ms</th>
+<th align="left">500 ms</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">裸请求</td>
+<td align="left">2013</td>
+<td align="left">1041</td>
+<td align="left">640</td>
+<td align="left">367</td>
+<td align="left">190</td>
+<td align="left">153</td>
+</tr>
+<tr>
+<td align="center">拦截器</td>
+<td align="left">1985</td>
+<td align="left">954</td>
+<td align="left">635</td>
+<td align="left">362</td>
+<td align="left">190</td>
+<td align="left">153</td>
+</tr>
+<tr>
+<td align="center">agent</td>
+<td align="left">1628</td>
+<td align="left">943</td>
+<td align="left">623</td>
+<td align="left">356</td>
+<td align="left">186</td>
+<td align="left">148</td>
+</tr>
+<tr>
+<td align="center">拦截器-agent</td>
+<td align="left">357</td>
+<td align="left">11</td>
+<td align="left">12</td>
+<td align="left">6</td>
+<td align="left">4</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="center">agent吞吐量减少百分比（比拦截器）</td>
+<td align="left">17.98%</td>
+<td align="left">1.15%</td>
+<td align="left">1.89%</td>
+<td align="left">1.66%</td>
+<td align="left">2.11%</td>
+<td align="left">3.27%</td>
+</tr>
+<tr>
+<td align="center">裸请求-agent</td>
+<td align="left">385</td>
+<td align="left">98</td>
+<td align="left">17</td>
+<td align="left">11</td>
+<td align="left">4</td>
+<td align="left">5</td>
+</tr>
+<tr>
+<td align="center">agent吞吐量减少百分比（比裸请求）</td>
+<td align="left">19.13%</td>
+<td align="left">9.41%</td>
+<td align="left">2.66%</td>
+<td align="left">3.00%</td>
+<td align="left">2.11%</td>
+<td align="left">3.27%</td>
+</tr>
+</tbody></table>
+<center>图11-8 实验一</center>
+
+<ol>
+<li><strong>说明：</strong>横轴 模拟业务请求耗时 10 50 100 200 400 500 ms 纵轴吞吐量</li>
+<li><strong>结论：</strong>请求耗时在50ms 以上，吞吐量影响在4%</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">停顿时间（ms）</th>
+<th align="center">10 ms</th>
+<th align="center">50 ms</th>
+<th align="center">100 ms</th>
+<th align="center">200 ms</th>
+<th align="center">400 ms</th>
+<th align="center">500 ms</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">裸请求</td>
+<td align="center">39</td>
+<td align="center">75</td>
+<td align="center">123</td>
+<td align="center">214</td>
+<td align="center">414</td>
+<td align="center">514</td>
+</tr>
+<tr>
+<td align="left">拦截器</td>
+<td align="center">39</td>
+<td align="center">82</td>
+<td align="center">124</td>
+<td align="center">217</td>
+<td align="center">414</td>
+<td align="center">512</td>
+</tr>
+<tr>
+<td align="left">agent</td>
+<td align="center">48</td>
+<td align="center">84</td>
+<td align="center">126</td>
+<td align="center">221</td>
+<td align="center">422</td>
+<td align="center">534</td>
+</tr>
+<tr>
+<td align="left">agent-拦截器</td>
+<td align="center">9</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">8</td>
+<td align="center">22</td>
+</tr>
+<tr>
+<td align="left">agent平均耗时增加百分比（比拦截器）</td>
+<td align="center">23.08%</td>
+<td align="center">2.44%</td>
+<td align="center">1.61%</td>
+<td align="center">1.84%</td>
+<td align="center">1.93%</td>
+<td align="center">4.30%</td>
+</tr>
+<tr>
+<td align="left">agent-裸请求</td>
+<td align="center">9</td>
+<td align="center">9</td>
+<td align="center">3</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">20</td>
+</tr>
+<tr>
+<td align="left">agent平均耗时增加百分比（比裸请求）</td>
+<td align="center">23.08%</td>
+<td align="center">12.00%</td>
+<td align="center">2.44%</td>
+<td align="center">3.27%</td>
+<td align="center">1.93%</td>
+<td align="center">3.89%</td>
+</tr>
+</tbody></table>
+<center>图11-9 实验一</center>
+
+<ol>
+<li><strong>说明：</strong> 横轴模拟业务请求耗时   纵轴整体耗时 </li>
+<li><strong>结论：</strong>超过50ms 对于请求的耗时影响在4%以内 </li>
+</ol>
+<h3 id="11-2-3-实验二：对于跨线程的请求影响"><a href="#11-2-3-实验二：对于跨线程的请求影响" class="headerlink" title="11.2.3    实验二：对于跨线程的请求影响"></a>11.2.3    实验二：对于跨线程的请求影响</h3><ul>
+<li><strong>吞吐量比较</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">停顿时间</th>
+<th align="left">10 ms</th>
+<th align="left">50 ms</th>
+<th align="left">100 ms</th>
+<th align="left">200 ms</th>
+<th align="left">400 ms</th>
+<th align="left">500 ms</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">裸请求 - agent</td>
+<td align="left">111</td>
+<td align="left">14</td>
+<td align="left">3</td>
+<td align="left">21</td>
+<td align="left">3</td>
+<td align="left">-4</td>
+</tr>
+<tr>
+<td align="left">裸请求</td>
+<td align="left">1424</td>
+<td align="left">980</td>
+<td align="left">538</td>
+<td align="left">340</td>
+<td align="left">187</td>
+<td align="left">146</td>
+</tr>
+<tr>
+<td align="left">wrapper - agent</td>
+<td align="left">42</td>
+<td align="left">6</td>
+<td align="left">-4</td>
+<td align="left">16</td>
+<td align="left">3</td>
+<td align="left">-6</td>
+</tr>
+<tr>
+<td align="left">wrapper</td>
+<td align="left">1355</td>
+<td align="left">972</td>
+<td align="left">531</td>
+<td align="left">335</td>
+<td align="left">187</td>
+<td align="left">144</td>
+</tr>
+<tr>
+<td align="left"><strong>agent吞吐量减少百分比（比裸请求）</strong></td>
+<td align="left"><strong>7.79%</strong></td>
+<td align="left"><strong>1.43%</strong></td>
+<td align="left"><strong>0.56%</strong></td>
+<td align="left"><strong>6.18%</strong></td>
+<td align="left"><strong>1.60%</strong></td>
+<td align="left"><strong>-2.74%</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>agent吞吐量减少百分比（比wrapper）</strong></td>
+<td align="left"><strong>3.10%</strong></td>
+<td align="left"><strong>0.62%</strong></td>
+<td align="left"><strong>-0.75%</strong></td>
+<td align="left"><strong>4.78%</strong></td>
+<td align="left"><strong>1.60%</strong></td>
+<td align="left"><strong>-4.17%</strong></td>
+</tr>
+<tr>
+<td align="left">agent</td>
+<td align="left">1313</td>
+<td align="left">966</td>
+<td align="left">535</td>
+<td align="left">319</td>
+<td align="left">184</td>
+<td align="left">150</td>
+</tr>
+</tbody></table>
+<center>图11-10 实验二</center>
+
+<ul>
+<li><strong>耗时比较</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">停顿时间</th>
+<th align="left">10</th>
+<th align="left">50</th>
+<th align="left">100</th>
+<th align="left">200</th>
+<th align="left">400</th>
+<th align="left">500</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">裸请求</td>
+<td align="left">55</td>
+<td align="left">80</td>
+<td align="left">146</td>
+<td align="left">231</td>
+<td align="left">421</td>
+<td align="left">536</td>
+</tr>
+<tr>
+<td align="left">wrapper</td>
+<td align="left">58</td>
+<td align="left">81</td>
+<td align="left">139</td>
+<td align="left">235</td>
+<td align="left">421</td>
+<td align="left">545</td>
+</tr>
+<tr>
+<td align="left">agent</td>
+<td align="left">59</td>
+<td align="left">81</td>
+<td align="left">146</td>
+<td align="left">246</td>
+<td align="left">428</td>
+<td align="left">524</td>
+</tr>
+<tr>
+<td align="left">agent - wrapper</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">7</td>
+<td align="left">11</td>
+<td align="left">7</td>
+<td align="left">-21</td>
+</tr>
+<tr>
+<td align="left">agent耗时减少百分比（比wrapper）</td>
+<td align="left"><strong>1.72%</strong></td>
+<td align="left"><strong>0.00%</strong></td>
+<td align="left"><strong>5.04%</strong></td>
+<td align="left"><strong>4.68%</strong></td>
+<td align="left"><strong>1.66%</strong></td>
+<td align="left"><strong>-3.85%</strong></td>
+</tr>
+<tr>
+<td align="left">agent - 裸请求</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">15</td>
+<td align="left">7</td>
+<td align="left">-12</td>
+</tr>
+<tr>
+<td align="left">agent耗时减少百分比（比裸请求）</td>
+<td align="left"><strong>7.27%</strong></td>
+<td align="left"><strong>1.25%</strong></td>
+<td align="left"><strong>0.00%</strong></td>
+<td align="left"><strong>6.49%</strong></td>
+<td align="left"><strong>1.66%</strong></td>
+<td align="left"><strong>-2.24%</strong></td>
+</tr>
+</tbody></table>
+<center>图11-11 实验二</center>
+
+<ul>
+<li><strong>结论：</strong> 对于跨线程的场景Qtrace Agent 对其性能的影响非常低低于5%</li>
+</ul>
+<h2 id="11-3-Trace-的全链路治理"><a href="#11-3-Trace-的全链路治理" class="headerlink" title="11.3    Trace 的全链路治理"></a>11.3    Trace 的全链路治理</h2><h3 id="11-3-1-背景"><a href="#11-3-1-背景" class="headerlink" title="11.3.1    背景"></a>11.3.1    背景</h3><ol>
+<li>日志收集端性能不足，丢数据 。</li>
+<li>后台任务处理性能（3百万 QPS ）不足，数据延迟大。</li>
+<li>跨线程Trace 链路断开 。</li>
+</ol>
+<h3 id="11-3-2-日志组件的优化"><a href="#11-3-2-日志组件的优化" class="headerlink" title="11.3.2    日志组件的优化"></a>11.3.2    日志组件的优化</h3><p><img src="/rdefficiency/medias/images/qtrace/%E5%9B%BE%E7%89%872.png" alt="日志收集组件监控"></p>
+<center>图11-12 日志收集组件监控</center>
+
+<p>在 Agent 性能以及达到要求后，接下来我们对日志收集组件做了一次监控，发现整体Trace的完整率很低，有两个概念，一个事 unkownSpan 这个是我们构建出来整个 Trace 拓扑后缺失的 span，totalSpan 即所有的 Span，这两个的比值就是失败率，或者说不完整率，这个指标能说明在一个链路中，缺失了那些Span，这些 Span 是真实存在的。经过分析发现：</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG134.jpeg" alt="完整率低原因分布"></p>
+<center>图11-13 完整率低原因分布</center>
+
+<p>这个组件的问题占了50%以上的问题，继续分析每个 case 后发现核心问题是 Flume 性能跟不上日志的写入速度。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG135.png" alt=" "></p>
+<center>图11-14 日志组件问题原因</center>
+
+<p>通过分析发现丢数据的问题主要发生在异步写数据这块，因为后续 Sink 过程中发送的速率跟不上写入的数据量，导致了内存队列日志的堆积，堆积到一定程度就需要将数据抛弃，这样导致了数据无故消失，造成了最开始的现象。从图11-14中可以看到，只要我们对内存队列的大小做扩容，以及将 Sink 改为异步发送以及扩展 TailRead 的并发就可以将性能提升上来。但是这样做虽然性能提升上来了，这对 Flume 本身产生了巨大的压力。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/%E5%9B%BE%E7%89%873.png" alt="日志组件相关监控"></p>
+<center>图11-15 日志组件相关监控</center>
+
+<p>大量的日志需要从 Flume 组件上传，但是我们不能无限制增加其内存，日志收集组件的内存限制是通过 JVM 参数配置的，在这种内存受限的情况下如果大量的日志传输就会造成频繁的 OOM，可以看到图11-15中右下角的 OOM 监控显示，整个 OOM 是非常严重的，这也导致了大量的数据传输丢失，如何解决内存不够用的情况呢？增加内存显然不现实，不能占用过多系统内存，保证业务进程的使用。还要让日志稳定的上传上来–限流。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/%E5%9B%BE%E7%89%874.png" alt="动态限流"></p>
+<center>图11-16 动态限流</center>
+
+<p>通过对整个传输过程做动态限流，将数据占用的内存容量控制在合理的范围即可，图11-16中通过 SlidingWindow 限制一个批次的 Size 大小，以及条数大小，以及单条日志的 Size 大小，这里为啥要限制单条，已经有全部的大小限制了。因为有些日志就一条就可以打爆你的内存，必须将这些日志进行截断，要不然会频繁的 OOM。通过这些限制就将传输组件的流量进行了精准控制，保证不出现 OOM 的情况。</p>
+<p>但是事情往往不是想的那么简单，突发情况！</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG136.png" alt="突发情况"></p>
+<center>图11-17</center>
+
+<p>在部署整个日志收集组件的过程中触发了一次故障，业务系统的进程突然被Kill，这种情况迅速波及了其他服务，导致了一次“雪崩”，为什么我们部署了这个服务会影响到业务应用呢？而且我们明明做了内存限制？</p>
+<p>在触发问题的系统中我们发现了奇特的现象。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG137.jpeg" alt="案例"></p>
+<center>图11-18 案例</center>
+
+<p>可以看到17800这个日志收集进程竟然占用了197%的 CPU 资源，这台机器已经是下线了业务应用的机器，CPU 使用率本身不高，经过查看其他机器的 Flume资源使用情况，发现占用了大量的堆外内存资源，原因是需要发送大量 kafka 消息，这些消息会缓存在堆外内存中去，大量的堆积会导致整个的系统内存不足，最终 Linux 系统会 Kill 掉占用内存最大的进程，毫无例外都是业务的应用进程，至此算是了解其中原因，如何解决呢？</p>
+<p>就是要对 Flume 进程做资源控制，CGroup 技术就是为此而生，通过设定进程的 CGroup 资源组，来控制日志收集进程的资源使用情况，来限制过度使用内存和 CPU 资源。最终整体失败率从80%降低到20%左右达到了预想的效果。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/%E5%9B%BE%E7%89%875.png" alt="案例分析"></p>
+<center>图11-19 案例分析</center>
+
+
+<h3 id="11-3-3-海量日志处理能力"><a href="#11-3-3-海量日志处理能力" class="headerlink" title="11.3.3    海量日志处理能力"></a>11.3.3    海量日志处理能力</h3><p>在处理完成日志上传的各种类型问题后，数据传输和处理的性能瓶颈逐步展现出来，首先是Kafka的性能瓶颈。出现的现象是在日常运行过程中 kafka 集群会出现剧烈的抖动，如图11-20所示。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/%E5%9B%BE%E7%89%876.png" alt="kafka监控"></p>
+<center>图11-20 kafka监控</center>
+
+<p>通过监控发现了整个集群的网络空闲链接急剧下降，客户端连接数也急剧下降，造成大量的客户端连接超时。通过分析整个Kafka的处理流程发现，当网络空闲进程急剧下降的同时，Kafka 的写入进程耗时上涨严重。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG138.png" alt="Kafaka处理流程"></p>
+<center>图11-21 Kafka处理流程</center>
+
+<p>从图11-21中可以看到红色标记的部分是 Processor 的数量大量降低，原因是在 RequestChannel 中处理任务的 KafkaRequestHandler 性能下降导致，这个Handler 主要负责写入数据和索引，当磁盘 IO 达到机器性能瓶颈的时候就会导致这种情况。那么我们就需要优化写入性能，分散更多的 Partition 以及升级相关写入慢的磁盘从机械硬盘到 SSD。</p>
+<p>解决 Kafka 的问题后任务处理又是一块非常重要的模块，这个模块主要是处理所有的数据，包括解析，分析、与根据各种维度的聚合，需要聚合相关的拓扑以及各种维度的索引。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG139.jpeg" alt="日志存储监控"></p>
+<center>图11-22 日志存储监控</center>
+
+<p>平均 QPS 200W 左右 峰值300w，在巨大的流量涌入的同时，最常见的问题就是背压。</p>
+<p>背压出现的原因是下游任务处理能力不足，如何优化背压？</p>
+<p>1.subTask 是否消费均匀，yarn集群分配资源是静态分配，导致运行期资源不足。为什么需要看子任务是否处理数据均匀？</p>
+<p>如果在分配任务的过程中数据存在倾斜，数据不均匀，会导致整体任务处理缓慢，部分算子背压严重，严重影响整个集群的处理速度。</p>
+<p>2.算子的 input 和 output 是否一致 内存是否充足</p>
+<p>在发布 Flink 任务的过程中需要设置内存大小，此处就需要评估上下游的算子数量以及传输数据量大小，如果配置内存过小就会导致堆积。</p>
+<p>3.使用内存 map 替代 window 。</p>
+<p>部分情况下，只需要缓存部分数据的情况可以采用内存 map ，性能会大大超过 window 的性能。但是存在丢失数据的风险需要根据情况评估是否可用。</p>
+<p>4.filter 一定小心下游算子的拥堵导致全面的拥堵，压缩算子传递数据，使用 shargeGroup 共享 JVM。上下游的算子如果配置 shareGroup 则可以共享 JVM，这样避免多余的网络传输，提升整体的执行效率。</p>
+<p><img src="/rdefficiency/medias/images/qtrace/WechatIMG140.png" alt="改进后效果"></p>
+<center>图11-23 改进后效果</center>
+
+
+<h2 id="11-4-总结"><a href="#11-4-总结" class="headerlink" title="11.4    总结"></a>11.4    总结</h2><p>整个分布式链路追踪系统，从技术选型、架构设计以及落地的过程中，遇到了很多结构性问题和性能问题，从问题分析到定义指标最终解决问题，积累了很多经验，不通类型的问题都是可以通过定义指标、数字化指标、分析问题、逐步拆解、最终分治解决，希望对大家在建设 APM 系统的过程中有所帮助。</p>
+<h1 id="第十二章-日志诊断"><a href="#第十二章-日志诊断" class="headerlink" title="第十二章    日志诊断"></a>第十二章    日志诊断</h1><h2 id="异常统计分析服务"><a href="#异常统计分析服务" class="headerlink" title="异常统计分析服务"></a>异常统计分析服务</h2><h2 id="12-1-背景"><a href="#12-1-背景" class="headerlink" title="12.1    背景"></a>12.1    背景</h2><p>随着业务发展和微服务架构的普及，企业内微服务拆分粒度越来越细，服务间调用关系错综复杂。对于一些复杂的，比如机票和酒店售卖业务场景，可能动辄涉及上百个应用，当某个系统发生异常时会导致多个服务受到影响。此时 APM 系统就派上了用场，监控（Metrics）、调用链（Tracing）、日志（Logging）帮助业务同学快速定位问题。普通的业务监控报警能起到快速发现问题的作用，但具体case的排查还需要研发人员通过异常栈信息来分析，比如数据库连接异常、空指针等等。</p>
+<p>去哪儿网很早就有了监控系统，能够起到快速提醒业务响应异常的作用，然后开发同学排查是接到报警的系统本身的问题还是下游依赖的系统的问题，如果是下游系统的问题，就要这样一层层地找下去，有时候定位问题时间会比较长。当某个系统出现问题时最根本的表现就是产生异常，如果能直接提示开发同学系统产生了新的异常，或者异常量上涨了，就能够大大缩短开发同学排查问题的时间，做到快速恢复故障。</p>
+<p>去哪儿网有一套完整的日志收集和查看体系，首先应用通过日志打印框架将日志打印到本地 log 文件，机器上默认安装日志收集的 agent，将日志内容通过kafka上报，再通过 ELK 提供日志存储和查询的能力。</p>
+<p>如果能够自动地、快速地识别异常，并将日志堆栈内容直接提醒给研发同学，将会大大提高解决问题的效率，甚至防患于未然。因此，异常统计分析系统应运而生，主要目标如下：</p>
+<ol>
+<li>分钟级别的异常统计</li>
+<li>发布过程中展示同比环比</li>
+<li>支持添加监控报警</li>
+<li>支持用户自定义时间范围查询</li>
+<li>能够展示异常栈</li>
+<li>支持应用和机器级别的异常统计</li>
+</ol>
+<p>整体的演进包含两个阶段：</p>
+<ol>
+<li><p>基于实时日志收集的建设</p>
+</li>
+<li><p>基于基础组件的改造，以在业务服务端直接拦截并上报异常的方式进行了改进</p>
+</li>
+</ol>
+<p>以下分阶段进行阐述。</p>
+<h2 id="12-2-实践框架"><a href="#12-2-实践框架" class="headerlink" title="12.2    实践框架"></a>12.2    实践框架</h2><h3 id="12-2-1-阶段一：基于实时日志收集的建设"><a href="#12-2-1-阶段一：基于实时日志收集的建设" class="headerlink" title="12.2.1    阶段一：基于实时日志收集的建设"></a>12.2.1    阶段一：基于实时日志收集的建设</h3><ul>
+<li>技术栈</li>
+</ul>
+<p>实时日志收集 kafka+大众点评开源工具 CAT+FLINK+异常日志统计 平台</p>
+<ul>
+<li>架构图</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/error_log_analysis/error_log_1.png" alt="整体架构"></p>
+<center>图12-1 架构图</center>
+
+<ul>
+<li>核心模块介绍</li>
+</ul>
+<ol>
+<li><p><strong>clog 模块</strong><br>clog 模块主要负责异常栈的接收、存储和查询。消费 kafka 消息接收日志，解析出 ERROR 级别的日志，并将其关联的应用、trace、日志详情、时间戳等相关信息一并存储起来，再将转换成统一格式的日志以 kafka 消息的形式发出，待 flink 任务消费并做进一步解析。clog 的存储结构分为三层：本地磁盘（临时存储）+ES（做文件索引）+HDFS（持久存储）。这样的存储结构保证了热数据的快速查询和冷数据的持久存储。</p>
+<ul>
+<li><p><strong>存储：</strong>首先全部的实时日志都会按 bu 发送到 kafka，clog 以二进制流的方式消费此 kafka 消息，然后经过 MessagePackDecoder 进行解析，解析出日志级别、应用、traceId等信息，组装成固定格式的日志内容。再由 BlockProcessor 为每个 DataBlock 构造出索引用于查询，EsIndexManager 将索引保存到 ES 中，数据部分 DataBlock 保存到本地文件，定时转存到 HDFS 做持久存储。</p>
+</li>
+<li><p><strong>block position格式定义：</strong> ip-保留天数-时间（ yyMMddHHmmss ）- offset，例如：10.xx.xx.xx-7-20211110185535-4625901837。</p>
+<p>每个应用 5s一个block，一个 block 最大8M，当本地磁盘空间利用率达到75%，就上传到 HDFS。</p>
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/error_log_analysis/error_log_es.png" alt="clog"></p>
+<center>图12-2 clog</center>
+</li>
+</ol>
+<ul>
+<li><strong>查询：</strong>查询异常详情时先查询 ES，得到索引，根据索引判断本机是否存在相应的 blockPosition，如果是本机ip 并且本地磁盘中存在，直接从磁盘读取数据返回，若是本机 ip 但磁盘中不存在，根据文件名、position、seconds 等信息查询 HDFS 。如果不是本机 ip ，则向索引中的 ip 发起远程 HTTP 请求，转化成对应 ip 的查询。</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/error_log_analysis/error_log_flow.png" alt="查询流程"></p>
+<center>图12-3 查询流程图</center>
+
+<ol start="2">
+<li><strong>flink 任务模块</strong><br>flink 任务主要用来进行异常信息的解析计算处理，将异常类型、应用、机器等相关信息提取出来，按分钟级别做次数统计，并打印异常指标到监控系统。</li>
+</ol>
+<ul>
+<li>难点分析</li>
+</ul>
+<ol>
+<li><p><strong>实时日志收集的日志量巨大—消耗资源大</strong></p>
+<p>由于实时收集的日志本身是不过滤日志级别的，大量的非 ERROR 日志也会被收集。从使用角度上，这些非 ERROR 的日志并不是用户关心或者期望看到的数据，纳入异常日志统计并没有什么用反而会造成干扰，所以需要从大量日志中过滤掉非ERROR日志，这会耗费大量的计算资源。还有一部分是多个系统间传递数据，消耗在了跨系统传递无用信息的宽带上。</p>
+</li>
+<li><p><strong>实时日志存在延迟—flink数据统计不准确</strong></p>
+<p>由于日志收集属于非核心流程，当应用的日志量较大的时候，实时日志收集存在延迟的情况，有些日志的延迟甚至超过了1个小时。在异常日志统计时使用了 flink 的滚动窗口来进行计算，由于日志的乱序和部分日志延迟，导致这些日志被丢弃，造成统计数据不准确，误差将近10%。</p>
+</li>
+<li><p><strong>未考虑环境隔离—掺杂仿真环境数据</strong></p>
+<p>公司内部根据不同使用目的和途径，存在多种不同的环境，包括 beta、仿真、灰度和线上，实时日志收集没有对环境进行区分，仿真、灰度和线上的日志都会被统计，而事实上仿真环境属于测试范畴，会对统计结果造成干扰，尤其是当短时间内进行大量自动化测试且引发异常的情况发生时，干扰会更加显著。</p>
+</li>
+<li><p><strong>非全量应用都有实时日志收集—有些应用不能使用此功能</strong></p>
+<p>由于公司内整套实时日志收集是 ELK，成本比较高，所以只有部分核心应用开通了实时日志收集，未开通的应用就没办进行异常日志统计和监控。</p>
+</li>
+<li><p><strong>容器化后日志收集方式改变—容器化后的应用统计不到数据</strong></p>
+<p>近两年去哪儿在进行 KVM 到容器化的迁移，两者技术差异还是比较大的，日志收集的方式也进行了彻底的改变，包括 kafka 消息的形式和格式都变化较大，原有异常日志统计架构已经完全不能满足。也正因此，我们做了一次系统架构调整，从源头异常日志收集到统计逻辑都做了重大调整。</p>
+</li>
+</ol>
+<h3 id="12-2-2-阶段二：基于基础组件的改造"><a href="#12-2-2-阶段二：基于基础组件的改造" class="headerlink" title="12.2.2    阶段二：基于基础组件的改造"></a>12.2.2    阶段二：基于基础组件的改造</h3><ul>
+<li>改进目标</li>
+</ul>
+<ol>
+<li>支持容器的异常日志统计。</li>
+<li>解决统计不准确问题。</li>
+<li>降低资源成本。</li>
+<li>应用范围要扩展到全司 java 应用。</li>
+<li>可以按照环境类型维度进行过滤。</li>
+</ol>
+<ul>
+<li>改进策略</li>
+</ul>
+<ol>
+<li>将数据源从实时日志收集改成在业务服务端的基础组件进行拦截和上报异常。</li>
+<li>将从全量级别的日志中筛选异常日志改成直接在源头过滤，只上报异常的日志。</li>
+<li>在基础组件在业务服务端直接做好结构化，并做初步聚合（按异常类型做聚合，同种异常次数聚合，异常栈详情采样），减少冗余数据传输的资源消耗，kafka 集群 partition 从60个降低到14个，异常日志每秒消息量从486K 降低到 53K。</li>
+<li>废弃 flink 任务（之前使用 flink 主要是做日志文本解析，数据源变更后，就不再需要了），开发新的统计服务。</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/error_log_analysis/error_log_2.png" alt="改进后的架构"></p>
+<center>图12-4 改进后的架构图</center>
+
+<ul>
+<li><p>核心模块介绍</p>
+</li>
+<li><p><strong>logger-spi</strong></p>
+<p>负责在客户端进行日志采集、过滤、聚合、采样、上报。通过 agent 对 logger 进行插桩，并过滤出带异常栈的日志，然后将异常日志按照异常类型进行初步聚合，将1min 内同一种类型的异常进行累加计数，并且对异常日志详情进行采样，最终将数据通过 kafka 消息上报。同时为了避免对服务造成过多损耗，当占用的内存达到限额时会直接上报到 kafka。</p>
+<p>我们将异常日志分为了业务异常（ BusinessError ）和系统异常。业务异常是指没有异常栈的，和业务流程相关的异常，比如：”没有该目的地的航班”等；系统异常是指没有系统业务含义的，带堆栈信息的异常。目前我们只关心系统异常，业务异常是直接过滤掉的。</p>
+<p>上报的数据结构如下：</p>
+</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+<span class="token string">"ip"</span><span class="token operator">:</span> <span class="token string">"xx.xx.xx.xx"</span><span class="token punctuation">,</span>
+  <span class="token string">"sendTime"</span><span class="token operator">:</span> <span class="token number">1634802724460</span><span class="token punctuation">,</span>
+  <span class="token string">"host"</span><span class="token operator">:</span> <span class="token string">"l-xxxxxxx"</span><span class="token punctuation">,</span>
+  <span class="token string">"应用"</span><span class="token operator">:</span> <span class="token string">"xxx"</span><span class="token punctuation">,</span>
+  <span class="token string">"envName"</span><span class="token operator">:</span> <span class="token string">"proda"</span><span class="token punctuation">,</span>
+  <span class="token string">"exType"</span><span class="token operator">:</span> <span class="token string">"com.xx.xx.xx.xx.xxException"</span><span class="token punctuation">,</span><span class="token comment" spellcheck="true">//无异常栈的直接写BusinessError</span>
+  <span class="token string">"count"</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token string">"details"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+      <span class="token string">"level"</span><span class="token operator">:</span> <span class="token string">"ERROR"</span><span class="token punctuation">,</span>
+      <span class="token string">"fileName"</span><span class="token operator">:</span> <span class="token string">"/home/xxx/logs/xx.log"</span><span class="token punctuation">,</span>
+      <span class="token string">"content"</span><span class="token operator">:</span> <span class="token string">"2021-10-21.15:52:04.040 INFO  [Dubbo-thread-57] ProxyUtil.proxyConnection:38 [proxyConnection] QTraceId[xxx_211021.155203.xx.xx.xx.xx.6786.xxx_1]-QSpanId[1.7.1.5.1.1.3.1.13.1.3.1] db proxy error"</span><span class="token punctuation">,</span>
+      <span class="token string">"timestamp"</span><span class="token operator">:</span> <span class="token number">1634802724458</span><span class="token punctuation">,</span>
+      <span class="token string">"traceId"</span><span class="token operator">:</span> <span class="token string">"xxx_211021.155203.xx.xx.xx.xx.6786.xxx_1"</span><span class="token punctuation">,</span>
+      <span class="token string">"stackTrace"</span><span class="token operator">:</span> "com<span class="token punctuation">.</span>qunar<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span>QProcessException<span class="token operator">:</span> api<span class="token operator">|</span>BookingRule Error<span class="token operator">:</span> <span class="token punctuation">[</span>预定规则错误<span class="token punctuation">,</span> 最大可预订间数<span class="token operator">&lt;=</span><span class="token number">0</span><span class="token punctuation">,</span> maxRoomNumber<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">]</span>
+        at com<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span><span class="token function">xxx</span><span class="token punctuation">(</span>xxx<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">197</span><span class="token punctuation">)</span>
+        at com<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span>xxx<span class="token punctuation">.</span><span class="token function">xxx</span><span class="token punctuation">(</span>xxx<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">117</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        at org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>remoting<span class="token punctuation">.</span>transport<span class="token punctuation">.</span>dispatcher<span class="token punctuation">.</span>ChannelEventRunnable<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>ChannelEventRunnable<span class="token punctuation">.</span>java<span class="token punctuation">)</span>
+        at java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ThreadPoolExecutor<span class="token punctuation">.</span><span class="token function">runWorker</span><span class="token punctuation">(</span>ThreadPoolExecutor<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">1149</span><span class="token punctuation">)</span>
+        at java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ThreadPoolExecutor$Worker<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>ThreadPoolExecutor<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">624</span><span class="token punctuation">)</span>
+        at java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">748</span><span class="token punctuation">)</span>"
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">]</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<center>图12-5 数据结构</center>
+
+<p>模块详细架构图：</p>
+<p><img src="/rdefficiency/medias/images/error_log_analysis/error_log_3.png" alt="模块详细架构图"></p>
+<center>图12-6 模块详细架构图</center>
+
+<ul>
+<li><p><strong>statistic</strong></p>
+<p>接收客户端上报上来的异常日志初步聚合结果，在内存中按分钟进行统计并暂存储统计结果，并定时更新到hbase中，更新时先从 hbase 中查询出该应用、该分钟原有的异常数据，再与内存中的数据叠加，最后更新到 hbase 中。这种计算、统计方式与 kafka 消息到达的顺序无关，不管消息有没有延迟，只要消息没丢，就都能统计进去，从而保证统计数据和实际不会有偏差。统计数据包含以下四个维度：</p>
+<ul>
+<li><p>每分钟的异常个数</p>
+</li>
+<li><p>每分钟每种类型的异常个数</p>
+</li>
+<li><p>每分钟每个机器的异常个数</p>
+</li>
+<li><p>每分钟每个机器每种异常类型的异常个数</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="12-3-应用场景"><a href="#12-3-应用场景" class="headerlink" title="12.3    应用场景"></a>12.3    应用场景</h2><p>基于我们提供的异常统计和详情查看等基本能力，公司内部还产生了帮助业务系统定期进行服务治理的工具。</p>
+<h3 id="12-3-1-服务治理"><a href="#12-3-1-服务治理" class="headerlink" title="12.3.1    服务治理"></a>12.3.1    服务治理</h3><p>将 应用 和 owner 对应起来，每周发邮件提示系统异常量，并制定规范，比如哪些类型异常必须修复，便于owner持续关注自身系统的健康状况。</p>
+<h3 id="12-3-2-与发布系统集成"><a href="#12-3-2-与发布系统集成" class="headerlink" title="12.3.2    与发布系统集成"></a>12.3.2    与发布系统集成</h3><p>在发布过程中，发布系统会调用异常日志统计系统接口获取该应用及其上下游系统的异常量变化情况，便于在发布过程中有问题及时发现、及时终止。</p>
+<h3 id="12-3-3-异常检测报警"><a href="#12-3-3-异常检测报警" class="headerlink" title="12.3.3    异常检测报警"></a>12.3.3    异常检测报警</h3><p>不仅是在发布过程中要关注异常量，在平时也会出现各种各样的突发情况，比如硬件故障、中间件故障、数据库故障、攻防演练等。因此基于异常统计分析服务的基础数据，开发了实时地根据异常统计数据自动识别新增异常类型和异常数量环比上涨，并及时提醒给研发人员的工具，想要开通的应用可以自定义配置报警规则，比如环比上涨多少要报警等。能够进一步提升系统稳定性和研发人员排查问题的效率。</p>
+<h2 id="12-4-总结展望"><a href="#12-4-总结展望" class="headerlink" title="12.4    总结展望"></a>12.4    总结展望</h2><p>  目前 异常日志统计分析系统已经接入1300+应用，成为了研发质量中的一个重要指标，研发人员也养成了关注系统异常情况的习惯，为公司业务稳定发展提供技术保障。</p>
+<p>  一个系统在诞生的时候基本上都会有一些没考虑到的点，并且随着周边环境的变化，原有的设计也会不满足，优秀的系统不是一成不变的，而是慢慢打磨、优化、改进、完善才形成的，每个时期和阶段都有它的价值。同时也要敢于突破原有设计的束缚，取其精华去其糟粕。</p>
+<p>  异常量统计数据和异常堆栈的作用远不止于此，未来我们可以将异常日志中的 trace 信息利用起来，根据一条 trace 直接把该链路上的异常直接展示给开发人员，不需要一个系统一个系统地排查下去，提升排查问题的效率，未来还大有可为！</p>
+<h1 id="第十三章-异常诊断"><a href="#第十三章-异常诊断" class="headerlink" title="第十三章    异常诊断"></a>第十三章    异常诊断</h1><p><em><em>一站式Java应用诊断解决方案 </em></em></p>
+<h2 id="13-1-背景"><a href="#13-1-背景" class="headerlink" title="13.1    背景"></a>13.1    背景</h2><p>在线应用的诊断一直是日常维护中的难点和痛点，2018年下半年，Alibaba 开源了 java 应用诊断工具 arthas ，并多次登顶 GitHub Trending 。作为基础架构团队，我们自然也不会忽视这个东西。在研究后发现，arthas 确实是一个非常优秀的 java 诊断工具，但是也有一些不足。</p>
+<ol>
+<li><p><strong>arthas 更像是一个工具，而不像一个产品</strong></p>
+<p>如果要使用它，我们首先要登录相关机器，然后在机器上下载 arthas，再执行一些命令来运行。这整个流程里，下载可能出现问题，运行 arthas 也需要具有目标进程相应的权限，还需要先看看对应进程 id 等等…这些确实只是一些小问题，但我们也可以选择让这些问题不存在，让整个使用过程更加流畅。</p>
+</li>
+<li><p><strong>arthas 缺少 web 界面</strong></p>
+<p>命令行界面用起来确实很酷，但不可否认在相当一部分情况下web界面更直观更友好，很多需要查文档的情况在 web 界面下都可以直接操作，降低了使用门槛。</p>
+</li>
+<li><p><strong>arthas 所有功能都针对单台机器</strong></p>
+<p>实际上很多时候我们需要考虑和观察整个应用的运行情况，需要一个应用级的视角。</p>
+</li>
+<li><p><strong>arthas 是一个独立的工具</strong></p>
+<p>对于一个开源工具，这不是一个缺点，但如果能和公司内部的应用中心、发布系统等做一些适配的话，在使用上会更方便，也能够做出一些独立工具做不到的功能。  </p>
+</li>
+</ol>
+<p>基于以上的原因，我们决定做一个更强大、更好用的java应用诊断工具，该工具集成了 arthas ，拥有 arthas 的所有功能，并提供了在线debug、线程级 cpu 监控等 killer feature，目前也已经在 github 开源。</p>
+<h2 id="13-2-设计与实现"><a href="#13-2-设计与实现" class="headerlink" title="13.2    设计与实现"></a>13.2    设计与实现</h2><p>这一节内容首先会对诊断工具整体设计进行介绍，让读者对其有个大体的认识，接下来再对一些重点的设计和功能点进行说明。</p>
+<h3 id="13-2-1-整体设计"><a href="#13-2-1-整体设计" class="headerlink" title="13.2.1    整体设计"></a>13.2.1    整体设计</h3><p>诊断工具涉及到的组件有用户系统、agent 、proxy 、ui 、注册中心、负载均衡器、应用中心等，其中agent 、proxy 和 ui 直接归属于诊断工具，其它都属于外部系统。  </p>
+<ol>
+<li><p>用户系统就是待诊断的正在运行的应用。</p>
+</li>
+<li><p>agent 和待诊断用户系统部署在同一台机器上，接收来自 proxy 的命令，并根据其类型直接执行一部分命令，并负责另一部分命令与用户系统之间的交互。</p>
+</li>
+<li><p>proxy 负责维护与 agent 之间的长期 netty 连接，并以 websocket 的方式维护与 ui 在命令执行期间的连接，它将ui传来的命令发送给具体的一个或多个agent ，并且根据网络情况对对应的连接进行管理。</p>
+</li>
+<li><p>ui 则提供图形化和命令行界面，接收用户请求并发送给 proxy，并将结果展示给用户。</p>
+</li>
+<li><p>注册中心负责 proxy 的注册，ui 通过注册中心获取 proxy 地址。</p>
+</li>
+<li><p>负载均衡器负责 agent 到 proxy 的负载均衡，agent 在每次启动时通过负载均衡器获取单个 proxy 地址，并与之建立长期连接。</p>
+</li>
+<li><p>应用中心提供应用和机器的相关信息给诊断工具，用于简化操作，并提供一些特殊功能需要的信息。</p>
+</li>
+<li><p>其它：诊断工具还会访问 gitlab 等系统，但这些都是具体功能所需要，并不在诊断工具整体的系统设计上。</p>
+</li>
+</ol>
+<p>   <img src="/rdefficiency/medias/images/bistoury/input.png" alt="一次请求"></p>
+   <center>13-0 一次请求</center>
+
+<p><img src="/rdefficiency/medias/images/bistoury/output.png" alt="一次响应"></p>
+ <center>13-1 一次响应</center>
+
+<h3 id="13-2-2-字节码插桩"><a href="#13-2-2-字节码插桩" class="headerlink" title="13.2.2    字节码插桩"></a>13.2.2    字节码插桩</h3><p>诊断工具的大量功能都使用了字节码插桩，同时因为其agent 与应用系统分开运行，所以使用 agentmain 方式动态 attach 到正在运行的用户系统上。  </p>
+<p>字节码插桩和 agentmain 在网上有大量文章，这里不再进行具体说明。</p>
+<h3 id="13-2-3-ClassLoader设计"><a href="#13-2-3-ClassLoader设计" class="headerlink" title="13.2.3    ClassLoader设计"></a>13.2.3    ClassLoader设计</h3><p>ClassLoader 的设计是系统中非常重要的一个部分，也是其能够透明升级，各项功能能够正常运行的基础。诊断工具集成了arthas，ClassLoader 的设计也和 arthas 存在一些一致的地方，但只说明差异反而无法说清楚整个设计，这里会一起说明。<br>下图13-2所示的是agent 动态 attach 后，应用内部的 ClassLoader 结构图，其中 bistouryClassLoader 是一个专有的 ClassLoader。  </p>
+<p><img src="/rdefficiency/medias/images/bistoury/simple_classloader.png" alt="bistouryClassLoader"></p>
+<center>bistouryClassLoader结构</center>
+<center>13-2 </center>
+
+<ul>
+<li>BistouryClassLoader</li>
+</ul>
+<p>可以从上面13-2图中看到，BistouryClassLoader 加载了attach jar，这个jar包含了诊断工具各个功能具体实现以及依赖 jar 包。<br>为什么要使用一个专有的BistouryClassLoader呢，这是因为attach jar中包含的各个jar包在用户系统中也可能存在，如果版本不一致很可能会出现问题；bistoury agent 会进行升级，它的功能实现代码、依赖的 jar 包都可能变化，需要对它们的影响范围做一个限制；用户系统可能非常稳定，甚至一年都没有重启过，而agent 可能在这一年中升级了几十个版本，每个版本都需要在用户系统里面加载一大堆类，这些jar包和类都需要进行卸载。</p>
+<p>配合从 agent 加载到 BootstrapClassLoader 中的 instrument jar，每次 agent 升级或卸载时，做完清理工作后将 instrument jar 中的 ClassLoader 引用重置，就可以将整个 BistouryClassLoader 和里面的 attach jar 回收。</p>
+<ul>
+<li>MagicClassLoader</li>
+</ul>
+<p>下图是完整的ClassLoader 结构图，可以看到比前面的 classloader 结构图多出来一个 MagicClassLoader，这是一个特殊的ClassLoader，用来解决同名类加载优先级问题。</p>
+<p>首先来说一说这个问题的场景。在诊断系统的开发过程中，为了满足需求，发现需要对 arthas 和 jackson 的源码的进行少量修改。可以选择的解决方案有自己 fork 一个分支，针对 jackso n也可以选择不使用序列化框架自己写一个。但要修改的代码比较少，笔者不想大动干戈也不想长期维护fork分支，只想要简单依赖j ar 包就好，于是就有了 MagicClassLoader 的出现。</p>
+<p>MagicClassLoader 作用是可以指定一些类，把这些类委托给 MagicClassLoader 加载，MagicClassLoader 会优先加载 Bistoury-magic-classes.jar中的类文件。这样的话，只需要把需要修改源码的少量几个类放入 Bistoury-magic-classes.jar，就可以达到修改 jar 包中源代码的目的。  </p>
+<p><img src="/rdefficiency/medias/images/bistoury/classloader.png" alt="MagicClassLoader"></p>
+<center>13-3 MagicClassLoader</center>
+
+<h3 id="13-2-4-在线debug"><a href="#13-2-4-在线debug" class="headerlink" title="13.2.4    在线debug"></a>13.2.4    在线debug</h3><p>一直以来，调试都是在线应用的痛点。</p>
+<p>曾经在微博上流传着这么一个程序员才懂的笑话，NASA 要发射一个新型火箭，火箭发射升空后发现不行，NASA 把火箭拖回来加了两行 log，再次发射，发现又不行，又加了两行 log 发射，发现又不行… </p>
+<p>当然这只是一个笑话，但这样的场景在我们的实际开发中却屡见不鲜，多少次我们解决故障的时间就在不断地加 log，发布，加 log，发布的过程中溜走。<br>Arthas 的 watch 命令让我们可以观察函数的入参、返回值、异常等等，然而似乎每次watch都需要看看文档里参数该如何设置，面对函数中的本地变量也是无能为力，特别是行数较多的方法，方法内部的情况还是难以明了，想象一下面对上百行的方法，你需要脑补出其中各个本地变量值的情形，这个时候，我们需要的是ide 的 debug 功能。 </p>
+<p>Bistoury 的在线 debug 功能正是针对这个场景而生，它模拟了ide的调试体验，在功能上和远程调试，或者说你在 ide上debug 本地代码几乎一致。你在代码某一行打一个断点或条件断点，断点触发就能看到本地变量、成员变量、静态变量以及调用栈；与 ide 远程 debug 不同的是，它不需要在系统启动就带上调试相关参数，对应用完全透明，同时在断点触发时不会暂停整个系统，而是只打印断点处快照信息，打印后继续执行代码逻辑，完美符合我们对在线应用的 debug 需求。</p>
+<ul>
+<li>原理</li>
+</ul>
+<p>下面两段代码表现了在线 debug 打断点前后的差异。  </p>
+<pre class="line-numbers language-java"><code class="language-java">userSystem<span class="token punctuation">.</span><span class="token function">preDo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+userSystem<span class="token punctuation">.</span><span class="token keyword">do</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+userSystem<span class="token punctuation">.</span><span class="token function">afterDo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">userSystem<span class="token punctuation">.</span><span class="token function">preDo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">hitBreakPoint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">captureSnapshot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+userSystem<span class="token punctuation">.</span><span class="token keyword">do</span><span class="token punctuation">;</span>
+userSystem<span class="token punctuation">.</span><span class="token function">afterDo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>`<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当用户添加断点后，诊断系统会在断点处添加字节码，判断是否需要触发断点，捕捉断点处上下文信息。 </p>
+<p>函数的入参、返回值、异常、静态变量等信息我们通过 arthas 也可以获取，诊断系统更进一步的是获取到了本地变量的信息。 </p>
+<p>这里涉及到两个问题：断点设置在源码处，如何对应字节码里的位置；这个位置有哪些本地变量，它们的名字和值如何获取。 </p>
+<p>通过查阅 java 虚拟机规范，我们可以发现，java类字节码里用来表示方法的 method_info 结构有一个 code 属性，code 属性的属性表里有一个叫做LineNumberTable，这里用 java 代码来近似描述 LineNumberTable 的一部分结构：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LineNumberTable</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    LineNumber<span class="token punctuation">[</span><span class="token punctuation">]</span> lineNumbers<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">LineNumber</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">short</span> start_pc<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 方法body字节码数组的索引</span>
+    <span class="token keyword">short</span> line_number<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 源文件的行号</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到，每一次源文件行号发生变化都会在 lineNumbers 里添加一条记录，那么我们可以对字节码文件进行一次扫描，就可以得出每一个源文件行号所对应的字节码索引范围，也就知道了字节码改添加在哪里。</p>
+<p>同样是在 code 属性的属性表中，我们还可以找到一个名为 LocalVariableTable 的属性，同样用 java 代码来对其中一部分结构进行描述：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LocalVariableTable</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    Varible varible<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">Varible</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">short</span> start_pc<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 变量在body字节码数组的起始索引</span>
+    <span class="token keyword">short</span> length<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 变量在body字节码数组存在的长度</span>
+    <span class="token keyword">short</span> name_index<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 变量名的索引</span>
+    <span class="token keyword">short</span> descriptor_index<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 变量类型的索引</span>
+    <span class="token keyword">short</span> index<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 变量在局部变量表的索引</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到，变量的范围就是[start_pc, start_pc + length)，而通过 index 字段我们可以获取到变量的值。 </p>
+<p>结合前面的 LineNumberTable 信息，就可以获取断点处有哪些本地变量，达到获取断点处本地变量信息的目的。  </p>
+<h2 id="13-3-结尾"><a href="#13-3-结尾" class="headerlink" title="13.3    结尾"></a>13.3    结尾</h2><p>本文对 bistoury 的开发背景和整体设计做了简单介绍，并对一些重点设计和功能实现进行了具体描述，希望能给读者在java应用的诊断方面带来一定的启发。</p>
+<h1 id="第十四章-监控告警"><a href="#第十四章-监控告警" class="headerlink" title="第十四章    监控告警"></a>第十四章    监控告警</h1><h2 id="14-1-背景"><a href="#14-1-背景" class="headerlink" title="14.1    背景"></a>14.1    背景</h2><h3 id="14-1-1-行业的监控告警有哪些"><a href="#14-1-1-行业的监控告警有哪些" class="headerlink" title="14.1.1    行业的监控告警有哪些"></a>14.1.1    行业的监控告警有哪些</h3><p>对于当前的互联网企业来说，监控是必不可少的，不管你的应用运行在物理机还是虚拟机或者容器上，你都需要知道它是否在正常的提供服务，它当前有没有一些异常的状态，它所运行的环境当前是否是稳定的，依赖的外部资源是否正常等等。</p>
+<p>而目前整个业界来说，开源的监控系统也越来越多，不同的系统针对的侧重点和特性也不同，像 Zabbix / Nagios  这种老牌的监控系统侧重于主机系统层监控和告警，比如 Zabbix 和 Nagios 都自带有一套完善的系统层面监控插件，而且还允许运维很方便的利用 Shell 脚本或任何其他脚本语言来扩展自己想要的插件。同时 Zabbix 还提供了比较便利的 Discovery 功能，创建一套模板后，便能自动发现和检测相应主机状态，省掉了繁琐的配置过程。而 Graphite/Prometheus 这样的则更兼顾业务应用层监控，它们提供了一套机制，应用可以在代码里记录自己在运行时的状态数据，然后通过 Exporter 或者 Push 的方式将状态数据暴露或推送到 Server 端，Server 将数据存储在时序 DB 中用于之后的分析、查看和告警等。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor01.png" alt="行业产品举例"></p>
+<center>图14-1 行业产品举例</center>
+
+<p>很多企业在用开源软件的一个路径大概都是这样的，纯开源使用 → 少量的定制化开发或外层封装 → 深度的二次开发 → 自研。 </p>
+<p>去哪儿的监控平台早期的时候用的也是用的纯原生方式，是用 Nagios+Cacti 的方式结合来做的。Nagios 用作基础设施的监控和告警，Cacti则用来看一些趋势图。随着之后的发展这种形式已经不能满足我们的需求，在2014年的时候我们开始设计自己的监控系统，从用户角度看我们要提供统一入口的一站式的监控平台，避免开发在各个系统间跳来跳去，要更友好的支持应用监控，要有更便捷的指标查看和快速定位，要更方便的让用户自己配置告警以及告警升级之类的告警操作等。 基于此我们开发了图14-2的 监控系统。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor02.png" alt="去哪儿的监控系统"></p>
+<center>图14-2 去哪儿的监控系统</center>
+
+<p>内部的一站式监控平台，目前每分钟收集存储的指标总量在上亿级，检测和处理的报警量是百万级的。它的开发方式是部分主要组件在开源软件之上进行的深度二次开发加上部分自研组件的方式完成的。由于开发较早当时 graphite 比较流行，因此后端收集和存储的选型是用的 graphite+whisper 做的二次开发，前端控制面则基于 grafana 做的二次开发。因为考虑到数据量比较大，所以我们要求监控体系中任何组件都能够很好的水平扩展。</p>
+<h3 id="14-1-2-去哪儿监控告警演进"><a href="#14-1-2-去哪儿监控告警演进" class="headerlink" title="14.1.2    去哪儿监控告警演进"></a>14.1.2    去哪儿监控告警演进</h3><p>Nagios 自身有比较优秀的监控插件扩展系统，很方便运维或开发自己去扩展监控，而且 Nagios 的告警策略也比较丰富，可以自定义通知策略和通知升级之类的告警操作，但是 Nagios 自身并不能绘图，也不能查看数据历史，因此早期监控如图14-3所示是割裂的，报警和看图是分别在不同的系统。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor03.png" alt="早期的报警和监控"></p>
+<center>图14-3 早期的报警和监控</center>
+
+<p>这里有几个明显的痛点：</p>
+<ol>
+<li>监控面板和告警面板是割裂的，甚至在不同系统，开发要想查一个问题，经常需要在不同的系统间跳来跳去。</li>
+<li>Nagios 和 Cacti 的扩展性都不好，不能进行方便的横向扩展。</li>
+<li>Nagios 的告警配置比较复杂，学习成本搞，因此需要专门的人来修改配置文件 然后 reload 才行，开发是不能自己上去配置的，这样要加一个告警效率太低了。</li>
+<li>外部系统无法与 Nagios 进行联动来动态的处理告警问题，比如在发布期间我们想临时把相应的告警关掉发布完成后在打开告警。</li>
+</ol>
+<p>首先为了解决专人手工配置告警和外部系统联动的问题，我们引入了 Nagios-Api ，并在 Nagios-Api 之上封装了自己的配置管理和告警处理。 Nagios-Api 自身也是一个开源项目，Nagios-Api 通过与 Nagios 自身暴露出来的 nagios.cmd 管道文件与 Nagios 通信，可以执行一些 Nagios 的命令，如开关报警、设置downtime（ schedule_downtime ）、取消downtime（ cancel_downtime ）等。</p>
+<p>配置管理则是由一个应用监听配置请求，当有配置变更请求时，动态变更配置更新 Nagios 配置文件，在一个窗口期内去 Reload Nagios 使其生效。这个阶段我们的监控系统变成了图14-4这样：</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor04.png" alt="过度阶段的监控"></p>
+<center>图14-4 过度阶段的监控</center>
+
+
+<p>除此之外，早期去哪儿快速发展阶段，各个部门的业务、应用和机器也都在快速扩张，这个时候为了不把鸡蛋放在一个篮子里，也为了降低单系统压力横向扩展，就给各部门部署一套这样的监控系统，因此我们的监控架构就变成了下图14-5这样：</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor05.png" alt="早期的监控架构"></p>
+<center>图14-5 早期的监控架构</center>
+
+<p>到了这个阶段也暴露出了一些问题：</p>
+<ol>
+<li>多套系统对于运维和后期开发维护成本都增大了不少.</li>
+<li>监控面板和告警面板仍然是割裂的，并且在不同系统中，对于开发排查问题难度很大。</li>
+<li>多系统之间数据不互通，没办法基于此做一些数据分析类的动作。</li>
+<li>应用监控的需求并不能很好的满足，Nagios毕竟擅长的是系统层监控。</li>
+</ol>
+<h2 id="14-2-打造符合需求的企业级监控平台"><a href="#14-2-打造符合需求的企业级监控平台" class="headerlink" title="14.2    打造符合需求的企业级监控平台"></a>14.2    打造符合需求的企业级监控平台</h2><p>由于背景中遇到的一些痛点，在原有开源监控已经不能满足我们的需求了，因此我们需要考虑建设自己的监控平台。这个平台要能解决几个问题：</p>
+<ol>
+<li><p><strong>提供一站式监控告警的能力</strong><br>提供统一的监控告警查看和配置页面，不需要让用户在使用或排查问题时跳来跳去。</p>
+</li>
+<li><p><strong>支持系统层监控的同时，提供更友好的应用层监控能力</strong></p>
+<p>支持用户能够自定义自己的监控面板和告警配置，不需要特定的人来管理面板和配置，同时要有权限划分。</p>
+</li>
+<li><p><strong>使用简单</strong><br>因为用户是面对全公司的，其中有技术同学和非技术同学比如产品、运营，所以要避免过高的学习和使用成本。</p>
+</li>
+</ol>
+<p>除了这些之外还要考虑一些非功能性要求，比如：要横向扩展能力强，平台不能成为最后排查问题的瓶颈；数据高可用，不能因为挂一台机器导致数据丢失。</p>
+<h3 id="14-2-1-平台核心功能设计"><a href="#14-2-1-平台核心功能设计" class="headerlink" title="14.2.1    平台核心功能设计"></a>14.2.1    平台核心功能设计</h3><p>当前去哪儿使用的监控平台，目前监控的应用数三千以上、主机+容器量在十万左右、指标数上亿级、配置的告警量百万级。<br>前面介绍过，由于前期多个系统，造成我们的数据和控制面都是分散的，开发查指标查告警都是极不方便，所以监控告警系统基于开源的 Grafana 做了深度的二次开发，统一整合了监控和告警的配置和查看。由于 Grafana 本身就提供了很优秀的监控绘图能力和多数据源的支持，并且是非常的灵活，允许用户从各种数据源选择指标数据绘制各种类型的图表并保存下来。但 Grafana 在企业的使用中也是会有一些不便的，比如：</p>
+<ol>
+<li><p><strong>查看指标不够便捷</strong></p>
+<p>早期的 Grafana 是没有 Explore 功能的，用户在 Grafana 中查看指标必须要先新建一个 Panel，然后在 Panel 中输入对应的查询表达式才能看到自己的指标，这对于有很多指标，并且只是临时性的查看一次的这种场景来说就极为不便了，因为你不会为每一个指标都创建面板的，尤其是一些异常类型指标，这类指标值需要在异常时才有查看的需求。</p>
+</li>
+<li><p><strong>面板管理不方便</strong></p>
+<p>新版的 Grafana 给面板增加了目录和标签功能，但是对于面板比较多组织架构比较深的时候管理仍然不够便捷，我们开发了面板树来管理面板和面板权限，同时由于树形结构权限也可以很好的继承。</p>
+</li>
+<li><p><strong>没有模板功能</strong></p>
+<p>比如在一些主机监控的场景中，我们要查看主机的监控内容基本是一样的，比如主机的 CPU 、内存、Load 、网络、磁盘等等，在这种场景如果每台机器都要手工的配置出来一个面板，那工作量还是很大的，即便是使用 Variables 能力（早期叫 Templating ），在主机量很多时，在下拉框里去搜索使用也很困难。</p>
+</li>
+<li><p><strong>报警功能无法满足企业需求</strong></p>
+</li>
+</ol>
+<p>因为这些原因我们还是选择对 Grafana 做二次开发，下面介绍下我们平台核心功能设计。</p>
+<ul>
+<li>树形结构管理面板</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/monitor/monitor06.png" alt="树形看板"></p>
+<center>图14-6 树形看板</center>
+
+<p>如上图14-6看到的，我们将 Grafana 扁平化的面板管理改造成了目录树结构的面板管理，这在面板比较多的时候非常有用，而且层级分明对于人记忆和查找都比较友好，同时也提供了搜索功能，可以针对关键字快速搜索自己的面板。同时可以给目录树做更细致的权限管理，比如是否仅查看，查看和编辑，还是无权限访问等，这些权限也可以从父节点继承到子节点。</p>
+<ul>
+<li>升级版的Explore</li>
+</ul>
+<p>其实严格来讲，我们并没有用 Explore 的功能，在 Grafana 的框架上我们自研了适合公司自身的指标查看方式。</p>
+<p>在去哪儿网，所有的资源，包括代码、主机、环境、依赖的资源、使用的外部服务、监控和相关 Owner 等都是以应用串联的。而且在各系统设计时统一基于应用的概念来设计，这样对于所有人在使用这个系统时候也能降低很多理解成本，比如一个开发在自己的应用中埋了一些监控数据，上报的监控平台，那他在查看自己的监控时只需要知道自己的 应用是什么就能查看自己的指标数据，如果指标过多时再进行关键字搜索等操作，如图14-7。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor07.png" alt="指标搜索"></p>
+<center>图14-7 指标搜索</center>
+
+<p>比如上图14-7中，用户只需要在左侧的应用树（注意这里的应用树并非上面的面板树，一些公司里面可能叫服务树）搜索或者定位到自己的 应用，右侧便自动展开对应的环境的指标，自动组装成一个只读面板开提供给用户查看，此面板是即读即消的。可以看到右侧可以选择自己的环境，查看不同环境下的指标数据，同时支持根据正则表达式来搜索自己的指标名，简单快捷。</p>
+<ol>
+<li><h5 id="指标浏览"><a href="#指标浏览" class="headerlink" title="指标浏览"></a><strong>指标浏览</strong></h5><p>如果实在忘记了自己的指标名，也是点击搜索框后面的指标树来浏览自己当前应用当前环境下的所有指标的。如下图14-8：</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor08.png" alt="指标树"></p>
+<center>图14-8 指标浏览</center>
+
+<p>没错，指标也会被组装成一棵树形，这是因为 Graphite 的指标命名方式不同于现在的 Prometheus 的 Tag 指标的扁平化形式，Graphite 的指标命名也是层级化的，是以 “metic.name.xxx” 这种形式组合成一个 Metric，每一个点便是 Tree 的一级。</p>
+</li>
+<li><h5 id="指标收藏"><a href="#指标收藏" class="headerlink" title="指标收藏"></a><strong>指标收藏</strong></h5><p><img src="/rdefficiency/medias/images/monitor/monitor09.png" alt="指标收藏"></p>
+<center>图14-9 指标收藏</center>
+
+<p>如图14-9用户可以将自己关注的指标收藏的自定义的分组里，以便以后快速查看某一类指标，比如一个应用的核心指标，我们建议收藏到核心分组里，以便快速查看。</p>
+</li>
+<li><h5 id="指标模板"><a href="#指标模板" class="headerlink" title="指标模板"></a>指标模板</h5><p>正如上面提到的，当你监控了很多主机、容器、交换机路由、防火墙等等设备以及 Mysql、Redis 等基础中间件信息时，在查看这些设备状态监控时基本关心的东西是相同的，如果每次查看都有手动建一个面板人工成本太高，因此基于这类监控，我们做了模板化，模板化后用户不需要关心怎么创建出来这种面板，你只需要输入自己关心的主机，那么当前主机的所有监控信息就都会展示出来。而当你定位到自己的应用时，便会自动列出当前应用下主机的监控信息。</p>
+</li>
+<li><p><img src="/rdefficiency/medias/images/monitor/monitor10.png" alt="指标模版"></p>
+</li>
+</ol>
+<center>图14-10 指标模板</center>
+
+<ul>
+<li>告警管理</li>
+</ul>
+<ol>
+<li><p>告警管理模块，解决了两个问题：</p>
+<ul>
+<li><p>统一了告警配置和告警查看，用户不在需要到多个系统查看自己告警，告警依然支持根据 应用 来搜索自己配置过的告警。</p>
+</li>
+<li><p>用户可以根据自己的需求自己添加告警，不需要像早期需要特定的人来添加。</p>
+</li>
+</ul>
+</li>
+<li><p>告警管理分为业务告警和主机告警：</p>
+<ul>
+<li><p>业务告警是指用户应用埋点监控的 Metrics 添加的告警，用户可以任意增加、删除、修改、设置通知联系人等。</p>
+</li>
+<li><p>主机告警这块我们实现了类似 Zabbix 的主机模板和 Discovery 功能，用户可以配置一类主机监控模板，同时设置 Discovery 规则，一旦当有匹配类别的主机上线，则自动应用这些监控和告警。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/monitor/monitor11.png" alt="告警管理"></p>
+<center>图14-11 告警管理</center>
+
+
+<p><img src="/rdefficiency/medias/images/monitor/monitor12.png" alt="告警配置"></p>
+<center>图14-12 告警配置</center>
+
+<h3 id="14-2-2-架构选型和设计"><a href="#14-2-2-架构选型和设计" class="headerlink" title="14.2.2    架构选型和设计"></a>14.2.2    架构选型和设计</h3><p>Graphite 是一套优秀的指标处理和存储解决方案，它自带了数据接收器（ cabron-relay）+聚合器（ carbon-aggregator ）+存储器（ carbon-cache）+时序DB（whisper）这样的一套组件，是基于 Twisted 异步框架开发，最主要的是它的各个组件都可以任意横向扩展，扩展性非常好。因此能够很好的支持大规模指标采集存储。</p>
+<p>其数据收集协议也非常简单，协议形式是：”metric_name value timestamp” 便是一条指标数据，例如： echo “my.metric.name 1 <code>date +%s</code>“ | nc serverIP serverPort 就能将 my.metric.name 这个指标上报给 Graphite Server 端。</p>
+<p>原生 Graphite 仅支持 TCP/UDP Push 的方式采集指标，客户端必须封装 TCP/UDP 协议来进行数据 Push，客户端上报数据有时会变得不可控，加入客户端封装有 Bug 或者单位时间内需要上报的量非常大时，对于网络消耗和性能消耗都非常大。因此我们自研了 Qmonitor，qmonitor 类似 Prometheus 的 Exporter，客户端只需要引入一个 jar 包或相关依赖，在单位时间内数据只记录在本地内存中，同时向外暴露一个 http 协议的 url，Server 端会定时去抓取数据并做聚合计算，然后在 push 到 graphite 集群存储下来。</p>
+<p>下图14-13便是客户端使用 Qmonitor 采集数据的流程，客户端只需要引用 qmonitor-client 相关依赖包，调用 API 生成和计算指标即可。Server 端则会定期去拉取 client 端的数据，拉取后会进行聚合计算，然后 Push 到后端存储。后端存储使用了 Graphite 和 Clickhouse，Graphite 接收和存储普通指标，存储周期长，支持多种存储策略，而 Clickhouse 用来存储所有的单机指标，这类指标特点是查看的需求少，存储周期短，但是量很大。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor13.png" alt="数据采集流程"></p>
+<center>图14-13 使用 Qmonitor采集数据的流程</center>
+
+<p>对于主机的指标采集，我们使用了开源的 collectd 配合采集，如图14-14，collectd 内置了采集主机信息的各种能力，比如 cpu、load、disk、swap、net 等等数据，并且支持 graphite 格式的写入插件，这样我们就可以在每台主机上安装 collectd agent，collectd 可以指定某一个间隔时间比如是30s，每30s 采集当前主机的所有数据信息，并且 Push 到后端存储。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor14.png" alt="主机指标采集流程"></p>
+<center>图14-14 主机的指标采集</center>
+
+<p>下图14-15是整体的存储结构图，不管是 Push 还是 pull 的方式的采集的指标都会放入 whisper时序DB中，同时数据通过旁支 mirror 到 relay-index 应用，relay-index 探测出新增指标，将指标放入索引 DB 提供给 API Server 使用。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor15.png" alt="存储结构图"></p>
+<center>图14-15 存储结构图</center>
+
+<h3 id="14-2-3-告警治理"><a href="#14-2-3-告警治理" class="headerlink" title="14.2.3    告警治理"></a>14.2.3    告警治理</h3><h4 id="14-2-3-1-报警升级"><a href="#14-2-3-1-报警升级" class="headerlink" title="14.2.3.1    报警升级"></a>14.2.3.1    报警升级</h4><p>报警升级分为提醒升级和联系人升级，我们的报警升级没有强制联系人向上升级，但用户可以方便的在树节点上设置联系人（一般在树节点上设置相关负责人），树节点上设置的联系人，其子节点上的告警都会接收到，而且是前面的联系人都没人处理告警的时候（比如没有接听告警电话），才会通知树节点联系人， 因此利用这种形式做联系人升级。</p>
+<p>提醒升级是当一个报警开始发送告警通知时，一开始我们只会发送 Qtalk 提醒，Qtalk 属于弱提醒，但如果过了一段时间这个报警仍然没有人处理，就会升级成电话提醒，电话提醒则是属于强提醒。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor16.png" alt="报警升级流程"></p>
+<center>图14-16 报警升级流程</center>
+
+<h4 id="14-2-3-2-报警降噪"><a href="#14-2-3-2-报警降噪" class="headerlink" title="14.2.3.2    报警降噪"></a>14.2.3.2    报警降噪</h4><p>当配置的告警越来越多，很多告警都不是重要的告警，经过几轮人员更替后，这些告警都会成为极大的噪音，当它报警后，新来的同学不清楚这个告警是监控的什么东西，也不敢随便处理比如关闭告警，于是放任不管，那这些报警就会一直报着，长时间的没有人来出来。时间长了很容易引起相关人麻痹，导致错失重要告警的处理。</p>
+<p>针对这种情况，我们开发了降噪算法，算法只根据报警开始时间和设置的报警间隔，来计算出当前是否处于发送窗口，只有在发送窗口期，告警通知才能真的发送出去，否则不发送通知。以此达到的效果是 比如：当一个告警设置通知间隔是5分钟，但是持续了30分钟还没有人处理，那么我们会动态拉伸他的通知间隔，逻辑上将通知间隔变成了10分钟，1个小时没人处理则变成20分钟等等依次类推，这个告警持续时间越长，那么通知窗口也会被拉的越来越长，通知的频率就会越来越低，即便是他处在告警中。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor17.png" alt="报警降噪"></p>
+<center>图14-16 报警降噪机制</center>
+
+<h4 id="14-2-3-3-闪报抑制"><a href="#14-2-3-3-闪报抑制" class="headerlink" title="14.2.3.3    闪报抑制"></a>14.2.3.3    闪报抑制</h4><p>在去哪儿，一个报警持续时间小于5分钟的报警我们称为闪报。很多时候我们刚开始配置报警时，尤其是一个新的报警，大家可能对阈值估算不准，或者由于很早之前配置的报警，之前设置的阈值已经跟现在的业务波动不太匹配了，就会导致报警波动、闪报。这种闪报通常来说不影响业务，但是频繁打扰会导致报警接收人麻木。因此抑制的目的就是减少无意义的打扰，尽可能提升报警的精准性。</p>
+<p>当前报警抑制的实现方式是观察一个报警一段时间内（目前设置的是24h）报警状态改变的频率，如果频率高于某一个点（这个阈值点是系统根据算法算出并默认提供的，用户可以自己修改）则会进入抑制状态，频率低于某一个点则会退出抑制状态。其中半个小时内的状态多次改变则状态权重递增。</p>
+<ol>
+<li><p><strong>快速退出抑制机制</strong></p>
+<p>如果最近半小时内检测的状态改变频率低于快速退出频率阈值， 则立即退出抑制状态。</p>
+</li>
+<li><p><strong>强制退出抑制机制</strong></p>
+<p>如果在抑制状态中发生了报警，且持续时间超过一定时间，目前设置5分钟，则强制退出抑制状态将报警报出来。</p>
+</li>
+</ol>
+<h4 id="14-2-3-4-报警收敛"><a href="#14-2-3-4-报警收敛" class="headerlink" title="14.2.3.4    报警收敛"></a>14.2.3.4    报警收敛</h4><p>当某一个时刻突然出现了大量告警，这会导致告警刷屏，在去看 Qtalk 告警消息时，根本就看不过来，一些重点的告警会被淹没掉，或者根本无法确定哪个告警最有可能是需要重点关注的。 在这些告警里一定会有一些告警是因为其他告警造成的，比如一台宿主宕机，主机上的 load、disk 等告警都会报出来，甚至可能影响到业务指标，导致某个业务指标告警。所以报警之间会有一个隐形的依赖，通常主机或机房层面的告警依赖非常清晰，属于物理依赖，而应用之间也有依赖，应用之间的告警就是逻辑依赖。</p>
+<p>所以在做告警收敛时，依赖拓扑是很重要的，物理依赖可以很简单的计算或者定义出来，而多应用间依赖在去哪儿可以通过 Qtrace 来拿到依赖拓扑，因此目前在去哪儿当某一时刻出现大量告警时，会触发告警收敛，告警收敛会先在 应用 内收敛，根据依赖拓扑一层层收敛，应用 内收敛完成之后会进行应用 间收敛，最终只会将叶子告警发送通知，其他的只在详情页展示，并不真实发送通知。</p>
+<p>这里面有一个难点，就是 应用 内配置的多个业务告警怎么拿到依赖关系（依赖树），目前去哪儿将 Metrics 和 Qtrace 进行了结合，Qtrace 在记录方法间调用时如果经过的方法内有记录 Metric，那么会将这个 Metric 信息带入到 Trace 信息里，最后经过洗数分析就能拿到指标间的依赖关系，根据指标间的依赖关系就能拿到告警的依赖关系。比如 一个 http 的入口方法 foo，此方法里记录了一个指标就是 foo.access.time，foo 调用了 bar 业务层方法，bar 业务层方法内记录了一个指标 bar.exec.time，那么指标 foo.access.time 就可以认为依赖 bar.exec.time，如果 foo.access.time 和 bar.exec.time 同时告警，那么只有bar.exec.time 的告警会通知出去。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor18.png" alt="报警收敛"></p>
+<center>图14-16 报警收敛示意图</center>
+
+<h3 id="14-2-4-Trace结合"><a href="#14-2-4-Trace结合" class="headerlink" title="14.2.4    Trace结合"></a>14.2.4    Trace结合</h3><p>我们自研了一个全链路追踪系统，可以用来定位跨系统的各种问题；另外，通过收集链路中的各种数据达到应用性能管理（ APM ）的目的。而监控就是通过该链路系统收集链路数据的特性来做到结合的。</p>
+<p>首先链路追踪系统提供了 QTracer.mark() 方法，此方法能够将自己想要的信息关联进当前 trace 的 context 中， 然后在我们自研的 Qmonitor agent 中，在记录指标数据时调用 mark 方法，将当前指标标记进当前的 Trace 信息里面（如果当前有 Trace 信息的话），以此能达到的效果就是一个带着 Trace 信息的请求从入口进来（如果没有携带 Trace 信息，可以生成 Trace），经过了 foo() 方法，而 foo 方法中记录了指标 foo.access.time，那么 foo.access.time 指标会被 mark 到当前 Trace 信息中。</p>
+<p>数据被mark进来后，当前会以日志的形式落盘，然后经过洗数，最后会将Trace的Trace Id 和当时经过的Metric Name的关联信息存入到ElasticSearch中便于后期检索使用。</p>
+<p>当这些数据信息都没有问题的时候，此时比如我们在 foo.access.time 指标上加了一个告警，一旦指标告警，我们就可以检索出告警的这一段时间内所有的Trace 信息，通过 Trace 信息能够快速的反应出当时请求的状态，以此来协助开发或应用 Owner 快速定位问题。</p>
+<p>下图是监控系统上拉取当前告警时间段的 Trace Id 信息。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor19.png" alt="trace追踪"></p>
+<center>图14-17 Trace Id信息</center>
+
+<p>点击Trace Id 可以查看具体的 Trace 信息，以及调用拓扑等。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor20.png" alt="trace链路"></p>
+<center>图14-18 Trace信息</center>
+
+<h2 id="14-3-云原生时代监控平台的演进"><a href="#14-3-云原生时代监控平台的演进" class="headerlink" title="14.3    云原生时代监控平台的演进"></a>14.3    云原生时代监控平台的演进</h2><p>2021年时，去哪儿网在公司内部进行了大规模容器化部署，到目前为止去哪儿网大部分的应用都已经运行在内部的多个 Kubernetes 集群上。在这样一个背景下早期我们许多根据 kvm 特性的相关设计也要跟着变化。比如容器跟 kvm 最大的一个变化便是动态 IP 问题，kvm 的主机一旦申请后 IP 是固定的，且 kvm 主机的生命周期远远长于容器，通常是跟 应用 同生命周期，而容器生命周期则非常短，每一次变更发布都会导致容器 IP 变化，这种频繁变化给周边系统带来了许多问题，因此周边系统也需要进行改造以应对这种变化。</p>
+<h3 id="14-3-1-业务指标数据采集"><a href="#14-3-1-业务指标数据采集" class="headerlink" title="14.3.1    业务指标数据采集"></a>14.3.1    业务指标数据采集</h3><p>上面提到过去哪儿的业务监控使用的 Qmonitor 进行埋点和暴露数据，虽然 Prometheus 有自己的 Client，但是想要让全公司的应用从 Qmonitor 改成Prometheus Client 显然不现实。而 Qmonitor 早期设计是针对 kvm 的流程设计的。比如用户在通过 Qmonitor 监控时我们自动拿到对应的需要监控的主机名或IP ，然后通过 Pull 当前主机对应的 url 才能拿到监控数据。而容器的 IP 是经常变化的，因此我们修改流程，增加了 Discovery 的功能。</p>
+<p>首先我们增加了事件监听器，用来监听和收集所有 k8s 集群的事件，然后将这些事件存储到DB的同时发送到 mq 中，其他应用可以监听 mq 来拿到自己想要的事件。然后在 qmonitor 增加 client-discovery 模块，此模块可以监听对应的消息事件，然后动态的更替对应的 ip 和 meta 信息，更新的数据提供给 qmonitor server 来使用。这样便能动态的发现和变更对应的 client 地址，而且对业务无感知。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor21.png" alt="容器业务指标数据采集"></p>
+<center>图14-19 业务指标数据采集</center>
+
+<h3 id="14-3-2-基础设施层监控"><a href="#14-3-2-基础设施层监控" class="headerlink" title="14.3.2    基础设施层监控"></a>14.3.2    基础设施层监控</h3><p>云原生时代，我们的基础设施层由kvm云变成了容器云时我们使用的 collectd+graphite 来收集基础设施相关的监控。比如 cpu、磁盘数据。</p>
+<p>collectd 是一个 agent 需要安装在 kvm server 上，但是容器内通常只有一个进程，agent 的形式是不友好的。而 k8s 层的相关监控我们使用 prometheus+cAdvisor，k8s 自身便是使用 prometheus client 来 export 内部的状态数据再配合使用 cAdvisor 监控容器运行时的状态数据比如 cpu、内存。</p>
+<ul>
+<li>指标模板集成</li>
+</ul>
+<p>我们的 Dashboard 是根据 Grafana 做的二次开发，而 Grafana 本身就支持很多的数据源插件，其中便包括 Prometheus，因此能够很方便的将 prometheus 集成到监控系统的 Dashboard 上，集成后依然提供对用的 Pod 模板查看，允许用户直接通过自己的 应用 就能查看到自身应用下当前的pod状态，以及应用级的 pod 状态。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor22.png" alt="指标模版集成"></p>
+<center>图14-20 指标模板集成</center>
+
+<ul>
+<li>容器告警</li>
+</ul>
+<p>容器的告警像 kvm 一样，也支持模板化，容器通过监听事件来将模板应用到对应 应用 上实现动态添加告警，模板包括了检测指标、检测规则、告警阈值等信息。由于 Prometheus 自身支持异常检测，因此可直接将告警规则通过 prometheus crd 同步到 prometheus ，通过配置，Prometheus 检测到异常后，会将异常信息 Push 到我们自研的 Alert-API 模块，Alert-AP I可以说是 prometheus 到 icinga 的一个转换器，Icinga 是我们真正的告警管理模块，支持开关报警、告警升级等策略，Icinga 类似 Nagios，但是 icinga 提供了更友好的 API 操作入口。</p>
+<p><img src="/rdefficiency/medias/images/monitor/monitor23.png" alt="容器告警"></p>
+<center>图14-21 容器告警</center>
+
+
+<h2 id="14-4-总结规划"><a href="#14-4-总结规划" class="headerlink" title="14.4    总结规划"></a>14.4    总结规划</h2><p>上文详细讲述了去哪儿网监控告警平台的实践过程，从一开始的 Nagios+Cacti 到现在的监控告警系统，我们以企业需求为出发点来设计和落地监控平台。其实可以看到监控从最初的只要能帮助我们发现问题这样的基本需求，到现在我们更期望它能帮我们快速定位问题甚至是解决问题，比如很多公司在实践的根因分析和故障自愈等，近期我们也在做这方面的探索。</p>
+<p>另外的在当前高度自动化时代，监控系统的用户很多时候会从人变成程序，监控系统慢慢的会像 CMDB 一样演变成更高层工具的数据基石，向外提供出自身的数据和分析能力，比如在去哪儿网实践的混动工程、全链路压测、发布驾驶仓等都需要用到监控的时序数据和告警数据来做断言或者熔断。</p>
+
+            </div>
+            <hr />
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Part 6 可观测性建设》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/rdefficiency/6-observability/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                北京趣拿软件科技有限公司 ｜ 基础架构
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/rdefficiency/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/rdefficiency/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ed98d39f94ff459ee228',
+        clientSecret: '9d04488d8bba75646a9ff2d97092c7379b796690',
+        repo: 'rdefficiency',
+        owner: 'qunarcorp',
+        admin: "zhangcf945",
+        id: '6-observability/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+    <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://qunarcorp.github.io/rdefficiency/6-observability/';
+        this.page.identifier = '/6-observability/';
+        this.page.title = 'Part 6 可观测性建设';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/rdefficiency/5-cicd/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 5 CICD">
+                        
+                        <span class="card-title">Part 5 CICD</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍基于云原生的发布过程可观测性建设--发布驾驶仓，以及提升交付能力的流水线建设
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/CICD/" target="_blank">
+                        <span class="chip bg-color">CICD</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/rdefficiency/7-stability/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 7 稳定性建设">
+                        
+                        <span class="card-title">Part 7 稳定性建设</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍流量高峰期，基于混沌和全链路压测的稳定性保障方案。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/" target="_blank">
+                        <span class="chip bg-color">稳定性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 去哪儿旅行<br />'
+            + '作者: 北京趣拿软件科技有限公司 ｜ 基础架构<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归去哪儿旅行所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/rdefficiency/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 北京趣拿软件科技有限公司. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">133.6k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qunarcorp" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:infra@qunar.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/rdefficiency/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 10, 10, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/rdefficiency/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/rdefficiency/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/rdefficiency/libs/materialize/materialize.min.js"></script>
+    <script src="/rdefficiency/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/rdefficiency/libs/aos/aos.js"></script>
+    <script src="/rdefficiency/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/rdefficiency/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/rdefficiency/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+
+    
+    <script async src="/rdefficiency/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

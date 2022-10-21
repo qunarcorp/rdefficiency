@@ -1,0 +1,1954 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Part 7 稳定性建设, “基于云原生的研发效能实战”">
+    <meta name="description" content="
+第十五章    混沌工程15.1    前言从 Netflix 提出混沌工程的概念，到如今各个公司都在探索混沌工程的实践，混沌工程作为服务韧性治理的系统性解决方案，已经证明了它的价值。但作为一门新兴的技术学科，从理论到落地实践，再到达到预">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Part 7 稳定性建设 | 去哪儿旅行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/rdefficiency/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/rdefficiency/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/rdefficiency/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/rdefficiency/" class="waves-effect waves-light">
+                    
+                    <img src="/rdefficiency/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">去哪儿旅行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/rdefficiency/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">去哪儿旅行</div>
+        <div class="logo-desc">
+            
+            北京趣拿软件科技有限公司 | 基础架构
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/rdefficiency/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/rdefficiency/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/rdefficiency/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/rdefficiency/medias/featureimages/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Part 7 稳定性建设
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/rdefficiency/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/" target="_blank">
+                            <span class="chip bg-color">稳定性</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    北京趣拿软件科技有限公司 ｜ 基础架构
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    17.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    60 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/rdefficiency/medias/images/cover_part/part_g.jpg" alt=""></p>
+<h1 id="第十五章-混沌工程"><a href="#第十五章-混沌工程" class="headerlink" title="第十五章    混沌工程"></a>第十五章    混沌工程</h1><h2 id="15-1-前言"><a href="#15-1-前言" class="headerlink" title="15.1    前言"></a>15.1    前言</h2><p>从 Netflix 提出混沌工程的概念，到如今各个公司都在探索混沌工程的实践，混沌工程作为服务韧性治理的系统性解决方案，已经证明了它的价值。但作为一门新兴的技术学科，从理论到落地实践，再到达到预期价值，还有着很长的路要走。</p>
+<p>去哪网从2019年开始进行混沌工程实践，三年多的时间里，经历了从探索、发展到创新的不同阶段。并且每个阶段都与业务紧密结合，力求在每个阶段都做到业务价值最大化，秉持着从业务中来到业务中去，走出了一条与去哪儿业务特点及内部基础设施紧密结合的落地之路。如今台已经建设成了从测试到线上，从机房层到应用层，从简单策略到复杂组合策略，多维度、多场景自由组合的混沌演练平台。</p>
+<p>回顾这几年去哪儿网的混沌平台建设，中间遇到过很多困难，也走过弯路。尤其是到了后期的创新阶段，没有了业界成熟案例的参考，挑战越来越大。但我们始终坚持了以业务实际作为出发点，以内部生态作为落脚点，最终混沌平台与压测平台，自动化测试平台一起组成了公司服务韧性治理三剑客，保障了去哪儿庞大业务持续稳定运转。下面我将详细介绍混沌平台建设过程，希望能给到同样期望落地混沌工程的朋友一些启发。</p>
+<h2 id="15-2-背景"><a href="#15-2-背景" class="headerlink" title="15.2    背景"></a>15.2    背景</h2><h3 id="15-2-1-频发的故障"><a href="#15-2-1-频发的故障" class="headerlink" title="15.2.1    频发的故障"></a>15.2.1    频发的故障</h3><p>去哪儿网成立于2005年，作为一个老牌互联网公司，业务经历了多个阶段的发展，内部架构也在持续为了适应业务发展而在做调整。变化的业务，变化的架构给服务韧性带来了极大的挑战。2019年，公司发生了多次 P1 故障，几个典型故障列举如下：</p>
+<ol>
+<li>携程机房断电，影响时间长达40个小时。</li>
+<li>ZK集群故障，故障时间15分钟。</li>
+<li>消息中心部分消息发送失败故障持续69分钟。</li>
+<li>KV系统主库导致金融服务不可用持续18分钟。</li>
+</ol>
+<p>以上问题对去哪儿造成了重大的损失，但可以评估的是订单损失，不可评估的是用户信心，品牌形象。基础平台作为公司重要技术支撑部门，这些问题，更是对我们提出的拷问：</p>
+<ol>
+<li>为什么应急预案没生效？</li>
+<li>为什么解决时间这么长？</li>
+<li>如何避免？</li>
+</ol>
+<p>因此我们下定决心要找到服务韧性治理的系统化解决方案，对造成线上重大故障的问题，做到御敌于千里之外。</p>
+<p>彼时混沌工程理论已经成型，国内外都有一些成功实践，我们也在很早之前也有了用混沌进行稳定性治理的想法。但鉴于虽然已经有一些先驱公司进行了不同程度的探索，但实际投入产出比很难评估，我们对比国内外一线大厂在可投入资源上有着比较大的限制。因此我们的课题，是要用最具性价比的方式，解决核心问题，获得公司信任和支持，进而能够持续投入更多资源。</p>
+<p>基于以上，我们分析了公司技术和业务现状，期望找到最佳的切入点。</p>
+<h3 id="15-2-2-技术-amp-业务现状"><a href="#15-2-2-技术-amp-业务现状" class="headerlink" title="15.2.2    技术&amp;业务现状"></a>15.2.2    技术&amp;业务现状</h3><ul>
+<li><strong>不可靠的基础设施</strong></li>
+</ul>
+<p><img src="/rdefficiency/medias/images/system_resiliency/2.2.1.png" alt=""></p>
+<center>图15-1 基础设施故障列表</center>
+
+<ul>
+<li><strong>复杂的集群</strong></li>
+</ul>
+<p>这里列举去哪儿旅行一些数据，如图15-2，线上跑着的活跃的应用有 3000 多个，dubbo 接口有 18000 多个，网关上注册的域名有 3500 多个，MQ消息 13000 多个，技术栈有 5 种语言，大规模的系统群和生态很难保证完全可靠，任意一个系统有问题，都可能影响最终的结果。</p>
+<p><img src="/rdefficiency/medias/images/system_resiliency/complex.png" alt=""></p>
+<center>图15-2 复杂集群</center>
+
+<ul>
+<li><p>常见故障类型</p>
+<ol>
+<li><p>机房问题：机房断电、网络不通、 网络延迟。</p>
+</li>
+<li><p>中间件问题：zk集群故障、mq故障、 数据库故障、缓存故障。</p>
+</li>
+<li><p>机器问题：load高、cpu满、 磁盘满、IO满。</p>
+</li>
+<li><p>应用问题：fullGC、服务下线、 日志拖慢、线程池满。</p>
+</li>
+<li><p>依赖问题：下游dubbo/http接口延迟、抛异常。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="15-2-3-我们的切入点"><a href="#15-2-3-我们的切入点" class="headerlink" title="15.2.3    我们的切入点"></a>15.2.3    我们的切入点</h3><p><img src="/rdefficiency/medias/images/system_resiliency/service_layer.png" alt="">      </p>
+<center>图15-3 架构层级与影响</center>
+
+<p> 基于以上图15-3架构层次划分，我们分析发现越是影响重大的故障，就越是底层问题，其中P1故障基本都与机房或中间件故障有关。综合以上我们优先做的是机房演练、中间件演练。</p>
+<h2 id="15-3-混沌工程探索"><a href="#15-3-混沌工程探索" class="headerlink" title="15.3    混沌工程探索"></a>15.3    混沌工程探索</h2><h3 id="15-3-1-技术选型"><a href="#15-3-1-技术选型" class="headerlink" title="15.3.1    技术选型"></a>15.3.1    技术选型</h3><p>在确定了机房演练、中间件演练的目标后，我们开始了技术调研和准备。在当时的环境下得出如下结论：</p>
+<ol>
+<li><p><strong>开源工具完善度低</strong></p>
+<p>尤其对于大规模的网络尤其在我们非容器化的环境下，进行大规模网络、机器，以及特定中间件故障模拟如zk等很难找到有效的支持工具。</p>
+</li>
+<li><p><strong>成本高，低覆盖度</strong></p>
+<p>完全借助模拟的方式实现，成本大且覆盖不完整，不能实现我们快速实施混沌工程，为业务快速贡献价值的目标。</p>
+</li>
+</ol>
+<p>因此我们决定，采用关机这种简单粗暴的方式直接进行演练，以最真实的效果，最快速的方式直接落地。当时我们的应用都是在 kvm 环境下，决定利用OpenStack API 来进行批量关机演练操作。根据混沌工程理论，最主要挑战就是：如何控制爆炸半径控制以及如何快速止损恢复。</p>
+<h3 id="15-3-2-问题及解决方案"><a href="#15-3-2-问题及解决方案" class="headerlink" title="15.3.2    问题及解决方案"></a>15.3.2    问题及解决方案</h3><ul>
+<li>爆炸半径控制</li>
+</ul>
+<ol>
+<li>机房聚合信息查询，方便应用改造。</li>
+<li>演练规模从小到大，梯次递增。</li>
+<li>业务低峰期进行。</li>
+<li>充分的的前期主备，详细的 checklist（单机配置、本机的资源文件、服务的热点机群、外网域名等十几项前期需要 check 的点）。</li>
+</ol>
+<ul>
+<li>止损恢复</li>
+</ul>
+<ol>
+<li>自动建立沟通群，进度周知。</li>
+<li>人工值守。</li>
+<li>接入告警，告警事件关联推送。</li>
+<li>一键恢复脚本。</li>
+<li>与业务线联动，提前做好用户周知和补偿准备。</li>
+</ol>
+<h3 id="15-3-3-落地实施"><a href="#15-3-3-落地实施" class="headerlink" title="15.3.3    落地实施"></a>15.3.3    落地实施</h3><p><img src="/rdefficiency/medias/images/system_resiliency/practice_flow.png" alt=""></p>
+<center>图15-4 落地流程</center>
+
+<h3 id="15-3-4-演练总结"><a href="#15-3-4-演练总结" class="headerlink" title="15.3.4    演练总结"></a>15.3.4    演练总结</h3><p>发现 10+影响业务稳定性重要问题，比如：</p>
+<ol>
+<li><p>zk 稳定性问题。 </p>
+</li>
+<li><p>客户端 QP 发布服务跨机房高可用问题。</p>
+</li>
+</ol>
+<h2 id="15-4-混沌平台建设"><a href="#15-4-混沌平台建设" class="headerlink" title="15.4    混沌平台建设"></a>15.4    混沌平台建设</h2><h3 id="15-4-1-概述"><a href="#15-4-1-概述" class="headerlink" title="15.4.1    概述"></a>15.4.1    概述</h3><p>有了以上关机演练的成功实施，以及对服务韧性立竿见影的效果。让我们确信通过混沌工程的实践，可以实现我们提高服务韧性的目标，让我们有了投入更大资源持续发展的信心。但上面演练中也暴露出了我们演练中存在的各种问题，自动化能力不足、人工成本大，故障模拟能力不足，稳态检测能力不足，爆炸半径控制精准度差。基于此，我们又进行了更深入的技术调研，并确立从场景覆盖度，底层到上层，线下到线上发展路径，从现如今的视角总结为如下阶段性成果。</p>
+<h3 id="15-4-2-混沌平台建设的三个阶段"><a href="#15-4-2-混沌平台建设的三个阶段" class="headerlink" title="15.4.2    混沌平台建设的三个阶段"></a>15.4.2    混沌平台建设的三个阶段</h3><ol>
+<li><p><strong>基础能力建设</strong></p>
+<ul>
+<li><p>丰富故障场景，从中间件到依赖层场景全覆盖。</p>
+</li>
+<li><p>完善的稳态检测能力。</p>
+</li>
+<li><p>搭建控制平台，以应用为维度进行故障编排。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>线上常态演练</strong></p>
+<ul>
+<li>精准控制爆炸半径，可以在线上做到自由演练，屏蔽对真实用户的影响。    </li>
+</ul>
+</li>
+<li><p><strong>架构治理</strong></p>
+<p>利用第二阶段自动化演练的能力，对线上复杂的业务通过创新性的演练编排发现架构的不合理之处，推进从架构层面进行持续改进，防止架构腐化。</p>
+</li>
+</ol>
+<h3 id="15-4-3-基础能力建设"><a href="#15-4-3-基础能力建设" class="headerlink" title="15.4.3    基础能力建设"></a>15.4.3    基础能力建设</h3><p>有了目标，还要找到落地的抓手，做到底层建设与业务价值相结合，才能有的放矢，目标聚焦，我们这一阶段选择的落脚点为应用演练。总结起来就是：</p>
+<ol>
+<li>选择合适的开源工具，进行故障场景模拟。</li>
+<li>基于开源二次开发，支持公司内部自研中间件故障场景以及缺失的企业级场景。</li>
+<li>开发控制平台，以应用为组织维度，进行演练编排。</li>
+<li>打通公司内部监控平台，自动问题发现平台，支持人工录入演练监控指标。</li>
+</ol>
+<ul>
+<li>技术选型</li>
+</ul>
+<p>​         当时维护比较好、用的比较多工具有 Chaosblade 、 Chaos Mesh，对比如下图15-5，综合考虑：我们选择了 Chaosblade 。</p>
+<ol>
+<li>我们重视的场景丰富度上相近。</li>
+<li>VM/K8S双平台支持只有Chaosblade，我们当时线上都kvm但正在规划容器化，需要双平台都支持。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">组件</th>
+<th align="left">支持平台</th>
+<th align="left">支持场景</th>
+<th align="left">开源</th>
+<th align="left">整体性</th>
+<th align="left">侵入型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Chaos Mesh</td>
+<td align="left">K8S</td>
+<td align="left">丰富</td>
+<td align="left">是</td>
+<td align="left">好</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="left">Chaosblade</td>
+<td align="left">VM/K8S</td>
+<td align="left">丰富</td>
+<td align="left">是</td>
+<td align="left">差(当时只有agent)</td>
+<td align="left">低</td>
+</tr>
+</tbody></table>
+<center>图15-5 技术选型对比</center>
+
+<ul>
+<li>场景覆盖</li>
+</ul>
+<p>Chaosblade 支持多层面的故障演练，比如基础资源层面的、应用服务层面的。同时还支持 k8s 。并且它支持的场景非常丰富，基本上涵盖了需求的各个方面，但是还有一些场景是缺失的。主要如下：</p>
+<ol>
+<li>HTTP超时</li>
+<li>fullgc</li>
+<li>日志拥堵</li>
+<li>调用点区分</li>
+<li>链路匹配</li>
+</ol>
+<p>对于这些不支持的场景，在落地的过程中，我们支持了这些形态，并且将这些改动提交到社区，参与开源共建。</p>
+<p><img src="/rdefficiency/medias/images/system_resiliency/chaos_type.png" alt=""></p>
+<center>图15-6 chaosblade支持的类型</center>
+
+<ul>
+<li>自研控制面</li>
+</ul>
+<p>Chaosblade 提供了控制面 Chaosblade-box ，支持以 host 为组织维度，进行故障编排。但我们公司内部业务是以应用树-应用 host 的层次结构进行组织的，我们实际的业务场景中可能会需要根据某个业务节点筛选演练的应用。直接使用开源方案，灵活性差，观测性差，并且还会涉及到很多数据同步的问题。</p>
+<p>我们后面规划中会在依赖层，做很多与公司内部实际业务强相关的演练编排、动态交互，开源架构并不适合我们的业务场景。</p>
+<p>基于以上两点，我们选择自研控制面板的方案，设计了以应用为组织维度，host 为最小组成粒度的灵活的演练控制面板，具体如下图15-7：</p>
+<p><img src="/rdefficiency/medias/images/system_resiliency/4.1.3.3.png" alt=""></p>
+<center>图15-7 自研控制面板方案</center>
+
+<ul>
+<li>完善的稳态观测能力</li>
+</ul>
+<p> 在混沌理论中，稳态观测主要起到两个作用：</p>
+<ol>
+<li><p>确定系统运行是否符合演练预期。</p>
+</li>
+<li><p>系统状态超出预期，快速止损。</p>
+</li>
+</ol>
+<p>因此完善的稳态观测能力，不仅是演练正确实施的前提，更是能够降低线上影响的核心手段。基于此，我们设计了基于去哪儿网内部监控系统并结合公司 AIOPS 工具做双重稳态观测手段。其中监控指标我们接入了：</p>
+<ol>
+<li><p>业务核心监控面板即公司的各个业务线的监控报警大盘。</p>
+</li>
+<li><p>机器稳定性报警。</p>
+</li>
+<li><p>人工单独标记的混沌报警。</p>
+</li>
+</ol>
+<ul>
+<li>小结</li>
+</ul>
+<p>通过以上关键基础能力的建设，我们具备了对任意应用，进行从机器到依赖层面全场景的演练能力，将核心能力抽象到平台，为 QA、DEV 提供了强大的演练武器库，可以随时、随地自定义演练。做到了功能强大，成本低廉。</p>
+<h3 id="15-4-4-线上常态演练"><a href="#15-4-4-线上常态演练" class="headerlink" title="15.4.4    线上常态演练"></a>15.4.4    线上常态演练</h3><ul>
+<li>思考</li>
+</ul>
+<p>应用演练，在公司运行一段时间以后，统计平台数据后发现。90%以上的演练是在测试环境做为测试场景的模拟工具来进行使用的。即使线上进行的演练，也基本都是只对单应用、单机器、单策略的演练。但实际故障发生时，更多是全量机器，甚至多个策略、多个应用组合的下故障场景，但我们也很容易理解以上结果出现的原因：</p>
+<ol>
+<li>我们目前线上演练无法屏蔽对真实用户的影响，线上演练即有损演练。</li>
+<li>更大规模的演练，意味着对线上更大的损害。</li>
+</ol>
+<p>如果能够降低演练对真实用户的影响，并建立一个闭环保障机制，便可以真正在线上推行常态化演练，充分发挥混沌平台的价值。</p>
+<ul>
+<li>降低演练影响</li>
+</ul>
+<ul>
+<li><p><strong>方案选型</strong></p>
+<p>结合公司内部生态，经过调研，我们有如下图15-8两套可行的方案：</p>
+<ul>
+<li><p>为混沌演练单独建立一套运行环境，该环境类似灰度环境，可以灰度用户比例。我们所有的演练运行在这套环境之上，对用户的影响便可以通过控制用户灰度比例来进行控制。</p>
+</li>
+<li><p>模拟用户请求，故障注入只针对模拟的用户请求。</p>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方案</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">方案一</td>
+<td>来自用户真实请求，能够完全模拟线上真实行为</td>
+<td>1.仍然对灰度的用户造成影响。 <br>2.构建单独的环境需要额外的成本，在公司当时的环境下，需要动态路由功能的支持，动态路由方案只在测试环境支持，迁移到线上方案重新论证，以及较大的改造成本和风险（关于动态路由可参考-测试环境治理实践-环境治理-动态路由设计）。<br>3.用户流量比例受限，可能因为流量低，不能发现真实问题。</td>
+</tr>
+<tr>
+<td align="center">方案二</td>
+<td>完全消除用户影响 <br></td>
+<td>并非真实用户请求，可能存在差异 。</td>
+</tr>
+</tbody></table>
+<center>图15-8 方案对比</center>
+
+<p>基于以上方案对比，我们认为模拟的请求与真实请求的差异可通过技术手段尽量降低，并且模拟请求可以做到完全消除影响，因此决定选择用户请求模拟的方案。 </p>
+<ul>
+<li><strong>方案详情</strong></li>
+</ul>
+<ol>
+<li><p><strong>case 生成</strong></p>
+<p>通过自动化测试平台生成压测 case。</p>
+</li>
+<li><p><strong>流量染色</strong></p>
+<p>压测脚本发压时，在公司链路追踪工具 qtrace 中埋下流量标识，通过 qtrace 将流量标识全链路透传。</p>
+</li>
+<li><p><strong>开源 java agent 改造</strong></p>
+<p>支持故障模拟匹配流量染色。</p>
+<p>出于回馈开源的考虑，我们将此功能开发成了通用的业务参数匹配。并支持了两种匹配模式：  1）SPI 模式，用户可以写代码自定义匹配逻辑。2）固定 key匹配模式，不用写代码只需在配置的 http header 、dubbo attachment 携带相应业务数据，即可自动读取匹配。</p>
+</li>
+</ol>
+<h3 id="15-4-5-架构治理"><a href="#15-4-5-架构治理" class="headerlink" title="15.4.5    架构治理"></a>15.4.5    架构治理</h3><ul>
+<li>从强弱依赖入手</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/system_resiliency/%E5%BC%BA%E5%BC%B1%E4%BE%9D%E8%B5%96.png" alt=""></p>
+<center>图15-9 依赖示意图</center>
+
+
+<p>如图15-9所示， A、B、C、D、E 代表应用，A1-E2 分别代表各应用对外提供的接口。</p>
+<ol>
+<li>调用链路： 分别有 A1-&gt;B1,C1-&gt;D1 ，A1-&gt;B1,C1-&gt;E1，A2-&gt;B2,C2-&gt;D2，A2-&gt;B2,C2-&gt;E2  四条调用链路。</li>
+<li>依赖：  A1-&gt;B1-&gt;D1 调用链路中分别有 A-&gt;B1,B1-&gt;D1 两个依赖。</li>
+<li>入口： 最外层接口我们成为入口，即上图 A1、A2  。</li>
+<li>强弱依赖： 当依赖出故障时，对入口返回数据有影响即为强依赖，无影响及为弱依赖。</li>
+<li>举例说明：  当 B1 调用 D1 出现故障时，如果 A1 可以正常提供用户服务则将依赖 B1-&gt;D1 称为入口 A1 的弱依赖。   </li>
+</ol>
+<ul>
+<li>基于强弱依赖的架构治理</li>
+</ul>
+<p>我们统计线上故障，相当一部分比例是因为某个依赖问题导致的级联故障，这种级联的影响，在整个调用链路中是否合理，是否存在不重要的接口影响了核心业务。在几百个应用在错综复杂的链路中，通过人工保障非常困难。如果能够通过自动化的方式分析出核心业务下游各个依赖的强弱情况，并不断推进研发降低强依赖比例，可以达到提高线上稳定性的效果。</p>
+<p>基于公司分布式链路追踪工具 Qtrace，我们能基于入口接口拿到到调用链路和依赖信息。再加上混沌平台已经具备的线上演练能力，我们可以为每个依赖分别注入故障，对比注入故障前后相同请求参数下入口返回结果是否一致，来判断依赖的强弱。</p>
+<p>基于上面思考，我们设计强弱依赖演练，完整演练流程如下图15-10 ：</p>
+<p><img src="/rdefficiency/medias/images/system_resiliency/strong_weak.png" alt=""></p>
+<center>图15-10 强弱依赖演练流程</center>
+
+<ul>
+<li>难点</li>
+</ul>
+<ol>
+<li><strong>依赖命中率</strong> <img src="/rdefficiency/medias/images/system_resiliency/interface_depen.png" alt=""></li>
+</ol>
+   <center>图15-11 某入口依赖拓扑图</center>
+
+<p>   先来解释下依赖命中的概念，在故障注入期间，有压测流量打到当前的依赖，才算命中。上图15-11是某一个入口依赖的的拓扑图，我们的演练范围是要覆盖整个链路的每一个接口的，如果要保证命中率，那 case 筛选逻辑就很重要，我们希望的是通过筛选之后，能保证命中率在 90% 以上，这样演练才是有效果的。</p>
+<ul>
+<li><h5 id="精准case匹配"><a href="#精准case匹配" class="headerlink" title="精准case匹配"></a>精准case匹配</h5><p>case 筛选策略有两种：</p>
+<ul>
+<li><p>第一种是从入口处的应用，随机取若干条，从入口开始请求，这个方式比较简单粗暴，但是问题是覆盖率很难保证。举个例子，比如说用户在我们平台买机票，它可以买北京到上海的单程，也可以买北京到上海的往返。单程和往返这两种类型的报价，在服务端，是不同的系统来提供服务的，如果我随机筛选的 case 里，只有单程的请求，没有往返的请求，那就只能命中单程的链路，往返这条链路上的所有依赖就都没办法命中。</p>
+</li>
+<li><p>第二种策略是精确匹配，比如系统 d 调用系统 e 提供的接口 f ，准确的找到系统 d 调用系统 e 的 f 接口的 trace，和入口做关联，发起请求，这样就能保证依赖被覆盖到。</p>
+</li>
+</ul>
+<p>精准 case 匹配的难点是需要链路追踪系统的支持，相当于要链路追踪系统收集到线上所有trace请求并记录相关的接口数据，然后提供查询功能。描述起来简单，但在数据量上对链路追踪系统是一个非常恐怖的要求，性能上存在较大问题。我们为此做了很多工作，来满足性能要求。具体改造点如下：</p>
+<ul>
+<li><p>trace span 存储方案：从 hbase 改为 clickhouse，可以通过简历多维度索引的方式，支持类 SQL 的多字段匹配查询。</p>
+</li>
+<li><p>在自动化测试平台获取到的 case 作为原始 trace ，将这些 tarace 给到 clickhouse 作为原始过滤数据集，极大的降低了 clickhouse 的压力。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>增量演练</strong>     </p>
+<p>有了精准 case 匹配后，依赖命中率有了很大程度提升，但仍然无法满足90%命中率的要求。根据无法命中的 trace 深入业务代码分析后，发现业务缓存对代码链路命中有着很大的影响。举例来说：同一个 case 命中缓存时一条链路，缓存失效时又是一条链路。另外就是业务以外的问题比如：agent 安装失败，故障模拟失败以及演练过程中应用发布等一系列问题都会导致当前演练的依赖失败，导致无法命中。</p>
+<p>因此我们又在之前演练的基础上，设计了增量演练，针对无法命中的情况。通过多次对未达命中要求的依赖，自动演练的方式，来屏蔽某次的缓存、发布、故障模拟导致的偶发性问题。</p>
+</li>
+</ul>
+<ol start="2">
+<li><p><strong>自动化断言</strong>     </p>
+<p>自动化断言的核心逻辑是根据下游依赖注入故障前后，diff 入口返回结果，来判断强弱依赖。这个问题的前提是，未注入故障的情况同样的请求能保持幂等性。要求是相同的请求参数，在任意时克请求，返回结果都是一致的。实际业务中并非所有的请求都是幂等的，有的与接口设计相关，比如接口中返回了时间戳字段等。有的则与业务相关，比如同样是北京到上海的航班列表，不同时间的返回结果在业务逻辑上就是不一样的。</p>
+<p>综合以上影响业务结果不一致的主要有两种情况：</p>
+<ul>
+<li><p>接口设计中一些非核心业务字段影响了断言结果，比如时间戳等。这种情况我们可以通过将时间戳这类非关键字段排除 diff 的方式解决，但如果人工在众多入口接口中识别这些非关键字段，工作量很大且容容易判断出错。</p>
+<p>我们的解决方案是：通过未注入故障的情况同时请求两次，自动 diff 结果差异，来进行智能降噪。</p>
+</li>
+<li><p>业务本身在不同的时刻请求就是不一致的：</p>
+<p>这个在设计之初我们对这个问题的考虑是不足的，设计的基准请求和故障请求之间是有2分钟左右的时间间隔的，后期我们做自动化断言准确性分析，才发现这样在2分钟间隔下违反幂等性的接口量非常大，会极大的影响断言的准确性，后面的改进的目标就是让基准请求和故障请求可以同时进行。在这里联合压测平台进行了从发压层面的改动，来适配我们整体方案。</p>
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/system_resiliency/%E8%AF%B7%E6%B1%82%E5%AF%B9%E6%AF%94.png" alt=""></p>
+<center>图15-12 请求对比</center>
+
+<p>请参见图15-12前后方案对比： </p>
+</li>
+</ol>
+<ul>
+<li>上图左侧，基准请求利用智能降噪的请求做为基准请求，与对比请求中间间隔了 agent 安装，故障注入步骤，大概间隔有2分钟。</li>
+</ul>
+<ul>
+<li>上图右侧，我们在故障注入后，新加了一次请求做为基准请求。消除了基准和对比请求的时间间隔。</li>
+</ul>
+<p>   这个改动成立需要：压测平台适配，能够分别对两次请求区分染色，并通过上文我们提到的根据开源 agent 二次开发的业务参数匹配故障的能力，去做故障匹配，根据染色标识只匹配对比请求，进行故障注入。</p>
+<h2 id="15-5-总结"><a href="#15-5-总结" class="headerlink" title="15.5    总结"></a>15.5    总结</h2><p>本文为了方便理解，将以上阶段进行了严格划分，在实际的逻辑过程中，以上各阶段实际是交织在一起的。我们故障场景的支持，很多是随着业务需要和技术发展不断完善的。攻防演练和强弱依赖演练，在实际建设中也是并行进行的。至于具体落地步骤，总体是遵循从底层到上层，从线下到线上，从单一场景到复杂场景，并紧密结合业务当前需要。建议同样进行混沌落地的朋友可以根据自己公司业务实际需要，灵活调整。</p>
+<p>每个阶段有不同的复杂度，其中基础能力建设主要集中在底层技术，比如熟悉开源架构，agent 源码改造。线上自动演练主要是充分利用公司的内部成熟技术，需要与公司其它平台一起做好架构规划，从公司整体技术路径上做好架构规划，需要公司整体的有力支持，在我们内部压测平台，监控 等平台都在基础平台维护，因此从组织架构上也比较好的保障了协同规划。</p>
+<p>架构治理这块的难点主要是业务复杂度，需要深入公司各个业务线的业务实际，在不断踩坑，不断纠错调整中，不断提高数据覆盖度和准确性，除了技术外，更重要的是业务挑战，而这些恰恰是做技术平台的研发欠缺的，本人也从这个阶段的建设中，对公司整体业务有个更深入的理解。</p>
+<p>​    </p>
+<h1 id="第十六章-全链路压测"><a href="#第十六章-全链路压测" class="headerlink" title="第十六章    全链路压测"></a>第十六章    全链路压测</h1><h2 id="16-1-全链路压测平台"><a href="#16-1-全链路压测平台" class="headerlink" title="16.1    全链路压测平台"></a>16.1    全链路压测平台</h2><h3 id="16-1-1-背景"><a href="#16-1-1-背景" class="headerlink" title="16.1.1    背景"></a>16.1.1    背景</h3><p>去哪儿作为互联网公司，存在节假日业务突增的场景。各业务线存在自己的压测方式，并深度分化。不仅造成业务线之间规范不统一，还给跨团队之间的交流带来阻力。2020年开始，公司开始推行统一工具任务，相同功能的工具仅保留一个，在此背景下我们开始了全链路压测平台的建设。调研过程发现业务线主要存在两大痛点：</p>
+<ol>
+<li><p><strong>业务线使用压测工具不统一</strong></p>
+<p>往年各业务线采用自己的压测方式，如机票使用 jmeter、酒店使用流量调权、其他业务线还存在拦截流量压测与 beta 压测情况。这种场景下出现报告不统一、压测规范不统一、排期不统一等问题，报告给领导的结论也是五花八门。</p>
+</li>
+<li><p><strong>压测成本高</strong></p>
+<p>作为旅游互联网公司，每年有四五个节日需要做大型压测演练。每次演练开发、测试、产品、tl 等均需在场，大业务线的参与人数与非诚勿扰相亲相当，每个节日演练2~3次，粗略统计每年有几百 pd 用于压测。</p>
+</li>
+</ol>
+<h3 id="16-1-2-收益"><a href="#16-1-2-收益" class="headerlink" title="16.1.2    收益"></a>16.1.2    收益</h3><ol>
+<li><p>历时两年的开发落地，业务线核心场景均进入常态化压测；当前执行任务总量 10w+。</p>
+</li>
+<li><p>单一压测任务排期时长由 1pd 降低至 0.1pd；大业务线的压测任务排期由 50pd 降低至 2pd。</p>
+</li>
+</ol>
+<h3 id="16-1-3-系统设计"><a href="#16-1-3-系统设计" class="headerlink" title="16.1.3    系统设计"></a>16.1.3    系统设计</h3><ul>
+<li>需求</li>
+</ul>
+<p>业务线最基本的要求有图16-1这三点：协议多、能力强、记录全。</p>
+<p><img src="/rdefficiency/medias/images/csp/requirement.png" alt=""></p>
+<center>图16-1 压测需求</center>
+
+<ul>
+<li>方案选型</li>
+</ul>
+<p>选型过程，考虑了 NGrinder、Jmeter、LoadRunner 工具，并与数列科技、京东等公司进行技术交流，最终自研自己的压测平台系统；</p>
+<ol>
+<li><p><strong>压测环境</strong></p>
+<p>全链路压测的目标是最大程度获取线上真实性能数据，用于性能定位优化以及后期的容量评估。根据业务线压测经验，beta环境测试数据评估线上应用运行性能偏差较大，线上压测存在压挂线上应用与数据污染的风险。</p>
+<ul>
+<li>针对线上压测系统宕机问题，调研多种熔断压测策略，如机器性能、网络、业务指标、应用指标等方案，同时完善压测预案，核心应用压测过程紧急修复方案，基本解决读场景的压测风险。</li>
+<li>针对数据污染，我们调研了两种策略，压测数据清洗与第三方接口mock机制，以及影子库方案解决写场景的数据污染问题。</li>
+</ul>
+<p>经过技术调研，可以无限降低线上压测的风险，决定全链路压测在线上进行。</p>
+</li>
+<li><p><strong>工具对比</strong></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>Jmeter</th>
+<th>NGrinder</th>
+<th><strong>LoadRunner</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实现语言</td>
+<td>Java</td>
+<td>java/python</td>
+<td>java/VB/C/.NET</td>
+</tr>
+<tr>
+<td>使用方式</td>
+<td>C/S 或 Command</td>
+<td>B/S</td>
+<td>C/S</td>
+</tr>
+<tr>
+<td>支持分布式</td>
+<td>master/slave</td>
+<td>controller/agent</td>
+<td>master/slave</td>
+</tr>
+<tr>
+<td>开源方式</td>
+<td>免费、开源</td>
+<td>免费、开源</td>
+<td>收费</td>
+</tr>
+<tr>
+<td>支持协议</td>
+<td>多协议</td>
+<td>多协议</td>
+<td>多协议</td>
+</tr>
+<tr>
+<td>是否需要编码</td>
+<td>基本不需要</td>
+<td>需要，Jython/Grovvy</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>可扩展性</td>
+<td>可增加 plugin，输出结果可以再加工，扩展性强</td>
+<td>可增加plugin，扩展性强</td>
+<td>通过扩展函数库实现</td>
+</tr>
+<tr>
+<td>平台化</td>
+<td>有开源或云端的压测平台</td>
+<td>本身具备</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<center>图16-2 工具对比</center>
+
+<p>选型过程首先排除 LoadRunner，由于常态化压测过度依赖第三方不满足公司价值需求；公司平台化开发过程更倾向于 BS 模式，考虑到完全自研前提，最终研发压测平台，参考 NGrinder 架构并实现无损扩展能力。</p>
+<h3 id="16-1-4-平台建设"><a href="#16-1-4-平台建设" class="headerlink" title="16.1.4    平台建设"></a>16.1.4    平台建设</h3><p>根据业务线三大核心需求（协议多、能力强、记录全），解决方案如下：</p>
+<ul>
+<li><p>协议多：</p>
+<p>业务线需求众多，不能穷举业务线压测模式，需要提供多种动态脚本模板，满足dubbo、http、MQ消息、db的压测；并且支持jar包上传，用户动态编辑脚本，给平台无限可能。平台设计过程使用动态脚本模式，git存储脚本，文件服务器存储附件与jar包等。</p>
+</li>
+<li><p>能力强：</p>
+<p>根据历史qci平台得知，业务线经常压力不够，任务不能同时进行问题。平台设计首先满足发压机可以动态扩缩容，扩展无上限，无损耗问题。平台设计发压机时，需要尽量减少与外界依赖，并且保持发压机同步问题。</p>
+</li>
+<li><p>记录全：</p>
+<p>一次压测过程，存在压测多个接口的情况，平台设计需要满足动态创建事物的能力，可以简单理解为记录多个接口信息，平台设计需要支持动态事物，自定义事物能力。</p>
+<p>压测报告要尽可能丰富数据信息，成功数、失败数、响应时间、p50、p90、p99等数据；平台设计数据计算时，不能在发压机进行，数据上报给计算模块独立进行，也方便后期添加方差等特殊需求。</p>
+<p>压测数据统计完善，打印日志，case参数，返回结果，trace信息等，由于压测数据过大，因此常规数据使用采样机制上报。</p>
+</li>
+</ul>
+<p>平台设计架构如：图16-3</p>
+<p><img src="/rdefficiency/medias/images/csp/csp-design.jpg" alt=""></p>
+<center>图16-3 架构图</center>
+
+<ol>
+<li><p><strong>任务流</strong></p>
+<p>用户操作 Web 页面，任务入库，分配模块计算分发给发压机 Agent。</p>
+</li>
+<li><p><strong>脚本流</strong></p>
+<p>发压机 Agent 拉取脚本、数据文件启动引擎，发压。</p>
+</li>
+<li><p><strong>数据流</strong></p>
+<p>发压过程生成的请求数据、日志、采样等上报并存储 ES，提供用户 web 页面查询。</p>
+</li>
+</ol>
+<ul>
+<li>数据源</li>
+</ul>
+<p>此处数据源特指压测参数，获取主要分两种方式：数据文件与脚本实时读取。</p>
+<p><img src="/rdefficiency/medias/images/csp/param-data.jpg" alt=""></p>
+<center>图16-4 数据源获取的2种方式</center>
+
+<ol>
+<li><p><strong>附件文件形式</strong></p>
+<ul>
+<li><p>TC-日志：基础架构开发的agent，线上应用默认按照，发布平台配置即可实现日志落地；操作方便，推荐使用。</p>
+</li>
+<li><p>业务日志：页面配置日志参数分隔方式；老版本的灭霸自动化压测数据获取方式。</p>
+</li>
+<li><p>数据文件：业务线自己上传数据文件，按照给定的数据模板。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>脚本调用第三方接口</strong></p>
+<ul>
+<li><p>数据接口：业务线提供数据获取接口，数据获取与解析有业务线自行完成；特殊逻辑数据，实时变化数据等。</p>
+</li>
+<li><p>redis：第三方接口获取。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>其他</strong></p>
+<ul>
+<li>多接口数据依赖：多个接口调用时，后面的接口参数依赖前方接口数据返回，这种需要用户自己调整脚本适配。（工具平台后期支持）</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>引擎与脚本</p>
+<p><img src="/rdefficiency/medias/images/csp/script-engine.jpg" alt=""></p>
+</li>
+</ul>
+<center>图16-5 引擎与脚本</center>
+
+<ol>
+<li><p><strong>脚本与附件：</strong></p>
+<ul>
+<li><p>数据参数：数据文件生成，根据参数配置，在 ES 中获取日志中的参数数据，生成特定文件供脚本使用；脚本读取文件时确定文件名、读取方式（随机、顺序、循环）。</p>
+</li>
+<li><p>同步异步：同步脚本，请求等待上次请求返回再进行下次请求，此时用户设置的 RPS 值为最大 RPS，有低于设置的可能。</p>
+</li>
+<li><p>异步脚本，主线程严格准守用户配置的 rps 发送请求，返回结果由特定线程池处理。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>发压引擎：</strong></p>
+<ul>
+<li><p>引擎初始化：配置发压机器的线程数、RPS值、发压时间、梯度变化、执行次数等。</p>
+</li>
+<li><p>引擎加载：脚本与附件加载，初始脚本对象。</p>
+</li>
+<li><p>引擎执行：根据配置的压测规则，执行脚本，执行完成自动停止，同时接收停止命令与心跳检查自杀停止。</p>
+</li>
+<li><p>RPS实现：注意此处不能使用Guava的RateLimiter实现，存在初始化不同步与变更速率延迟问题，并且没有区间补偿策略，建议自行实现。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>熔断</li>
+</ul>
+<p>​        做压测与学开车相同，上路首先要学会刹车，除了正常压测结束还需要考虑熔断策略。靠人的操作均存在不可靠性，尽量使用工具与流程代替人工，减少疏忽带来的故障。熔断设计如下：</p>
+<p><img src="/rdefficiency/medias/images/csp/fusing.png" alt=""></p>
+<center>图16-6 熔断设计</center>
+
+<ol>
+<li>机器报警：是业务线与 ops 设置的机器异常指标，如  cpu、load、io 等。</li>
+<li>业务报警：是业务线监控 dashboard 的数据监控、应用监控。</li>
+<li>压测数据熔断：失败率、rps 过高、响应时间等。</li>
+<li>应用数据：异常日志、通信数据等。</li>
+<li>工具熔断：发压机心跳检测，超时自熔断。</li>
+</ol>
+<ul>
+<li>报告</li>
+</ul>
+<p>​    统一工具的很重要目标是统一数据规范，是报告的价值体现。报告包含4块内容：</p>
+<ol>
+<li><p><strong>概览</strong></p>
+<p>压测目标、QPS 倍数、接口 QPS 达标率、链路覆盖度、核心应用覆盖度等。</p>
+</li>
+<li><p><strong>压测数据</strong></p>
+<p>事物、qps、响应时间、失败率、成功数等</p>
+</li>
+<li><p><strong>链路详情</strong></p>
+<p>入口进入后，请求到的链路数据；包含压测前与压测过程两部分数据，数据内容包含应用、接口类型、接口地址、响应时间与 qps；通过对比可以获取压测是否满足需求；实现需要依赖 tc 提供的链路计算服务与监控数据获取接口。</p>
+</li>
+<li><p><strong>指标数据</strong></p>
+<p>机器指标、业务指标、自定义指标、压测指标是否有报警记录。</p>
+</li>
+</ol>
+<ul>
+<li>发压流程</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/csp/pressure-process.jpg" alt=""></p>
+<center>图16-7 发压流程</center>
+
+<ol>
+<li><strong>备注</strong></li>
+</ol>
+<ul>
+<li><p>场景配置接口、参数、熔断信息；任务配置发压参数，熔断特殊配置；压测记录是当时发压过程参数信息；场景与任务、任务与记录均是一对多关系。</p>
+</li>
+<li><p>发压机上报数据包含：包含压测数据（事物、响应时间、成功数、失败数）、采样数据（ trace、入参、返回结果等）、日志数据。</p>
+</li>
+<li><p>踩坑记录</p>
+</li>
+</ul>
+<ol>
+<li><p><strong>历史任务自启动</strong></p>
+<p>系统启动发压机前会有一组校验逻辑，其中一项是校验发压机是否足够，当前可用发压机不够时不启动压测，等待发压机足够时启动压测。恐怖事件过程：</p>
+<ul>
+<li><p>业务线启动压测任务a</p>
+</li>
+<li><p>系统校验发压机不够用，等待发压机</p>
+</li>
+<li><p>业务线查看任务没有启动，去食堂吃饭</p>
+</li>
+<li><p>其他发压任务b释放发压机</p>
+</li>
+<li><p>系统校验任务a发压机足够，并启动压测</p>
+</li>
+<li><p>系统报警</p>
+</li>
+</ul>
+<p><strong>处理方案</strong></p>
+<ul>
+<li><p>压测未启动，告知用户，等待发压机过程。</p>
+</li>
+<li><p>等待超时时间由1天减少至1分钟，超时停止任务（停止后用户手动触发才可启动）</p>
+</li>
+<li><p>启动压测，消息周知用户。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>压挂系统</strong></p>
+<ul>
+<li><p>业务线希望严格使用配置的 RPS 压测，使用异步脚本发压，超过一定压力时，系统无法对外提供服务</p>
+</li>
+<li><p>也有部分业务未配置有效的报警、或报警未来得及触发就已经把系统打死</p>
+</li>
+</ul>
+<p><strong>处理方案</strong></p>
+<ul>
+<li><p>梯度压测，一定压力增幅压测，并且保证梯度时间报警可以发出</p>
+</li>
+<li><p>客户端熔断配置，当响应时间平均值、T90 等超过一定值，并且连续5s 时，立即停止</p>
+</li>
+<li><p>使用同步脚本，发压时只有上次请求返回后才进行下次请求</p>
+</li>
+<li><p>低峰期压测，即使系统异常可以减少损失</p>
+</li>
+</ul>
+</li>
+<li><p><strong>发压不同步</strong></p>
+<ul>
+<li>发压过程需要使用多台发压机同时启动的情况，存在发压机发压不同步现象，秒级监控中用户疑问较多</li>
+</ul>
+</li>
+</ol>
+<p>   <strong>原因</strong></p>
+<ul>
+<li><p>启动耗时不同：如 git clone、数据文件拉取、初始化引擎等存在一定的时间差</p>
+</li>
+<li><p>任务分发使用 dubbo 调用，发压机过多时存在一定的时间差</p>
+</li>
+<li><p>机器时间不统一，出现过机器时间差异造成启动时间由差异问题</p>
+</li>
+</ul>
+<p>   <strong>处理方案</strong></p>
+<ul>
+<li><p>派发任务预留一定时间再启动压测任务，默认2s</p>
+</li>
+<li><p>派发任务数据时，携带数据库的时间（也可以使用 dispatch 的时间），发压机计算时间偏移量</p>
+</li>
+<li><p>通过预留时间与时间偏移量计算可以达到同时启动，此处进一步优化是 wait 住所有线程，最后统一命令执行</p>
+</li>
+</ul>
+<h3 id="16-1-5-应用落地"><a href="#16-1-5-应用落地" class="headerlink" title="16.1.5    应用落地"></a>16.1.5    应用落地</h3><ul>
+<li>推广落地</li>
+</ul>
+<p>落地过程先使用一个大业务线验证，在去哪儿使用自上而下的推行方式，限期完成，整个过程相对顺利。此处简化流程如下：</p>
+<ol>
+<li><p>机票业务线试用</p>
+</li>
+<li><p>就平台数据导入到平台（前期推广时使用，后期清空重新创建），人力3pd</p>
+</li>
+<li><p>废弃旧平台</p>
+</li>
+<li><p>基础平台团队协助业务线接入使用</p>
+</li>
+<li><p>二期开发</p>
+</li>
+<li><p>常态化压测</p>
+</li>
+</ol>
+<ul>
+<li>使用效果    </li>
+</ul>
+<ul>
+<li><h5 id="平台数据"><a href="#平台数据" class="headerlink" title="平台数据"></a>平台数据</h5></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>场景接入</td>
+<td>1h</td>
+<td>接口自动化接入，调试验证1h</td>
+</tr>
+<tr>
+<td>业务线压测执行排期</td>
+<td>1~2pd</td>
+<td>往年排期30pd+，当前降低至2pd；</td>
+</tr>
+<tr>
+<td>入口接入量</td>
+<td>853</td>
+<td>入口接入量</td>
+</tr>
+<tr>
+<td>压测执行频率</td>
+<td>7k/月</td>
+<td>常态化压测</td>
+</tr>
+<tr>
+<td>启动耗时</td>
+<td>3.5s</td>
+<td>校验、分配、资源拉取、启动等待</td>
+</tr>
+<tr>
+<td>数据延迟</td>
+<td>5s</td>
+<td>秒级数据展示、延迟5s展示</td>
+</tr>
+</tbody></table>
+<center>图16-8 平台数据</center>
+
+<ul>
+<li><h5 id="报告部分截图"><a href="#报告部分截图" class="headerlink" title="报告部分截图"></a>报告部分截图</h5></li>
+</ul>
+<p><img src="/rdefficiency/medias/images/csp/report-1.png" alt=""></p>
+<center>图16-9 报告部分截图-1</center>
+
+<p><img src="/rdefficiency/medias/images/csp/report-2.png" alt=""></p>
+<center>图16-10 报告部分截图-2</center>
+
+<p><img src="/rdefficiency/medias/images/csp/report-3.png" alt=""></p>
+<center>图16-11 报告部分截图-3</center>
+
+
+
+<h3 id="16-1-6-工具总结"><a href="#16-1-6-工具总结" class="headerlink" title="16.1.6    工具总结"></a>16.1.6    工具总结</h3><p>压测平台的搭建与落地历时大半年时间，针对公司特性做了较多定制化功能，如入口一键接入，参数自动生成，目标自动获取与计算，trace 链路问题分析等。不仅统一规范、降低成本的，还很大程度团建各业务线合作的意愿。当前工具相对薄弱的模块是问题自动定位与优化建议，计划在2022年底完善。近期全链路压测平台结合灭霸自动化平台，获取数据 case 与请求结果 diff 的能力; 结合混沌工程，断言请求子调用的强弱依赖。我们将持续为平台赋能更多能力，在新的天地中探索成长。</p>
+<h2 id="16-2-录制回放-agent"><a href="#16-2-录制回放-agent" class="headerlink" title="16.2    录制回放 agent"></a>16.2    录制回放 agent</h2><h3 id="16-2-1-背景"><a href="#16-2-1-背景" class="headerlink" title="16.2.1    背景"></a>16.2.1    背景</h3><p>在全链路压测中，流量录制和回放的必要性不用多说，而去哪儿网主要技术栈为 java，因此在内部开发了一个基于 java 字节码插桩的录制回放 agent —cinema。<br>Cinema agent 已经在内部使用近一年，在实际的全链路压测中经受住了考验。</p>
+<h3 id="16-2-2-技术选型"><a href="#16-2-2-技术选型" class="headerlink" title="16.2.2    技术选型"></a>16.2.2    技术选型</h3><p>在调研阶段，笔者就意识到，单纯的网络流量录制回放无法满足实际的压测需求，对 java 代码的修改必不可少，首先就排除了只做网络流量的录制回放方案。</p>
+<p>当时业内开源的有一定知名度的 java 录制回放工具为阿里巴巴的基于 jvm-sandbox 实现的 jvm-sandbox-repeater，公司内部的自动化测试系统也使用到了这个 agent，在一开始也对 jvm-sandbox-repeater 进行了调研。</p>
+<p>调研下来，jvm-sandbox-repeater 能做到 java 方法级的录制回放，在功能上基本符合要求，但有如下几个缺点。</p>
+<ol>
+<li>逻辑流四五分裂，导致开发和维护体验非常糟糕。排除框架性代码，只谈具体录制回放的部分，整个录制回放逻辑流被拆的到处都是，处理代码非常反直觉，看代码的过程让人苦不堪言。</li>
+<li>Classloader 没有做合适处理，录制回放代码中充斥大量反射调用，同样严重影响了开发维护体验。</li>
+<li>难以和去哪儿中间件结合。去哪儿的全链路压测基于内部的全链路追踪系统 qtrace，并且需要在很多地方使用到内部的配置中心对整个流程进行控制，这需要对 jvm-sandbox 和 jvm-sandbox-repeater 都进行较为深度的修改，并且由于前面两个缺点修改的难度和工作量就更大了。  </li>
+</ol>
+<p>基于以上的原因，加上自主开发也能够更好的自主可控，选择了重头开发一个录制回放 agent。</p>
+<h3 id="16-2-3-设计与实现"><a href="#16-2-3-设计与实现" class="headerlink" title="16.2.3    设计与实现"></a>16.2.3    设计与实现</h3><p>本文主要说明的是录制回放 agent 的设计与实现。</p>
+<ul>
+<li>字节码插桩</li>
+</ul>
+<p>字节码插桩相关的东西网上有大量的文章和文档，这里不再进行具体的技术说明。</p>
+<p>在插桩实现上，cinema agent 主要采用了 bytebuddy 做为字节码插桩工具，在少量因为 jvm 限制（不能动态增减类的字段和方法）无法使用 bytebuddy 的地方使用了 asm 进行插桩。</p>
+<ul>
+<li>录制回放代码编写</li>
+</ul>
+<p>有句名言说的好，代码是给人看的，顺便才让机器执行。</p>
+<p>Jvm-sandbox-repeater 中录制回放的逻辑流非常分散，导致了最终的代码晦涩难懂，但实际上录制回放的逻辑本身是非常简单的，cinema agent 对此做了针对性的改进，可以以非常自然符合直觉的方式编写相关代码。<br>在 cinema 录制回放的编写中，排除掉错误处理部分，简化后的核心代码如下图16-12：  </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">needRecord</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    Object result <span class="token operator">=</span> originCall<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">storeRecord</span><span class="token punctuation">(</span>arguments<span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">needRepeat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> repeatStore<span class="token punctuation">.</span><span class="token function">Call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> originCall<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<center>图16-12 核心代码片段</center>
+
+<p>其中 originCall.call（arguments）就是对原始方法的调用，整个处理流程非常清晰，即使是新人，也可以参考已有代码对新组件进行快速兼容。</p>
+<p>同时，得益于精心设计的初始化流程和 classloader 处理，在录制回放代码编写中，不需要使用反射，在 agent 的开发中可以和开发业务代码一样直接使用要进行插桩的组件的类和方法，也可以直接调用去哪儿内部的中间件（有人会说平常写代码不都是这样的吗，没错，平常写代码就是这样，就像空气一样，失去时你才会更理解它的重要性）。</p>
+<p>这里也提一下，cinema 本身是一个透明的无侵入 agent，但如果内部工具实现方有意愿，也可以直接在代码中使用 cinema 的接口参考 agent 里代码进行实现。</p>
+<ul>
+<li>初始化与 classloader</li>
+</ul>
+<p>在前面说过，cinema 的录制回放中可以直接使用待插桩组件和内部中间件的类，以一种自然的方式编写代码，同时还能提供 api 给外部组件来实现录制回放逻辑，这些都是由特殊的初始化流程与 classloader 决定的。两者相辅相成，所以放到一起来进行说明。</p>
+<p>整个 classloader 体系如下图16-13所示，cinema agent 有两个 jar 包，一个是 spy，一个 lib，其中 spy 部分由 SystemClassloader 加载，lib 部分则由CinemaClassloader 加载。</p>
+<p><img src="/rdefficiency/medias/images/full_link_performance_test/cinema_classloader.png" alt=""></p>
+<center>图16-13  classloader体系</center>
+
+<ul>
+<li>Spy</li>
+</ul>
+<ol>
+<li><p><strong>Cinema 接口</strong></p>
+<p>先说 spy，spy 分为两部分，一部分是 cinema 的接口，由于接口由 SystemClassloader 加载，所以这些接口除了可以被 lib 里的实现使用，也可以在业务代码或者说工具提供方使用。同时由于实现被全部委托到 lib 包，即使使用了 cinema 的 api，agent 的升级对应用和工具方也完全透明。</p>
+</li>
+<li><p><strong>Premain 初始化</strong></p>
+<p>Spy 的另一部分是 cinema 在 premain 阶段的初始化代码，注意这只是 premain 阶段的初始化，并不是 cinema 全部的初始化。叫 premian 初始化是因为这里的初始化由 java agent的premain 方法开始执行。</p>
+<p>在 premain 初始化里，cinema 会对多个类和组件进行字节码修改，这里只说最核心 premain 插桩与 preonline hook 注入。  </p>
+<p>整个初始化流程如下图16-14所示：</p>
+<p><img src="/rdefficiency/medias/images/full_link_performance_test/cinema_hook.png" alt=""></p>
+<center>图16-14 Premain初始化流程</center>
+</li>
+<li><p><strong>Premain 插桩</strong></p>
+<p>一是确定性的组件比如java servlet，各种httpclient以及dubbo，虽然具体的插桩实现由lib部分实现，但实际上的插桩在初始化就完成了。插桩后的代码大致如下图16-15：</p>
+<ul>
+<li><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">needUseCinema</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    lazyIntercepter<span class="token punctuation">.</span><span class="token function">intercpt</span><span class="token punctuation">(</span>object<span class="token punctuation">,</span> method<span class="token punctuation">,</span> arguments<span class="token punctuation">,</span> originCall<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    originCall<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+   <center>图16-15 插桩后的代码</center>
+
+<p>   其中 lazyIntercepter 就是具体插桩实现的包装，此时应用的业务 classloader（一般而言就是 tomcat 的 WebappClassloader ）还没有加载，lib 部分还无法进行初始化，使用懒加载的方式来对代码进行插桩。</p>
+<p>   那么为什么要设计这么一个有点绕的插桩机制，是因为通常来说我们只有在 premain 阶段才能对 java 类进行字段和方法的增删，只有这样才能够实现前面“录制回放代码编写”所说的简洁清晰的编写机制。</p>
+<p>   而 needUseCinema() 方法则会进执行判断逻辑，只有当 cinema agent 已经完全初始化（不止是 premain 初始化），并且当前类的 classloader 符合要求才会执行。</p>
+<p>   这里简单说下当前类的 classloader 的具体要求，就是要属于业务 classloader 或者说业务 classloader 的祖先 classloader，这是为了过滤掉额外的 java agent 中的类（去哪儿的应用往往带有多个 agent，而 agent 的 classloader 加载的类都是不需要进行录制回放的）。</p>
+<ol start="4">
+<li><p><strong>Premain hook</strong></p>
+<p>在 premain 初始化里另一个核心的字节码修改就是 preonline hook 的注入。</p>
+<p>这里的 preonline 指的是在应用启动后，中间件已经加载完成，但应用还没有对外暴露提供服务的阶段。<br>Preonline hook 注入就是指对在 preonline 阶段运行的某个方法进行插桩（不同的公司应该具有不同的插桩点，这里不进行具体类和方法名的描述），将hook 加入到这个方法的运行代码中。</p>
+<p>具体的 hook 实现就是一个前文提过的 lazyIntercepter 对初始化代码的包装，它的任务就是做 preonline 初始化，只有当 premain 初始化和 preonline初始化都完成的时候，cinema agent 才算是完全初始化。</p>
+</li>
+<li><h4 id="Lib"><a href="#Lib" class="headerlink" title="Lib"></a>Lib</h4><p>Lib 包同样包含两个部分，一部分是各种字节码修改的相关具体实现，这个不多说，一部分就是 preonline 阶段的初始化代码，也就是 preonline 初始化的实现。</p>
+<p>为什么在 premain 初始化外再执行一个 preonline 初始化呢，有三个目的：</p>
+<ul>
+<li>一是要获取业务 classloader，而执行 preonline 代码的 classloader 就是准确的业务 classloader，同时也是 cinema classloader 的父classloader，是 cinema 各种操作的基础，相当于 agent 在业务 jvm 中的锚点。</li>
+</ul>
+<ul>
+<li>二是在此时我们才能够确定各种内部中间件已经初始化完毕，从而可以获取去哪儿配置中心上的各种相关配置，组装 agent 内部各种实现。前文所说的 cinema 在 SystemClassloader 的各种接口的实现也都是在此刻被组装，进而将整个 cinema agent 初始化，设置全局初始化完成标记。</li>
+<li>三是根据从配置中心获取的配置对应用的 java 方法进行字节码修改。录制回放的应用往往跑在线上，是不能够对全量的 java 类进行插桩的，这里需要根据远程配置进行选择性 java 方法插桩。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>灵活的配置</li>
+</ul>
+<p>Cinema agent 被设计为一个基于远程配置的非常灵活的 agent 。大到一整条链路的录制回放开关，小到某个方法调用录制参数的序列化方式，几乎所有设置都可以通过远程配置动态修改。</p>
+<p>具体有哪些配置属性这里不进行详细说明，只是说一下 cinema 中的配置层次设计。</p>
+<p>在 cinema 中，配置分为公共、任务、应用、调用四个级别：</p>
+<ol>
+<li>公共配置指全局配置，对所有地方生效。</li>
+<li>任务配置代表某一次全链路压测，不同的压测任务有不同标记，只对指定的任务相关生效。</li>
+<li>应用配置代表一个指定的业务应用在指定的压测任务下的配置。</li>
+<li>调用配置就是在指定的任务和应用下的某一个具体调用的配置，比如一次 http 或者 java 方法调用。  </li>
+</ol>
+<p>其中下级属性默认使用并可以覆盖上级属性，通过公司的配置中心对配置进行动态修改，可以达到对整个全链路压测各个粒度上的精确控制。</p>
+<ul>
+<li>Jvm trace</li>
+</ul>
+<p>因为自动化子调用挡板设置（见其它文章）的需要，cinema agent 基于去哪儿内部的全链路追踪系统 qtrace 实现了 jvm trace。顾名思义，与全链路追踪不同，jvm trace 就是在 jvm 内部的 trace，trace 链路不跨 jvm，每一个 java 方法调用作为一个 span。</p>
+<p>因为涉及到另外一个内部系统 qtrace，这里不再进行详细说明。</p>
+<h3 id="16-2-4-结尾"><a href="#16-2-4-结尾" class="headerlink" title="16.2.4    结尾"></a>16.2.4    结尾</h3><p>Coder lives matter！</p>
+<p>当然这是夸张的说法，写代码和看代码最多只会让人头疼。但代码的可维护性确实也非常重要，也许贴近底层后有时候会变得不太容易，但我们还是可以在这方面努力做点工作。</p>
+<p>需要注意的是，文章里确实介绍了一套可行的可维护性比较好的 java agent 实现方式，但在具体实现中对 classloader 的使用要非常小心，对 java classloader 体系有深刻的理解，agent 本身的依赖和打包也要仔细安排，否则非常容易陷入 classloader 错误的噩梦。</p>
+<p>最后，本文介绍了去哪儿内部自研的基于 java 字节码插桩，可以通过配置灵活控制，对开发和维护友好的 cinema agent，并对设计和实现的一些关键点做了相关说明。</p>
+<h2 id="16-3-中间件实现"><a href="#16-3-中间件实现" class="headerlink" title="16.3    中间件实现"></a>16.3    中间件实现</h2><p><img src="/rdefficiency/medias/images/full_link_performance_test/framework.png" alt=""></p>
+<center>图16-16 整体压测流程</center>
+
+<h3 id="16-3-1-压测标识透传"><a href="#16-3-1-压测标识透传" class="headerlink" title="16.3.1    压测标识透传"></a>16.3.1    压测标识透传</h3><p>在生产环境进行全链路压测，需要对压测流量进行染色，使用一个标识来标记流量是正常流量，还是压测流量，且这个标识需要在整个调用链路中透传。标识需要满足以下条件：</p>
+<ol>
+<li>压测的标识在调用过程中不丢失</li>
+<li>压测的标识在调用过程中不改变</li>
+</ol>
+<p>基于去哪儿网内部的分布式链路追踪系统（ QTrace ），可以达到以上两个要求，压测标识在整个调用链路中透传，在需要的地方进行获取。</p>
+<p>QTrace 是去哪儿网内部的分布式跟踪系统，可以记录分布式场景下调用链路，类似于 zipkin。目前该组件支持 dubbo 调用，http 调用，内部的 mq 系统。可以将压测标识放置在 Qtrace 中，在整个调用链路中传递。</p>
+<h3 id="16-3-2-数据隔离"><a href="#16-3-2-数据隔离" class="headerlink" title="16.3.2    数据隔离"></a>16.3.2    数据隔离</h3><p>在生产环境进行全链路压测，最核心的是线上写操作不能影响正常的线上数据。因此需要将压测的数据进行隔离。隔离方案可以分为数据隔离和流量隔离。</p>
+<ul>
+<li>数据隔离 VS 流量隔离</li>
+</ul>
+<ol>
+<li><p><strong>流量隔离</strong></p>
+<p>主要是通过构建压测环境来解决，如线下压测环境，或泳道化/ Set 化建设，将压测流量与线上流程完全隔离。线上流量和压测流量走不同的集群实例。</p>
+</li>
+<li><p><strong>数据隔离</strong></p>
+<p>主要是通过对压测流量进行染色，让线上服务能识别哪些是压测流量，哪些是正常流量，然后对压测流量进行特殊处理，以达到数据隔离。线上流量和压测流量走同样的应用实例，但是在数据存储上做了特殊处理。</p>
+</li>
+</ol>
+<p>公司最后选择做数据隔离，压测流量覆盖的覆盖路径与生产流量相同，能够达到更好的测试效果。</p>
+<ul>
+<li>mysql 隔离</li>
+</ul>
+<p>mysql  的数据隔离方案选择使用影子库进行数据隔离，数据操作时根据压测标识操作不同的数据库。</p>
+<ol>
+<li><p><strong>影子库生命周期</strong></p>
+<ul>
+<li><p>start：当执行测试计划时，创建一个新的影子库的链接池。</p>
+</li>
+<li><p>end：执行计划结束时，关闭链接池，释放资源。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>实现</strong></p>
+<p>去哪儿网内部的 mysql 均使用了中间件团队封装的 DataSource，为了实现根据压测标识进行数据隔离，我们将隔离逻辑放在了数据源实现上，具体实现如下：</p>
+<ul>
+<li><p>原有的数据源类（ QunarDataSource ）对外暴露的方法不变，将具体的实现转移到新增类:  RealDataSource 。</p>
+</li>
+<li><p>原有的数据源类( QunarDataSource ）作为代理类，在其中维护两个 RealDataSource 的实例：一个是生产库的实例（ prodDatasource ），另一个是影子库实例（ shadowDatasource ）。</p>
+</li>
+<li><p>在调用 getConnection 方法时，判断当前请求是否为压测请求，如果是的话，使用 shadowDatasource 实例调用；否则使用 prodDatasource  调用。</p>
+</li>
+</ul>
+</li>
+<li><p><img src="/rdefficiency/medias/images/full_link_performance_test/mysql_uml.png" alt=""></p>
+</li>
+</ol>
+<center>图16-17 数据隔离 </center>
+
+<ul>
+<li>redis 隔离</li>
+</ul>
+<p>redis 的数据隔离方案选择使用影子库进行数据隔离，数据操作时根据压测标识操作不同的数据库。</p>
+<ol>
+<li><h5 id="影子库生命周期"><a href="#影子库生命周期" class="headerlink" title="影子库生命周期"></a>影子库生命周期</h5><ul>
+<li>start：当执行测试计划时，创建一个新的影子库的链接池。</li>
+<li>end：执行计划结束时，关闭链接池，释放资源。</li>
+</ul>
+</li>
+<li><h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>去哪儿网内部的 redis 均使用中间件团队封装的 RedisClient，可以在其中根据压测表示选择不同的 redis 实现。</p>
+<ul>
+<li><p>原有的 RedisClient 类对外暴露的方法不变，将具体的实现转移到一个新的类：RealRedisClient。</p>
+</li>
+<li><p>原有的 RedisClient 改造为一个代理类，在里面两个 RealRedisClient 的实例对象：一个是生产库的实例（ prodRedisClient ），另一个是影子库的实例（ shadowRedisClient ）。</p>
+</li>
+<li><p>执行操作 redis 的方法时，判断当前请求是否为压测请求，如果是的话，使用 shadowRedisClient 实例调用；否则使用 prodRedisClient 调用。</p>
+</li>
+</ul>
+</li>
+<li><p><img src="/rdefficiency/medias/images/full_link_performance_test/redis_uml.png" alt=""></p>
+</li>
+</ol>
+<center>图16-18 redis隔离 </center>
+
+<ul>
+<li>MQ隔离</li>
+</ul>
+<ol>
+<li><h5 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h5><p>mq 的隔离目标是要保证压测的流量（打了压测标识的消息）只有指定的消费组才能消费。</p>
+</li>
+<li><h5 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h5><p>去哪儿网使用 MQ 系统为内部开发的 MQ ，所以隔离功能可以自由修改，我们把实现逻辑放在 server 侧：</p>
+<ul>
+<li><p>监听配置中心的配置变更，获得压测主题指定的消费组</p>
+</li>
+<li><p>根据消息中的qtrace链路信息获得压测标识</p>
+</li>
+<li><p>若是压测消息，根据配置判断哪些消费组可以消费</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>日志隔离</li>
+</ul>
+<ol>
+<li><h5 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h5><p>日志隔离的目标是保证正常流量的日志与压测流量的日志分开（写到不同的日志文件目录）。防止压测流量日志被日志收集组件收集，影响数据组依据日志的统计报表数据。</p>
+</li>
+<li><p><strong>效果</strong></p>
+<p>在 log 目录（去哪儿网的部署环境中有个专门存放业务日志的路径）下新建一个 tc_shadow 目录，压测流量产生的日志放在此处。</p>
+</li>
+<li><h5 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h5><ul>
+<li><p>创建 IsolateFileAppender，继承自 RollingFileAppender。IsolateFileAppender 中保存两个 RollingFileAppender 实例，分别是shadowAppender（影子实例，影子实例的文件对应着 tc_shadow 目录）和 prodAppender（生产实例，原有文件目录），覆盖实现RollingFileAppender 中的方法。</p>
+</li>
+<li><p>在执行 doAppend（ ILogEvent）方法时，判断当前日志是否为压测流量，如果是压测流量则使用 shadowInstance 执行，否则用 prodInstance执行。</p>
+</li>
+<li><p>IsolateFileAppender 在 Java 应用启动时，由 javaAent 替换原有日志框架中的 FileAppender 为 IsolateFileAppender，用户不用修改 logback.xml</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>  <img src="/rdefficiency/medias/images/full_link_performance_test/log_uml.png" alt=""></p>
+   <center>图16-19    日志隔离 </center>
+
+
+<h2 id="16-4-写压测实践-自动设置挡板自动设置挡板"><a href="#16-4-写压测实践-自动设置挡板自动设置挡板" class="headerlink" title="16.4    写压测实践-自动设置挡板自动设置挡板"></a>16.4    写压测实践-自动设置挡板自动设置挡板</h2><h3 id="16-4-1-背景"><a href="#16-4-1-背景" class="headerlink" title="16.4.1    背景"></a>16.4.1    背景</h3><p>在全链路写压测中，需要流量的录制和回放、影子库或影子表这些基本技术要素。这些技术在去哪儿的实现在其他章节详细介绍。有了基本技术能力后，全链路写压测最麻烦、繁琐的地方莫过于设置需要录制和回放的挡板了。</p>
+<p>对外部有实际写影响的调用是一定要提前设置挡板的，比如在去哪儿比较常见的就是调用支付操作、调用代理商接口实际生成订单、给用户发确认短信等等。还有一些不可重复调用的接口、在内存中有状态维护的系统等也需要配置录制回放。这些要录制、回放的挡板是需要在全链路写压测执行之前配置好的，我们调研过有些公司的方案是：需要业务同学提前梳理对外依赖，给出需要配置的挡板信息。这种方式缺点显而易见，人工梳理耗时久、容易梳理不全。去哪儿一个链路可能涉及几百个应用，很难通过人工把这些挡板梳理出来，我们想要探索一种自动化的挡板设置方案，节省梳理配置时间，也避免了遗漏，保证可靠性。</p>
+<h3 id="16-4-2-技术选型"><a href="#16-4-2-技术选型" class="headerlink" title="16.4.2    技术选型"></a>16.4.2    技术选型</h3><p>了解到目前还没有公司实践过自动设置挡板相关的技术，所以我们是完全自研。</p>
+<h3 id="16-4-3-技术难点"><a href="#16-4-3-技术难点" class="headerlink" title="16.4.3    技术难点"></a>16.4.3    技术难点</h3><ol>
+<li><strong>如何自动识别哪里需要设置挡板</strong><ul>
+<li>所有对外网的调用</li>
+<li>写压测不可穿透的系统（支付、代理商生单、给用户发短信）</li>
+<li>导致录制流程和回放流程有差异的子调用（内网 http、rpc 调用）</li>
+<li>导致录制流程和回放流程有差异的内部调用（ java 方法级别）</li>
+</ul>
+</li>
+<li><strong>如何发现录制流程和回放流程中导致差异的子调用</strong><ul>
+<li>识别内网 http、rpc 调用链路差异</li>
+<li>识别内部调用（一个系统内 java 方法调用链路）差异</li>
+</ul>
+</li>
+<li><strong>相同子调用多次回放怎么选择</strong><ul>
+<li>按录制时的调用顺序回放</li>
+<li>按参数匹配回放</li>
+</ul>
+</li>
+<li><strong>稳定性问题</strong><ul>
+<li>不同的 case 有不同的链路，可能会导致不同的结果</li>
+</ul>
+</li>
+<li><strong>效率问题</strong><ul>
+<li>链路太长，设计几百个系统，怎么能提升效率</li>
+</ul>
+</li>
+</ol>
+<p>下面会介绍，每个技术难点的解决方案。</p>
+<h3 id="16-4-3-设计与实现"><a href="#16-4-3-设计与实现" class="headerlink" title="16.4.3    设计与实现"></a>16.4.3    设计与实现</h3><ul>
+<li>主流程介绍</li>
+</ul>
+<p>整体流程（精简版）：<br><img src="/rdefficiency/medias/images/full_link_performance_test/write_1.png" alt=""></p>
+<center>图16-20    整体流程 </center>
+
+<p>以机票生单流程为例：</p>
+<ol>
+<li><p>开启录制后，真实用户下单时，整个流程走过的系统间的设置了挡板的调用都会被录制下来，录制数据存储到 ES 中。同时 trace 系统把整个调用链路也记录了下来。</p>
+</li>
+<li><p>全链路压测系统从 ES 中获取到符合条件的录制的 case 后，使用同样的参数向一台机器发起回放请求。</p>
+</li>
+<li><p>服务中的 cinema agent 识别到是回放请求，如果识别到是配置了挡板的下游调用，会进行回放，不会真实把请求打下去，如果是对 db 的写操作，会写到影子库中，如果是对 db 的读操作，会优先读影子库，影子库没有会读线上库。</p>
+</li>
+<li><p>回放过程中，trace 系统也会记录调用链路，回放请求完成后可以得到整个回放的 trace 链路，将录制时的 trace 链路和回放时的 trace 链路做 diff，可以得到两个链路的差异。</p>
+</li>
+<li><p>通过分析 diff 结果，通过一个 calculate 算法，可以得到要设置哪些挡板。后面会详细介绍 calculate 算法。</p>
+</li>
+<li><p>将计算出的挡板信息真正设置成挡板后，再进行下一轮的录制-&gt;获取 case -&gt;回放-&gt; diff -&gt; calculate -&gt; addBaffle 流程。</p>
+</li>
+<li><p>直到最终的录制和回放链路没有差异，且返回值也没有差异时，自动配置挡板流程结束。</p>
+</li>
+</ol>
+<h3 id="16-4-4-链路Diff和算法介绍"><a href="#16-4-4-链路Diff和算法介绍" class="headerlink" title="16.4.4    链路Diff和算法介绍"></a>16.4.4    链路Diff和算法介绍</h3><p>链路 diff 和计算挡板算法是密不可分的。调用链路可以保证是一个树状结构，不会有环。首先入口会分配一个 traceId ，初始 spanId 是1，然后每一次系统内部对外调用会增加1，每一次跨系统调用 spanId 会增加一级。链路图如下16-21：<br><img src="/rdefficiency/medias/images/full_link_performance_test/write_diff_1.png" alt=""></p>
+<center>图16-21    链路对比1 </center>
+
+<p>由于同一个链路上的 traceId 一定是相同的，就省略了 traceId，只用 spanId 来表示每个调用，图中展示的是回放缺失部分链路的情况，1.2-&gt;1.2.3是缺失的，设置挡板的时候如果我们把1-&gt;1.2设置成挡板，那么录制和回放链路肯定是没有差异的，但是这样的话1.2及其下游系统全链路压测就全都覆盖不到了，为了更精确的找到导致差异的子调用，我们首先分析，可能导致1.2-&gt;1.2.3是缺失的，是1.2-&gt;1.2.2的返回结果不正确或1.2-&gt;1.2.1的返回结果不正确，甚至是1-&gt;1.1的返回结果不正确，或者是1.2系统内部流程发生了变化导致的。</p>
+<ol>
+<li><p><strong>情况1</strong></p>
+<p>我们认为是1.2-&gt;1.2.2的返回结果不正确或1.2-&gt;1.2.1的返回结果不正确可能性更大一些，优先把它们设成挡板，看下一次录制和回放的链路diff时是否能正常走到1.2-&gt;1.2.3,如果能走到并且入口返回结果正确，说明把它们设成挡板是有效果的。因为设置了两个挡板，为了更精确地找到是哪一个子调用，我们可以依次去掉一个挡板看看效果，首先去掉1.2-&gt;1.2.1挡板，如果链路和入口返回结果仍然相同，那说明1.2-&gt;1.2.1不是影响回放结果的子调用，1.2-&gt;1.2.2是影响回放结果的子调用，一个有效挡板设置完成。</p>
+</li>
+<li><p><strong>情况2</strong></p>
+<p>如果把1.2-&gt;1.2.2和1.2-&gt;1.2.1都设成挡板后，回放链路仍然缺失1.2-&gt;1.2.3，则设置1-&gt;1.1为挡板。如果链路和入口返回结果相同，表明设置1-&gt;1.1为挡板有效，但1.1还有下游调用，可能是下游调用影响了1.1的返回结果，因此要继续延1.1向下寻找。删除1-&gt;1.1挡板，设置1.1-&gt;1.1.1、1.1-&gt;1.1.2、1.1-&gt;1.1.3为挡板，后续流程和之前类似，不再赘述。如果链路和入口返回结果不同，表明设置1-&gt;1.1为挡板无效，可能是1.2内部调用的问题，进行情况3。</p>
+</li>
+</ol>
+<p>   <img src="/rdefficiency/medias/images/full_link_performance_test/write_diff_2.png" alt=""></p>
+   <center>图16-22    链路对比2 </center>
+
+<ol start="3">
+<li><p><strong>情况3</strong></p>
+<p>当 trace 链路中差异边前面没有可mock的子调用时，只能是节点1.2系统内部 java 方法的调用有差异了。我们将进行系统内 java 方法间调用链路的对比。开启录制 java 链路开关后，重启一台机器，打到这台机器上的录制请求会上报调用的 java 方法及 jSpanId（类似于系统间的 spanId ），通过这些jSpanId 数据可以构造出一颗树。</p>
+<p>在计算要设置的 java挡板时，考虑到复杂度，和效率问题，精确性可以不要求那么高，当发现1.2-&gt;1.2.3缺失后，直接将1-&gt;1.2设成挡板，会更快。当然，如果想讲求精确度，是可以延续使用 trace 链路的算法，精确计算的。</p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/full_link_performance_test/write_diff_3.png" alt=""></p>
+<center>图16-23    链路对比3 </center>
+
+<h3 id="16-4-5-实践过程中遇到的问题及解决方法"><a href="#16-4-5-实践过程中遇到的问题及解决方法" class="headerlink" title="16.4.5    实践过程中遇到的问题及解决方法"></a>16.4.5    实践过程中遇到的问题及解决方法</h3><ol>
+<li><p><strong>如何快速将不可穿透的外部调用提前统一设成挡板？</strong></p>
+<ul>
+<li>方案1：通过 T 值获取链路，识别出外网域名和 ip，将之一个一个设为公共挡板，这种方式的缺点是如果链路变化，不能及时识别到，有遗漏的风险；</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>方案2：在中间级别改造，在中间件内部识别外网域名和 ip，定义一个统一的配置，只需配置一次。</li>
+</ul>
+<ol start="2">
+<li><p><strong>相同子调用出现多次，回放时如何选择？</strong></p>
+<p>最初我们只是提供了方案1，后面发现有入口时一次请求，到下游是并发生单的场景，如果按录制顺序回放会导致回放的结果和请求参数对应不上，导致后面生单流程异常。于是我们又支持了方案2，由于方案2有一定的性能损耗，默认使用方案1，特殊子调用支持配置成方案2。</p>
+<ul>
+<li>方案1：按录制时调用顺序（index）回放，简单高效，并发的子调用不适合；</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>方案2：支持配置特殊子调用按参数自动模糊匹配，可以配置最多对比层数，默认对比前2层，比如最外层有10个字段，第二层有5个字段，最终会从录制的子调用中选择出和回放的参数能够匹配上最多的来返回。</li>
+</ul>
+<ol start="3">
+<li><p><strong>线上的一个入口请求会由于参数的不同而走不通的流程，可能会导致链路差异较大，从而影响自动设置挡板算法的准确性</strong></p>
+<p>对录制 case 进行筛选，比如只筛选返回值中带”生单成功”关键字的 case，保证不会因为多次捞取的 case 不同而影响后续运算。</p>
+</li>
+<li><p><strong>一个链路涉及几百个应用，每个应用又提供多个接口，假设精确找到一个有效挡板需要15min，假设每个系统要设1个挡板，那么设挡板过程可能需要几天时间，如何能提升自动配置的效率。</strong></p>
+<p>如果完全按顺序地自顶向下计算设置挡板，整个大链路可能要1个月的时间才能调试完成。我们想到的方案是，将整个大链路拆成若干个小链路，小链路之间可以并行调试，最终再整合到一起。</p>
+</li>
+</ol>
+
+            </div>
+            <hr />
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Part 7 稳定性建设》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/rdefficiency/7-stability/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                北京趣拿软件科技有限公司 ｜ 基础架构
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/rdefficiency/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/rdefficiency/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ed98d39f94ff459ee228',
+        clientSecret: '9d04488d8bba75646a9ff2d97092c7379b796690',
+        repo: 'rdefficiency',
+        owner: 'qunarcorp',
+        admin: "zhangcf945",
+        id: '7-stability/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+    <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://qunarcorp.github.io/rdefficiency/7-stability/';
+        this.page.identifier = '/7-stability/';
+        this.page.title = 'Part 7 稳定性建设';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/rdefficiency/6-observability/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 6 可观测性建设">
+                        
+                        <span class="card-title">Part 6 可观测性建设</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍可观测性基于云原生的演进路线和当前建设现状，包括Logging、Tracing、Metrics。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/" target="_blank">
+                        <span class="chip bg-color">可观测性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/rdefficiency/8-digital/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 8 数字化实践">
+                        
+                        <span class="card-title">Part 8 数字化实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍研发效能数字化建设方案，包括通用的度量模型、闭环的落地过程、数字化的实践应用--效率办公等
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E6%95%B0%E5%AD%97%E5%8C%96/" target="_blank">
+                        <span class="chip bg-color">数字化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 去哪儿旅行<br />'
+            + '作者: 北京趣拿软件科技有限公司 ｜ 基础架构<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归去哪儿旅行所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/rdefficiency/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 北京趣拿软件科技有限公司. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">133.6k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qunarcorp" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:infra@qunar.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/rdefficiency/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 10, 10, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/rdefficiency/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/rdefficiency/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/rdefficiency/libs/materialize/materialize.min.js"></script>
+    <script src="/rdefficiency/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/rdefficiency/libs/aos/aos.js"></script>
+    <script src="/rdefficiency/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/rdefficiency/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/rdefficiency/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+
+    
+    <script async src="/rdefficiency/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

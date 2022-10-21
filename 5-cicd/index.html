@@ -1,0 +1,1483 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Part 5 CICD, “基于云原生的研发效能实战”">
+    <meta name="description" content="
+第九章    发布驾驶舱9.1    背景介绍9.1.1    去哪儿网 CICD 建设在竞争激烈的互联网行业，高效持续的交付能力是我们抢占市场先机的重要基础，由此 CICD 应用而生。所谓 CICD 即 Continuous Integ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Part 5 CICD | 去哪儿旅行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/rdefficiency/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/rdefficiency/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/rdefficiency/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/rdefficiency/" class="waves-effect waves-light">
+                    
+                    <img src="/rdefficiency/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">去哪儿旅行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/rdefficiency/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">去哪儿旅行</div>
+        <div class="logo-desc">
+            
+            北京趣拿软件科技有限公司 | 基础架构
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/rdefficiency/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/rdefficiency/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/rdefficiency/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/rdefficiency/medias/featureimages/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Part 5 CICD
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/rdefficiency/tags/CICD/" target="_blank">
+                            <span class="chip bg-color">CICD</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    北京趣拿软件科技有限公司 ｜ 基础架构
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    11.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    41 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/rdefficiency/medias/images/cover_part/part_e.jpg" alt=""></p>
+<h1 id="第九章-发布驾驶舱"><a href="#第九章-发布驾驶舱" class="headerlink" title="第九章    发布驾驶舱"></a>第九章    发布驾驶舱</h1><h2 id="9-1-背景介绍"><a href="#9-1-背景介绍" class="headerlink" title="9.1    背景介绍"></a>9.1    背景介绍</h2><h3 id="9-1-1-去哪儿网-CICD-建设"><a href="#9-1-1-去哪儿网-CICD-建设" class="headerlink" title="9.1.1    去哪儿网 CICD 建设"></a>9.1.1    去哪儿网 CICD 建设</h3><p>在竞争激烈的互联网行业，高效持续的交付能力是我们抢占市场先机的重要基础，由此 CICD 应用而生。所谓 CICD 即 Continuous Integration、Continuous Delivery，是指通过自动化的手段将代码持续的集成打包并持续的部署验证，它主要的功能就是保障技术人员的产出能够快速被验证、被交付，从而保证业务价值、产品需求能够快速、持续可靠的交付到用户手上。</p>
+<p>去哪儿网作为典型的互联网旅游电商平台，有着旅游行业业务复杂、业务需求多变的特点。为了更好的应对业务的快速变化所带来的挑战，去哪儿网结合自身的业务特征，开发了自己的 CICD 系统，确保应用高质量且快速的持续集成和交付。</p>
+<p>在去哪儿，我们采用微服务架构，每个微服务我们称之为应用，每个应用都有唯一的标识即 应用 ，所有的研发过程都是围绕 应用 进行，同样 CICD 也不例外，下图9-1是我们的基本架构图。</p>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/deploy_dashboard_6.png" alt=""></p>
+<center>图9-1 CICD基本架构图</center>
+
+<p>如上图9-1所示，去哪儿网 CICD 体系主要由应用画像、代码/仓库管理，质量控制、流水线、编译/部署以及k8s/kvm 六个模块构成。其中：</p>
+<ol>
+<li><p><strong>应用画像</strong></p>
+<p>我们的 CICD 是以单个应用为维度建设的，而应用画像便是保存了该应用的配置信息以便交付运维使用，包括运行时配置(环境、主机数、CPU、内存等)，发布配置(代码地址、自定义发布脚本、发布参数等)，依赖配置(负载均衡、应用监控、DB白名单等)。</p>
+</li>
+<li><p><strong>代码/仓库管理</strong></p>
+<p>主要管理应用代码、基础镜像、依赖源，同时也保存持续集成生成的镜像、二进制产物包等等。</p>
+</li>
+<li><p><strong>质量控制</strong></p>
+<p>在 CICD 过程我们集成了质量控制体系用于 CICD 过程质量保障，包括丰富的质量检查手段：code review 检查、静态代码扫描、安全扫描、单元测试、自动化测试、覆盖率检查等，这些检查手段是通过代码 push 自动触发的，同时会有及时的消息反馈，减少了人力成本。还包括质量门禁模块，用于将检查手段集成到发布阶段，保障检查手段的真实有效执行及问题被解决。</p>
+</li>
+<li><p><strong>编译部署&amp;流水线&amp;自助运维</strong></p>
+<p>我们的发布系统是一个独立的系统，编排调度模块完全自研，调度 Jenkins 集群执行具体的构建打包和部署逻辑，公司内的开发测试同学可以通过输入分支信息进行部署发布，这样保证了线上发布的人工控制。</p>
+<p>同时我们依托于 argo 自研了流水线服务，将研发过程的构建打包验证串联起来，包括质量检查、代码校验、构建打包、环境创建更新、部署发布、业务验证等来，并实现 code-push 自动触发，执行结果自动IM 消息反馈，保障了开发过程的快速集成、持续验证、无人工干扰。</p>
+<p>自助运维则是我们根据实际业务场景提供的对线上应用实例的运维功能，包括重启、上线、下线、远程debug、扩缩容等功能。</p>
+</li>
+<li><p><strong>k8s/openstack</strong></p>
+<p>最终我们的服务根据业务属性不同部署我们自己的私有云上，包括 k8s 和 openstack。</p>
+</li>
+</ol>
+<h3 id="9-1-2-容器化落地"><a href="#9-1-2-容器化落地" class="headerlink" title="9.1.2    容器化落地"></a>9.1.2    容器化落地</h3><p> 随着云原生技术的兴起，去哪儿网从2021年初也开启了自己的容器化落地之路，通过一些列的改造适配迁移，目前我们已经实现了80%左右的应用容器化，在基础设施容器化章节中我们已经介绍了在落地过程中 CICD 系统的改造，但是当时的改造主要还是在交付逻辑上的改造，用户交互流程上只是适配，而且我们的交付模式采用了IP动态分配的方式，这种方式跟 kvm IP 固定方式完全相悖，因此我们之前基于 kvm 建设的 CICD 交付流程对于开发过程的无感知流水线冲击不大，但是对于线上发布这种需要全方位信息观测的动作就造成了较大的冲击。经过一段时间的运行，问题逐渐暴露，先来看下图9-2中我们以前的交付界面。</p>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/deploy_dashboard_8.png" alt=""></p>
+<center>图9-2 交付界面（旧）</center>
+
+<p>由上图9-2我们不难发现主要存在以下4个问题：</p>
+<ol>
+<li><p><strong>整体进度不直观</strong></p>
+<p>kvm 发布我们可以很直观的查看到发布的进度，但是对于容器发布（每次发布 pod 重建，同时采用双deployment 部署，一增一减、先增后减）却无法很直观的了解当前的整体进度、新老版本的比例、单pod 的进度等。</p>
+</li>
+<li><p><strong>发布异常定位慢</strong></p>
+<p>当前模式对于 kvm 来说，发布过程开发同学是提前通过跳板机远程登陆到主机后，单机查看日志信息。但是当容器发布时，容器的名称是动态生成的，开发无法提前登陆，这样就会导致开发无法实时的监控异常，出现问题发现就会滞后很可能造成故障。</p>
+</li>
+<li><p><strong>信息分散</strong></p>
+<p>其实由上图可以看出我们的发布过程只能看到机器的部署进度，然后发布是一个非常重的动作，是将我们的成果交付用户的最后一道防线，也是很容易产生问题的环节，统计我们历年的故障，将近50%以上的故障都是发布引起的，所以一定要做好质量保障，主要是发布前的验证测试以及发布过程的及时观测。</p>
+<p>在去哪儿我们是要求发布之后持续观察监控30分钟的，但是从上图中我们并不能看到监控信息，开发同学每次需要到监控系统打开关注的面板，然后再进行发布，无形中又为发布增加了负担。</p>
+</li>
+<li><p><strong>关联问题无法发现</strong></p>
+<p>发布某个应用有时候可能自己没有问题，但是会造成上游服务异常，比如说我们接口向下不兼容，但是别人却依赖了我们的老版本而没有同步修改，因此怎么能让本次发布影响的所有应用都被可观测，这又是我们需要考虑的重点.</p>
+</li>
+</ol>
+<p>基于以上问题，我们跟项目流程管理同学、业务同学一起确定了发布流程并把流程固化在了发布系统中，新增了仪表盘、发布过程异常信息汇总，并依托公司的应用拓扑图，将当前应用及其上下游应用的异常日志、监控报警有机整合起来，让整个发布过程更加透明，用户能够实时观测到发布进度、异常日志和异常报警，从而快速做出决策，减少故障，及时止损。</p>
+<h2 id="9-2-实践框架"><a href="#9-2-实践框架" class="headerlink" title="9.2    实践框架"></a>9.2    实践框架</h2><p>由上述的分析可知，我们主要解决的是线上发布的可观测性问题，那么就需要知道这个过程需要观测哪些内容，其实由云原生的可观测性我们也可以知道，主要包含：</p>
+<ol>
+<li><p><strong>报警</strong></p>
+<p>通常变更是导致问题的最直接原因，因此当我们发布的时候需要实时关注报警信息，这样才能最快的发现变更导致的问题并快速的决策恢复。</p>
+</li>
+<li><p><strong>监控</strong></p>
+<p>有的同学可能会说报警不就够了吗，为啥还要看监控，其实报警是一个相对来说比较严格的策略，为了提升报警的有效性，降低日常报警的干扰率和开发同学的运维成本，我们并不希望大家将所有的指标波动都设置为报警。</p>
+<p>而且一个应用的变更可能影响的链路非常长，比如说有一条链路 A-&gt;B-&gt;C-&gt;D-&gt;E，当A变更时，可能是E的指标发生了波动，因此在去哪儿业务同学会将关心的指标聚合成几个重要的面板，同时对这几个面板进行核心标记，这样当这块业务中的任何一个应用变更时，只需要关注这些核心面板即可，大幅提升了定位问题的速度；</p>
+</li>
+<li><p><strong>日志</strong></p>
+<p>由于指标报警的滞后性（在去哪儿指标是1分钟收集一次，报警自定义，通常是5分钟报出来）和灵敏度（指标更多的是业务的反应，单台机器的异常可能无法在业务指标上快速体现），在发布过程开发同学需要实时查看变更 pod 的日志。然而有些变更可能不体现在单台上，因此我们也需要关注应用整体的异常日志变化量。</p>
+</li>
+<li><p><strong>链路</strong></p>
+<p>正如上文分析，微服务架构虽然大家都可以独立运行，但是又相互依赖，而且变更通常可能导致的是上下游、甚至多层依赖的异常，因此我们需要关注变更应用以及整个链路的报警、监控、日志信息。</p>
+</li>
+<li><p><strong>进度</strong></p>
+<p>线上发布是将老版本下线新版本上线的更新过程，而通常一个应用为了实现高可用都会部署在多集群，同时也会根据线上的 QPS 进行多 POD 部署，而且前文也提到我们是采用双 deployment 模式，先上线再下线，因此整个发布的过程是需要一定的时间的，那么我们就要对当前的进度可观测，因此我们需要了解当前整体的进度：新老版本的个数，单 Pod 的进度：在初始化或者 OR 更新等。</p>
+</li>
+</ol>
+<p>基于以上分析我们对发布过程进行了改造，目标是将发布过程应该关注的信息进行聚合，以便用户可以快速的做出决策，避免问题的扩大化，我们将其命名为发布驾驶舱，以下是我们的架构图：</p>
+<p><img src="/rdefficiency/medias/images/CICD/dashboard1.png" alt=""></p>
+<center>图9-3 发布驾驶舱架构图</center>
+
+<p>如上图9-3所示，发布驾驶舱最终落地是在发布系统中，主要包含数据层、分析层、展示层。</p>
+<h3 id="9-2-1-数据层"><a href="#9-2-1-数据层" class="headerlink" title="9.2.1    数据层"></a>9.2.1    数据层</h3><ol>
+<li><p><strong>应用拓扑</strong></p>
+<p>基于负载均衡日志、rpc 信息等提炼分析，生成应用间的依赖拓扑图，可以获取 应用 的上下游信息，发布驾驶仓从此处获取本次发布影响的变更链路，确定影响的应用范围。</p>
+</li>
+<li><p><strong>监控控告警</strong></p>
+<p>基于 grafana、graphite、icinga 开发的公司级监控报警系统，发布驾驶仓从此处获取本次发布的核心面面板及影响应用的监控告警信息。</p>
+</li>
+<li><p><strong>异常日志</strong></p>
+<p>公司自研的基于 kafka、hbase 等的异常日志实时收集、分析系统，发布驾驶仓从此处获取单pod异常堆栈及影响应用的异常日志汇总信息。</p>
+</li>
+<li><p><strong>资源管理</strong></p>
+<p>k8s 集群管理，发布驾驶仓跟其交互获取容器部署过程中的整体进度信息(批次信息、部署日志)、整体pod 数变化以及每个 pod 的状态。</p>
+</li>
+</ol>
+<h3 id="9-2-2-分析层"><a href="#9-2-2-分析层" class="headerlink" title="9.2.2    分析层"></a>9.2.2    分析层</h3><p>分析层主要是将数据收集之后进行分析汇总。</p>
+<ol>
+<li><p><strong>拓扑分析</strong></p>
+<p>在发布过程我们会从应用拓扑中获取当前应用的上下游，并将这些应用及发布应用整合作为本次发布的变更影响范围。</p>
+</li>
+<li><p><strong>报警、监控、异常日志</strong></p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/deploy_dashboard_2.png" alt=""></p>
+<center>图9-4报警、监控和异常日志</center>
+
+<p>如上图9-4所示，在容器发布进行到部署阶段后，系统会首先获取当前 应用 的上下游信息，之后会轮询监控告警系统和异常日志系统，获取发布时间段内当前应用以及上下游应用的报警信息和异常日志信息，同时会计算报警增量、异常日志环比、增量等；后端分析汇总后传回前端，分别展示总体信息（报警总数、异常日志新增&amp;环比）以及详细信息，并且在有报警和异常日志时，我们会自动跳转到对应 tab 页以进行更及时的提醒。</p>
+<h3 id="9-2-3-进度层"><a href="#9-2-3-进度层" class="headerlink" title="9.2.3    进度层"></a>9.2.3    进度层</h3><p><img src="/rdefficiency/medias/images/deploy_dashboard/deploy_dashboard_5.png" alt=""></p>
+<center>图9-5 更新模式</center>
+
+<p>我们当前的容器发布采用的是双 deployment 的形式，发布过程中会新建一个 deployment ，分批次增加新版本的 pod 数目，在当前批次发布完成且通过检测后，会对应缩减原 deployment 的 pod 数；由此一增一减，先增后减，最终新 deployment 达到目标容器数，原 deployment 缩减到0并被新 deployment 替换。</p>
+<p>双 deployment 带来了很多优势，比如易于控制，能够分批发布，能够及时暂停，安全性较高、扩展性强等；但同时也带来了一些问题，比如代码版本管理困难、中间状态不好控制等。由此在观测性上也带来了一些问题，比如用户反馈无法及时观测到新旧代码版本的pod数变化、整体发布进度(比如批次信息、发布状态等)。因此我们引入了仪表盘，实时展示新旧代码对应的 pod 数，以及整体发布进度信息。</p>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/deploy_dashboard_4.png" alt=""></p>
+<center>图9-6 POD更新逻辑</center>
+
+<p>如上图9-6所示，在发布过程中，发布系统会实时获取当前发布整体进度，包括发布批次、发布状态等，并实时 watch pod 变更，在有 pod 变更时，会按 deployment 、新旧代码版本重新计算 pod 数目，并回传给前端并展示。</p>
+<h3 id="9-2-4-展示层"><a href="#9-2-4-展示层" class="headerlink" title="9.2.4    展示层"></a>9.2.4    展示层</h3><p>最终我们会将以上获取到的信息及分析汇总结果展示给用户，包括：</p>
+<ol>
+<li>pod新老版本整体进度仪表盘，可以实时查看当前发布批次、发布状态、新旧版本pod数据等。</li>
+<li>监控告警、异常日志的汇总信息，包括当前报警总数、异常日志类型总数、异常日志新增数、环比数等。</li>
+<li>报警、异常日志详情tab:详细查看报警个数、报警指标、报警状态、异常日志类型、异常日志堆栈、环比增幅等。</li>
+</ol>
+<p>通过以上这些，用户可以实时掌控整个发布过程，提升发布安全性，降低故障率，及时止损。</p>
+<p><img src="/rdefficiency/medias/images/CICD/dashboard2.png" alt=""></p>
+<center>图9-7 示例</center>
+
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/deploy_dashboard_10.png" alt=""></p>
+<center>图9-8 示例</center>
+
+
+<h2 id="9-3-难点坑点"><a href="#9-3-难点坑点" class="headerlink" title="9.3    难点坑点"></a>9.3    难点坑点</h2><h3 id="9-3-1-怎样精准识别关键信息"><a href="#9-3-1-怎样精准识别关键信息" class="headerlink" title="9.3.1    怎样精准识别关键信息"></a>9.3.1    怎样精准识别关键信息</h3><ul>
+<li><p>问题描述</p>
+<p>发布驾驶仓的目的是建立发布过程的可观测性，按照上述实现路径我们将发布过程的信息进行了聚合，理想情况下可以解决用户的痛点，但是如果我们仅仅是把信息堆砌在一起，那么用户看到的就是一堆杂乱无绪的信息，不仅解决不了问题，严重甚至会对定位问题造成干扰，那么就失去了精准提醒、快速定位的意义。</p>
+</li>
+<li><p>解决思路</p>
+</li>
+</ul>
+<ol>
+<li><p><strong>信息统计而不是明细罗列</strong></p>
+<p>由上述分析可知我们变更期间需要观测指标、报警、异常日志等多种信息，而且通常情况如果此次发布变更产生问题，很可能会有级联报警、异常日志等，单独明细去看费时费力，因此我们提供了信息汇总，通过统计发布期间的异常日志、报警量总量变化、发布阶段和平时的环比对比等，让用户可以很直接的观测到发布带来的影响并做评估。</p>
+<p>同时我们也提供了报警和异常日志明细 tab，每分钟定时刷新，而且当有增量变化是动态跳转 tab，在交互上做到更佳智能。</p>
+</li>
+<li><p><strong>链路诊断而不是单点观测</strong></p>
+<p>俗话说牵一发动全身，经过这么多年的积累成淀，业务系统的关联关系是非常庞杂的，因此当一次发布变更时，不仅自己的信息非常多，影响的范围也可能会非常大，系统的雪崩也可能是这么来的，因此我们通过应用的拓扑依赖获取了应用上下游的依赖链路及应用自己的相关信息进行汇总，这样能够更大范围的观测变更的影响，更快速的定位变更的影响。</p>
+</li>
+<li><p><strong>业务观测而不是资源分析</strong></p>
+<p>其实在做发布驾驶仓时我们也调研了一些开源的 devops 产品，发现大部分的产品在容器发布过程的可观测性集成的是资源层面的监控，但是通常情况下业务变更对资源的影响较小，对业务的影响较大，因此我们获取了发布应用对应的核心监控面板（面板可能是该应用涉及的业务模块，也可能是该应用归属团队的业务大盘），并将该面板集成到发布过程，这样发布的同学可以高效的了解发布应用的影响，同时也解决了新同学学习核心面板、部分同学只关注自己应用变更的问题。</p>
+</li>
+</ol>
+<h3 id="9-3-2-怎样获取有效的异常日志"><a href="#9-3-2-怎样获取有效的异常日志" class="headerlink" title="9.3.2    怎样获取有效的异常日志"></a>9.3.2    怎样获取有效的异常日志</h3><ul>
+<li><p>问题定位</p>
+<p>技术同学应该都知道，为了问题定位或者处理特定 case，系统一般都会打印许多日志，同样异常日志也会有很多，拿我们比较大的业务系统，10分钟就会产生上万条异常日志，但是这些日志有时候是系统运行所能容忍的，并不需要被关注，那么我们在发布阶段怎样获取发布的异常日志帮助业务同学定位问题呢？</p>
+</li>
+<li><p>解决思路</p>
+<p>定义异常日志的优先级：我们根据日常收集到的异常日志进行了分组，比如代码异常（空指针、数组越界）、DB 异常（慢查询）、redis 异常（获取链接失败）、dubbo 异常（限流异常）、http 异常等，同时每组异常类型进行了优先级定义，包括 P1/P2/P3/P4 ，如空指针、数组越界等为 P1，那么发布驾驶仓只会获取 P1 级别的异常日志，这样当该异常日志有变化时，发布人员就可以及时的终止发布进行定位了。</p>
+</li>
+</ul>
+<h2 id="9-4-总结展望"><a href="#9-4-总结展望" class="headerlink" title="9.4    总结展望"></a>9.4    总结展望</h2><p>在去哪儿网云原生的途中，容器化被作为其中极其重要的一步，是去哪儿网云原生的前提和基石。通过容器发布驾驶舱项目的完成，将发布进度、应用及其上下游的异常日志和异常报警有机统合在一起，帮助业务线提升容器发布过程中的可观测性，发布人员可以实时掌握整个发布进程并及时决策，增强了容器发布的透明度，提升了发布的安全性。后续我们将在以下两方面进行探索：</p>
+<ol>
+<li><p><strong>继续整合更多的决策信息</strong></p>
+<p>包括如负载均衡up_stream变更信息，并尝试引入决策算法，比如在出现特定异常日志、报警或者某些异常日志报警数目到达一定量后，自动挂起发布进度，并提示用户及时决策。</p>
+</li>
+<li><p><strong>在发布驾驶仓进行埋点数据统计</strong></p>
+<p>比如发布过程是否查看监控面板、观测时长是否符合公司发布要求等，通过这种方式真正将规范落地到系统中。</p>
+</li>
+</ol>
+<h1 id="第十章-持续交付流水线"><a href="#第十章-持续交付流水线" class="headerlink" title="第十章    持续交付流水线"></a>第十章    持续交付流水线</h1><h2 id="10-1-背景"><a href="#10-1-背景" class="headerlink" title="10.1    背景"></a>10.1    背景</h2><h3 id="10-1-1-效率质量的平衡"><a href="#10-1-1-效率质量的平衡" class="headerlink" title="10.1.1    效率质量的平衡"></a>10.1.1    效率质量的平衡</h3><p>互联网背景下，如何更快也更高质量的交付我们的产品已经成为了一个越来越重要的课题；。</p>
+<p>一般看来快速和高质量有互斥的地方，需要做均衡和取舍。在技术发展的今天，各个模块功能愈加完备，提升效率的工具也越来越多，如何提高质量的方式和手段也愈加的花样繁多。</p>
+<p>但一些提效的手段提高的效率也被越来越多的流程或者检查所拖累，各种功能模块之间的数据同步、信息流转甚至审查也越来越难以协调，需要花费大把的时间在此上，且每一次迭代都需要重复以上流程；</p>
+<p>此种状态之下我们急需一种能够协调效率和质量的工具，降低每一个工程师及其它参与者的心智负担和学习成本，实现效率和质量的双赢。</p>
+<h3 id="10-1-2-去哪儿面临的效率困境"><a href="#10-1-2-去哪儿面临的效率困境" class="headerlink" title="10.1.2    去哪儿面临的效率困境"></a>10.1.2    去哪儿面临的效率困境</h3><p>在去哪儿，我们为了保证交付效率和质量做了各种工具建设，以下是我们的一个需求从产生到最终的上线要经历的全部过程：</p>
+<p><img src="/rdefficiency/medias/images/CICD/pipeline1.png" alt=""></p>
+<center>图10-1 需求生命周期</center>
+
+<p>从上图10-1可以看出这个流程是非常长的，然后又是不可或缺的，因此我们需要做的就是将这个流程尽可能的自动化，过程对用户无感知，结果将关键信息暴漏给用户即可，因此我们实现了 codereview 的自动创建、code-push 静态代码自动扫描、软路由环境、一键部署等。</p>
+<p>即我们做了很多单点的建设，而且为了最大程度的发挥大家的主管能动性，这些单点建设分布在不同的团队里，不同团队的开发习惯、服务方式都不一样，这种情况在基础设施不完善的情况下，效率提升非常明显，但是基础设施已经建设完全，问题就逐渐暴漏：</p>
+<ol>
+<li><p><strong>集成成本变高</strong></p>
+<p>上述所说不同点的效率、质量保障可能是不同团队提供的，不同团队的开发风格差异非常大，可能是一个http接口、也可能是一个消息推送、还可能的是一条广播事件，但是最终都要集成到统一的流程中，比如安全同学提供了漏洞扫描组件、业务团队需要在部署完成进行业务检查等，由于事先没有统一的规范，那么最终只能对单独功能进行适配，开发维护成本都非常高；</p>
+</li>
+<li><p><strong>上线风险变大</strong></p>
+<p>流程迭代越来越长，尤其是为了保证交付的质量，我们会做各种各样的自动化检查，比如部署完成的接口自动化，代码变更后的配置修改等，研发过程的流程驱动靠人工，人工就难免遗漏，可能会导致测试覆盖不全的问题；</p>
+<p>再说上线，虽然我们会在提前对齐发布步骤，但是这些都是整个过程的回放，尤其是对于横跨几周甚至几个月的大项目，很可能造成步骤的遗漏，最终引起线上问题。</p>
+</li>
+<li><p><strong>学习成本变高</strong></p>
+<p>对应着流程的复杂度提升，开发测试同学的学习成本也逐渐提升，曾经我们做过统计，一个需求的交付过程需求切换6个以上的系统，这些系统即使你不需要彻底了解，但是起码也需要知道入口在哪，主要功能是啥，遇到问题怎们定位等，也许大家可能说习惯了就好了，但是互联网人员流动是常态，这种新入职员工的成本也不容小觑。</p>
+</li>
+</ol>
+<h2 id="10-2-业务方案设计"><a href="#10-2-业务方案设计" class="headerlink" title="10.2    业务方案设计"></a>10.2    业务方案设计</h2><h3 id="10-2-1-方案选型"><a href="#10-2-1-方案选型" class="headerlink" title="10.2.1    方案选型"></a>10.2.1    方案选型</h3><p>由上述的背景分析可知，我们急需将研发过程的流程进行自动化串联，解决以上面临的问题，因此我们调研了业界的相关方案，发现主要是两种解法：</p>
+<ol>
+<li><p><strong>all in one云平台</strong></p>
+<p>这种方式的好处是所以逻辑都由一个系统承接，所有的数据和信息也都是存在于一个系统，保证了数据源的统一性和用户体验的一致性，对于新的方案接入也可以保持方法统一；但是这种方法对于我们去哪儿这种有较长发展历史周期的公司不太适用，完全重头搭建成本太高，系统对接适配就会带来比较差的用户体验，同时对接的系统需要将各种数据对齐，比如说是以 git 为准、还是以一个应用为准等，同样需要一个数据适配层；</p>
+</li>
+<li><p><strong>流水线调度</strong></p>
+<p>调研业界研发效能平台的流水线，大部分是比较简单的构建部署（可能也有复杂的是笔者没有调研到），但是这种模式是我们可以借鉴的，因为在单点上我们已经做到足够好，需要做的就是利用流水线将所有的流程串联起来，同时将上游阶段（开发阶段）产生的数据信息，比如DB变更、配置变更等信息传递到下游，这样就避免了上线前人工编排的遗漏。</p>
+<p>而且通过流水线串联可以让用户很直观的了解流程节点信息但是又屏蔽掉了单点的具体信息，同时流程断点也可以很直观的定位，大大降低了用户的学习和使用成本，基于此我们选择了该方案。在真实的落地实现过程中我们主要需要解决以下几个问题：</p>
+<ul>
+<li><p>可持续发展，设计整体需要向后考虑，留下扩展和更改的可能性，因为我们可能后续会接入更多的步骤，提前考虑避免日后的运维成本。</p>
+</li>
+<li><p>使用时候的学习成本要低， 避免用户接入 or 使用过程中需要通过大把时间来了解流水线的背景知识。</p>
+</li>
+<li><p>模式要尽量统一， 流水线整体执行等要采用统一的执行流程或执行规范，避免架构的过多适配。</p>
+</li>
+<li><p>可观测，不能完全是一个纯粹的黑盒，要能够观测到从开始到结束的过程及各个阶段耗时及数据和日志的变化。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="10-2-2-流水线类型拆分"><a href="#10-2-2-流水线类型拆分" class="headerlink" title="10.2.2    流水线类型拆分"></a>10.2.2    流水线类型拆分</h3><p>在整个交付过程，我们通常的划分是设计阶段（产品关注）、实现阶段（开发关注）、测试阶段（开发、测试关注）、发布运维（开发、测试关注），在每个阶段关注的角色和执行的流程都不相同。</p>
+<ol>
+<li><p><strong>设计阶段</strong></p>
+<p>主要是业务同学和产品同学关注，做的事情更多的是思考设计，所用的工具也比较统一，而且跟后续的流程连通性要求也没那么高，因此我们先不关注设计阶段。</p>
+</li>
+<li><p><strong>开发阶段</strong></p>
+<p>我们期望的是质量左移，即问题尽可能早的在开发阶段暴漏，因此我们要求开发同学及早的集成及早的解决问题；同时开发自测一般关注的是单应用维度，因此我们基于每次push进行全流程执行的效率复用度更高。</p>
+</li>
+<li><p><strong>测试阶段</strong></p>
+<p>需要开发同学快速修复、QA 同学快速验证，因此也需要频繁的部署、测试、验证，而且在去哪儿我们目前正在推行开发自测自发，但是像测试环境的搭建、自动化测试之星这些测试同学是更擅长的，因此这些流程的学习执行成本降低的需求更强烈。</p>
+</li>
+<li><p><strong>上线和运维阶段</strong></p>
+<p>则需要非常慎重，一般情况每步都需要人工确认验证；而且一次发布对应的是一组应用，因此一般是对多个应用的组织编排，因此这个阶段更关注的是提前的组织编排能力和开发测试阶段的变更：包括 DB、代码、配置的自动生成能力，而不是自动触发能力。</p>
+</li>
+</ol>
+<p>因此我们根据以上阶段拆分成几条流水线：</p>
+<ol>
+<li><p><strong>开发流水线</strong></p>
+<p>覆盖用户提交代码，到完整的自测过程，交付开发人员完整的在运行中的自测环境。</p>
+</li>
+<li><p><strong>提测流水线</strong> </p>
+<p>覆盖开发自测完成，代码提交给 QA同学进行测试的过程，解决之前的数据扭转等问题，及自动化的执行更多的如回归测试，性能测试等。</p>
+</li>
+<li><p><strong>项目流水线</strong></p>
+<p>覆盖一个项目的周期，涉及多应用多模块的开发及测试，编排其执行顺序及统一的联调测试。</p>
+</li>
+<li><p><strong>运维流水线</strong></p>
+<p>固化的运维场景及一些常用的流程性动作串联。</p>
+</li>
+<li><p><strong>其他</strong> </p>
+<p>用户自定义。</p>
+</li>
+</ol>
+<p>那么由上述的流水线拆分我们还发现一个问题，在不同的流水线中关注的应用个数是不同的，开发测试可能是单应用，而在需求上线阶段关注的却是多应用的组织编排，而且我们公司内部更希望将流程固化，避免流水线灵活自定义太大的运维成本，因此我们选择了固定应用流水线+灵活编排项目流水线的方式，如图10-2所示：</p>
+<p><img src="/rdefficiency/medias/images/CICD/pipeline2.png" alt=""></p>
+<center>图10-2 流水线</center>
+
+<p>我们优先做了开发流水线，因为效率的提高及覆盖的场景无需一次性做到大而全，可以采用分阶段和渐进式的方式来完成，每完成一阶段提高一部分效率并降低部分成本即是好的，避免大而全带来的推广难度及不可控的问题,以下的设计和实现以开发流水线为例进行介绍，其他都可以服用此模式。</p>
+<h2 id="10-3-整体框架和实现"><a href="#10-3-整体框架和实现" class="headerlink" title="10.3    整体框架和实现"></a>10.3    整体框架和实现</h2><p>基于以上存在的问题及整体的设计思路来考虑，整体的流水线执行逻辑可以简化为以下3个层面。</p>
+<h3 id="10-3-1-单次任务执行逻辑"><a href="#10-3-1-单次任务执行逻辑" class="headerlink" title="10.3.1    单次任务执行逻辑"></a>10.3.1    单次任务执行逻辑</h3><ol>
+<li><p>yaml（配置文件这里以 yaml 为例）提供了完整的执行流程配置，提交到执行层，后续由执行层完全接管执行。</p>
+</li>
+<li><p>执行层识别 yaml 中的最早执行的 step，执行并收集其执行结果。</p>
+</li>
+<li><p>执行层根据初始 step 的状态及 yaml 配置相关的的串并行逻辑及条件判断和循环执行逻辑继续推进 step执行，直到最终完成。</p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/pipeline1.png" alt=""></p>
+<center>图10-3 执行流程</center>
+
+<h3 id="10-3-2-系统模型设计"><a href="#10-3-2-系统模型设计" class="headerlink" title="10.3.2    系统模型设计"></a>10.3.2    系统模型设计</h3><p>采用分层设计，总体分为三层，隔离和简化用户输入使用的 UI层，动作编排和执行及记录的适配层。</p>
+<ol>
+<li><p><strong>UI 和 API 层</strong></p>
+<p>提供用户配置和查看流水线的界面，将复杂配置逻辑简化仅留下用户使用的必填项，降低使用成本。</p>
+</li>
+<li><p><strong>编排层</strong></p>
+<p>提供模板化和固化功能，实时根据参数及执行过程的编排填充完整的执行配置，最终通过一个个任务执行，且通过回调等方式留存执行过程及结果的记录。</p>
+</li>
+<li><p><strong>执行层</strong> </p>
+<p>驱动执行， 收集执行状态和数据，回调并记录结果。</p>
+</li>
+</ol>
+<p><strong><img src="/rdefficiency/medias/images/deploy_dashboard/pipeline2.png" alt=""></strong></p>
+<center>图10-4 系统设计模型</center>
+
+<h3 id="10-3-3-落地实现"><a href="#10-3-3-落地实现" class="headerlink" title="10.3.3    落地实现"></a>10.3.3    落地实现</h3><h4 id="10-3-3-1-执行层"><a href="#10-3-3-1-执行层" class="headerlink" title="10.3.3.1    执行层"></a>10.3.3.1    执行层</h4><ul>
+<li><strong>选型对比</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Jenkins X</th>
+<th align="left">argo-workflows</th>
+<th align="left">自研</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">部署/维护</td>
+<td align="left">一般</td>
+<td align="left">简单</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">简单使用</td>
+<td align="left">简单</td>
+<td align="left">简单</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">复杂用法</td>
+<td align="left">难</td>
+<td align="left">一般</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">配置友好程度</td>
+<td align="left">难</td>
+<td align="left">简单</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">社区活跃</td>
+<td align="left">好</td>
+<td align="left">好</td>
+<td align="left">无</td>
+</tr>
+<tr>
+<td align="left">开发成本</td>
+<td align="left">一般</td>
+<td align="left">一般</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left">UI</td>
+<td align="left">一般</td>
+<td align="left">差</td>
+<td align="left">-</td>
+</tr>
+</tbody></table>
+<center>图10-5 选型对比</center>
+
+<p>作为平台方我们会对外提供服务注定会有很多复杂度很高的使用场景，这个时候 Jenkins X 就不太符合我们的需求了。</p>
+<p>其次，我们也比较关注与整个开发成本，完整的自己实现一遍需要关注的细节太多，成本较高也不符合预期。</p>
+<p>另一个比较重要的选型依据是我们正在容器化的进程中，而 argo-workflows 是 CNCF 项目，天然的更契合云原生，所以我们的最终执行层选型为 <strong>argo-workflows</strong>。它主要有2个特点：</p>
+<ol>
+<li>运行在 Kubernetes 上的自定义资源（CR）定义工作流，工作流中的每个步骤都是一个容器</li>
+<li>可将多步骤工作流建模为一系列任务，也可以使用有向无环图（DAG）描述任务之间的依赖关系</li>
+</ol>
+<ul>
+<li><strong>考量</strong></li>
+</ul>
+<ol>
+<li>考虑独立的 k8s 集群，避免意外大量资源占用影响线上业务。</li>
+<li>argo-workflow 执行 pod 时候除了任务本身还会有初始化和最终日志等清理镜像，部署时候应该注意将该镜像拉取到本地的仓库并改为本次仓库部署，减轻可能的每次执行拉取外部镜像的耗时。</li>
+</ol>
+<ul>
+<li><strong>实现</strong></li>
+</ul>
+<p>部署方式参考各种搜索结果直接通过 yaml 安装即可。</p>
+<h4 id="10-3-3-2-编排层"><a href="#10-3-3-2-编排层" class="headerlink" title="10.3.3.2    编排层"></a>10.3.3.2    编排层</h4><ul>
+<li>考量</li>
+</ul>
+<ol>
+<li>尽量提供统一且通用的抽象的可复用的模块来降低管理难度及减少执行层拉取新镜像的开销。</li>
+<li>整体执行过程要留痕，可观测，不能完全作为黑盒，便于问题排查和统计分析。</li>
+<li>提供通用的模板存储和复用逻辑，减少用户使用成本。</li>
+</ol>
+<ul>
+<li>实现</li>
+</ul>
+<p>编排层主要抽象四服务：</p>
+<ol>
+<li>通用镜像 “httppod”，提供所有的支持http访问形式的模版接入和使用</li>
+<li>通用的异步请求结果封装 pipeline_gateway；</li>
+<li>交互接口及适配层 pipeline-x；</li>
+<li>其他定制即兼容适配 pipeline-adapters；</li>
+</ol>
+<ul>
+<li><strong>httppod</strong></li>
+</ul>
+<p>一个通用的镜像 “httppod”，提供所有的支持 http 访问形式的模板接入和使用</p>
+<ol>
+<li><p><strong>httppod 实现逻辑</strong></p>
+<ul>
+<li><p>通过环境变量的形式来决定请求方法，请求的目标地址、超时时间及是否同步请求还是异步请求。</p>
+</li>
+<li><p>通过命令行参数来决定请求的参数，命令行参数使用类似 get 请求的方式来输入，最终的请求发出去时候会根据请求的方法等判断是否转为字典形式发送。</p>
+</li>
+<li><p>访问部分服务的时候可能仅仅是个通知或者是弱依赖的服务，其返回状态不应该阻止后续步骤的执行。</p>
+</li>
+<li><p>不同服务返回状态的时候参数 key 不固定，或者 value 类型不同。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>环境变量必选</strong></p>
+<ul>
+<li>METHOD， 可选值 “GET” “POST”，用于区别发出去的 http 请求采用哪种方法。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>REQUEST_URL ，请求目标 url，需要以 http:// or https://  开头。</li>
+</ul>
+<ul>
+<li>TIMEOUT ，超时时间，单位为 s，int 类型的值，需要大于0 。</li>
+</ul>
+<ol start="3">
+<li><p><strong>环境变量可选</strong></p>
+<ul>
+<li>IS_ASYNC，是否是异步执行，默认是同步，该 env 取对应的值的第一个字母，如果第一个字母为 y or Y，则设置为异步。</li>
+</ul>
+</li>
+<li><p><strong>命令行参数可选</strong></p>
+<p>用于设置 http 请求的相关参数， 只支持 “xxx=xxx&amp;x=aaa&amp;xxxxx=bbb” 的写法， 且不含空格。</p>
+</li>
+<li><p><strong>难点分析</strong></p>
+<ul>
+<li>采用何种异步的形式</li>
+</ul>
+<p>”一般的 RPC 调用“存在的问题在于不是每一个用户都能够驾驭，学习及使用成本较高，且比较黑盒隐藏了较多网络调用等等信息，不利于问题排查。而 HTTP 虽然会要求我们发起请求的同时要起一个 HTTP 的 server 来供服务端回调，但 HTTP 学习成本较低，且传输数据信息比较灵活所以这里采用 HTTP 的形式来做。</p>
+<ul>
+<li>唯一性标识应该放到哪</li>
+</ul>
+<p>由于是 HTTP 异步调用那么需要能够精确的将结果回调发起端，需要有唯一标识；最初的阶段我们将唯一的标识放到发起请求的返回体中，但是实践过程中发现如果我们将唯一标识放到返回的请求体中，如果其他已经存在的服务要作为模块提供流水线使用，会对之前已经实现的服务等产生较大侵入性，会要求其修改返回的body；所以我们将唯一标识放到 http header 请求头来解决该问题，既有服务增加一个 http 头返回的成本相对较少，也不容易产生副作用。</p>
+<ul>
+<li>执行状态识别</li>
+</ul>
+</li>
+</ol>
+<p>   同样的既有的服务采用了不同的形式的返回状态标记，我们需要一个比较灵活且能覆盖比较大范围的识别模板，且能够可配置；见下方配置示例。</p>
+<ul>
+<li>执行状态后续动作</li>
+</ul>
+<p>   不同的服务提供的服务等级及服务本身的重要性其实是不同的，甚至部分服务可能只是个简单的通知类服务，成功与失败的状态不太重要需要有对失败情况的忽略；见下方配置示例10-6。</p>
+<pre><code>状态识别代码样例, 每一个代理的服务获取其对应的状态校验函数
+func (t *TransportConfig) getStatusCheckFunc(_type string) func(string, string) bool &#123;
+    switch _type &#123;
+    case StatusCheckEqual:
+        return func(s1, s2 string) bool &#123; return s1 == s2 &#125;
+    case StatusCheckHasPrefix:
+        return strings.HasPrefix
+    case StatusCheckHasSuffix:
+        return strings.HasSuffix
+    case StatusCheckContains:
+        return strings.Contains
+    default:
+    &#125;
+    return func(s1, s2 string) bool &#123; return false &#125;
+&#125;</code></pre><pre><code>某些服务的返回结果判断格式及是否忽略退出状态等配置
+提供目标服务的统一的配置中心配置，无需在执行 httppod 时候在要求用户输入
+&quot;xxxxxxx&quot;: &#123;
+    &quot;name&quot;: &quot;xxxxxx&quot;,
+    &quot;response_status_key&quot;: &quot;status&quot;,
+    &quot;response_status_type&quot;: &quot;Int&quot;,
+    &quot;response_status_check_type&quot;: &quot;Equal&quot;,
+    &quot;response_status_legal&quot;: [
+        &quot;0&quot;
+    ],
+    &quot;is_ingroe_step&quot;: true
+&#125;,</code></pre><center>图10-6 配置示例</center>
+
+
+<ul>
+<li>pipeline_gateway</li>
+</ul>
+<p>通过一个通用的模块 “pipeline_gateway”，提供所有已经实现了异步接口（但请求格式不是简单的字典等形式有其他格式要求）或通过 IC 消息（内部的一种异步消息队列，非 http callback）来提供执行结果的服务抽象。</p>
+<ol>
+<li><p><strong>pipeline_gateway 实现逻辑</strong></p>
+<ul>
+<li><p>通过抽象请求的目标、方法、参数及返回结果的数据验证方法将不同目标配置化。</p>
+</li>
+<li><p>通过统一的配置中心配置，实现整体的配置动态热加载。</p>
+</li>
+<li><p>为防止误操作及避免不必要的操作通过版本号等控制片段级别的更新。</p>
+</li>
+<li><p>部分服务的认证方式不同，也需要适配和支持。</p>
+</li>
+<li><p>不同服务的对于失败或者跳过定义不同。</p>
+</li>
+<li><p>该服务是代理的直接通过 httppod 无法请求的已经存在的服务，无可避免的也需要适配返回 key的不同及 value 格式不同等问题。</p>
+</li>
+<li><p>异步通过 IC 等返回状态的服务必须提供一种识别对应请求的唯一 ID ，该 ID 需要统一存储到固定的地方，使该服务无状态可水平扩展。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>难点分析</strong></p>
+<ul>
+<li><p>如何识别代理的服务返回的状态，如同 httppod 也需要识别状态等，我们也统一采用将对应格式的数据转为 String 后来判断状态。</p>
+</li>
+<li><p>不同的服务有 header 认证，有采用用户认证等形式，我们需要适配不同的认证方式。</p>
+</li>
+<li><p>部分服务的消息通知等模块是后实现的，其实现过程中甚至存在消息使用的成功与失败与直接请求返回的成功与失败的字段及类型不同，有部分服务改动成本较高也需要我们来实现。</p>
+</li>
+<li><p>不同的服务调用的方式不同，由于调用参数及格式等变化不多我们统一抽象为模板的形式来固化。</p>
+</li>
+<li><p>会接入很多的服务，需要尽量的降低每个服务的接入成本。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>配置和服务模板等示例如图10-7。</p>
+<pre><code>主配置文件片段样例, 控制接入哪些服务
+&#123;   
+    &quot;version&quot;: 1,
+    &quot;name&quot;: &quot;xxxxxxxx&quot;,
+    &quot;request_url&quot;: &quot;http://xxxxxxxxx/api/xxxxxxx&quot;,
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;is_need_auth&quot;: false,
+    &quot;auth_style&quot;: &quot;&quot;,
+    &quot;add_request_header&quot;: [],
+    &quot;add_request_header_params&quot;: [],
+    &quot;response_uuid_key&quot;: &quot;appTaskId&quot;,
+    &quot;response_uuid_type&quot;: &quot;String&quot;,
+    &quot;response_status_key&quot;: &quot;status&quot;,
+    &quot;response_status_type&quot;: &quot;Int&quot;,
+    &quot;response_status_check_type&quot;: &quot;Equal&quot;,
+    &quot;response_status_legal&quot;: [
+        &quot;0&quot;
+    ],
+    &quot;ic_topic&quot;: &quot;aaaaaaaaaaaaaaaaa&quot;,
+    &quot;ic_uuid_key&quot;: &quot;appTaskId&quot;,
+    &quot;ic_uuid_type&quot;: &quot;String&quot;,
+    &quot;ic_status_key&quot;: &quot;status&quot;,
+    &quot;ic_status_type&quot;: &quot;Bool&quot;,
+    &quot;ic_status_check_type&quot;: &quot;Equal&quot;,
+    &quot;ic_status_legal&quot;: [
+        &quot;true&quot;
+    ],
+    &quot;template_file&quot;: &quot;xxxxxxxxx.tpl&quot;
+&#125;</code></pre><pre><code>模板配置文件样例   xxxxxxxxx.tpl， 对应服务的请求模板
+&#123;
+    &quot;build_params&quot;: &#123;
+        &quot;app_params&quot;: [
+            &#123;
+                &quot;app_code&quot;: &quot;&#123;&#123; .xxxxxxxx0 &#125;&#125;&quot;,
+                &quot;xxxx_forced&quot;: &#123;&#123; .xxxxxx1 &#125;&#125;,
+                &quot;xxxx_stage&quot;: &#123;&#123; .xxxxxxx2 &#125;&#125;,
+                &quot;env_list&quot;: [
+                    &#123;
+                        &quot;env_id&quot;: &quot;&#123;&#123; .env_id &#125;&#125;&quot;,
+                        &quot;servers&quot;: [&#123;&#123; .servers &#125;&#125;]
+                    &#125;
+                ],
+                &quot;input_tag&quot;: &quot;&#123;&#123; .input_tag &#125;&#125;&quot;,
+                &quot;pmo_id&quot;: &quot;&#123;&#123; .pmo_id &#125;&#125;&quot;,
+                &quot;restart_healthcheck&quot;: &#123;&#123; .restart_healthcheck &#125;&#125;
+            &#125;
+        ],
+        &quot;xxxxx_order&quot;: &quot;&quot;,
+        &quot;xxxxx_order&quot;: &quot;&quot;,
+        &quot;xxxxx_type&quot;: &quot;&#123;&#123; .deploy_type &#125;&#125;&quot;
+    &#125;,
+    &quot;channel_id&quot;: &quot;&#123;&#123; .channel_id &#125;&#125;&quot;,
+    &quot;xxxxxxxxx&quot;: &quot;&#123;&#123; .xxxxxxxxxxx &#125;&#125;&quot;
+&#125;</code></pre><center>图10-7 配置示例</center>
+
+
+<ul>
+<li>pipeline-x</li>
+</ul>
+<ol>
+<li><p><strong>实现逻辑</strong></p>
+<ul>
+<li><p>定位于交互接口及适配层。</p>
+</li>
+<li><p>提供执行过程及统计等信息的外部存储和查看能力。</p>
+</li>
+<li><p>根据模板生成待执行任务的完整配置并交付执行。</p>
+</li>
+<li><p>防腐设计，后来发展的系统不可避免的需要有各种的兼容和定制逻辑，这些功能尽量做到这里。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>问题和迭代</strong></p>
+<ul>
+<li><p>流水线开始和结束如何通知用户？需要在开始的时候获取执行的流水线 name，留存记录，并在结束的时候带着该 name 回调 pipeline-x 。</p>
+</li>
+<li><p>减少多数用户配置和使用的时间？提供标准的固定的流水线模板，如开发流水线、提测流水线等固定的执行动作。</p>
+</li>
+<li><p>尽量覆盖多数用户且用户接入成本足够的低且减少整体时间？ 用户代码 push 之后即开始触发流水线。</p>
+</li>
+<li><p>需要减少无用流水线等执行？ 同项目同分支等每次触发前终止之前未执行完成的任务，减少不必要开销。</p>
+</li>
+<li><p>用户明确已知不触发流水线可在代码 push 的时候 message 中添加排除信息。</p>
+</li>
+<li><p>接入哪些服务需要通过配置文件在配置中心配置，防止大范围的无意义信息骚扰用户。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>d.pipeline-adapters其他定制即兼容问题</li>
+</ul>
+<ol>
+<li>由于发布策略的问题，我们要求每次最新的发布都是从 master 拉取最新代码改动后，然后分支发布后合并回 master，但用户往往在push代码的时候没有合并 master ，这时候我们提供一个通用的解法来帮助用户自动合并（无冲突的情况）master 并提交。</li>
+<li>我们的自动化测试系统在执行过程中，是以环境的 ID 维度来进行的，但整体执行过程中信息的填充会是环境的名称，统一缺失了 Name 到 ID 的一个过程，则在整个执行过程中封装个特点的 pod ，将环境Name 转为 ID 供后续流程使用。</li>
+</ol>
+<h4 id="10-3-3-3-UI层"><a href="#10-3-3-3-UI层" class="headerlink" title="10.3.3.3    UI层"></a>10.3.3.3    UI层</h4><ul>
+<li>考量</li>
+</ul>
+<ol>
+<li>对于配置层面，我们希望公司内采用相同的流程规范，因此开发流水线不支持用户自定义配置 stage 和step；执行过程，用户只需要关心执行的步骤及失败的节点即可，因此 argo 本身的界面已经满足我们的需求，不做二次开发。</li>
+<li>回到流水线的最终目标是提效，根据我们的流水线定义可以知道执行的周期还是相对较长，那么我们并不希望用户等待反馈，因此增加了 IM 消息结果反馈的方式，只是执行开始和结束关键节点通知，而且只是暴漏关键失败信息，提升问题排查定位的效率。</li>
+</ol>
+<ul>
+<li>实现</li>
+</ul>
+<ol>
+<li><p>前端直接采用 argo 的界面。</p>
+</li>
+<li><p>消息通知集成内部的 IM 消息在开始结束阶段推送消息通知，并包含关键信息。</p>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/pipeline4.png" alt=""></p>
+<p><img src="/rdefficiency/medias/images/deploy_dashboard/pipeline6.png" alt=""></p>
+</li>
+</ol>
+<center>图10-8 实现界面</center>
+
+
+<h2 id="10-4-总结规划"><a href="#10-4-总结规划" class="headerlink" title="10.4    总结规划"></a>10.4    总结规划</h2><h3 id="10-4-1-总结"><a href="#10-4-1-总结" class="headerlink" title="10.4.1    总结"></a>10.4.1    总结</h3><p>由流水线的落地实践我们有两点感悟：</p>
+<ol>
+<li>流水线能实现很好的编排组合，但是灵活性也意味着复杂度，所以当我们要落地的时候需要考虑主要解决的问题什么，如果是效率那么我们可以支持灵活定义，如果是标准那么最好就要流程统一，因此做决策的时候一定要参考自己的规模体量和主要诉求；</li>
+<li>建模好的流水线可以编排一切，但是实现的时候还是要考虑投入产出，比如线上的编排虽然能提升效率降低风险，但是它带来的效率相对于其他领域可能效益并不明显，所以我们就将其延后了，因此投入的时候还是要衡量好收益。</li>
+</ol>
+<h3 id="10-4-2-规划"><a href="#10-4-2-规划" class="headerlink" title="10.4.2    规划"></a>10.4.2    规划</h3><p>目前我们已经完整的落地了开发流水线，接入应用500+，日执行次数800+，单次平均执行时长11min,而其他的流水线还没有开始，主要原因对于这种流程整合类型的方案效果较难量化，后续我们确定了量化指标后会继续进入。</p>
+<p>其他方面我们已经搭建了较好的流水线编排引擎，因此后续我们可以识别具有流程和数据传递要求的服务进行流水线适配，探索更多的使用场景，比如 AIOPS 等。</p>
+
+            </div>
+            <hr />
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Part 5 CICD》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/rdefficiency/5-cicd/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                北京趣拿软件科技有限公司 ｜ 基础架构
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/rdefficiency/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/rdefficiency/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ed98d39f94ff459ee228',
+        clientSecret: '9d04488d8bba75646a9ff2d97092c7379b796690',
+        repo: 'rdefficiency',
+        owner: 'qunarcorp',
+        admin: "zhangcf945",
+        id: '5-cicd/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+    <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://qunarcorp.github.io/rdefficiency/5-cicd/';
+        this.page.identifier = '/5-cicd/';
+        this.page.title = 'Part 5 CICD';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/rdefficiency/4-quality/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 4 质量保障">
+                        
+                        <span class="card-title">Part 4 质量保障</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍研发过程的质量保障手段，包括灵活的环境管理方案、高效的自动化测试平台、完善的覆盖率保障方案。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C/" target="_blank">
+                        <span class="chip bg-color">质量保障</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/rdefficiency/6-observability/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 6 可观测性建设">
+                        
+                        <span class="card-title">Part 6 可观测性建设</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍可观测性基于云原生的演进路线和当前建设现状，包括Logging、Tracing、Metrics。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/" target="_blank">
+                        <span class="chip bg-color">可观测性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 去哪儿旅行<br />'
+            + '作者: 北京趣拿软件科技有限公司 ｜ 基础架构<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归去哪儿旅行所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/rdefficiency/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 北京趣拿软件科技有限公司. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">133.6k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qunarcorp" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:infra@qunar.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/rdefficiency/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 10, 10, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/rdefficiency/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/rdefficiency/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/rdefficiency/libs/materialize/materialize.min.js"></script>
+    <script src="/rdefficiency/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/rdefficiency/libs/aos/aos.js"></script>
+    <script src="/rdefficiency/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/rdefficiency/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/rdefficiency/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+
+    
+    <script async src="/rdefficiency/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

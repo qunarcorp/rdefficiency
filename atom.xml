@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>去哪儿旅行</title>
+  
+  <subtitle>基于云原生的研发效能实战</subtitle>
+  <link href="/rdefficiency/atom.xml" rel="self"/>
+  
+  <link href="https://qunarcorp.github.io/rdefficiency/"/>
+  <updated>2022-10-21T10:23:38.824Z</updated>
+  <id>https://qunarcorp.github.io/rdefficiency/</id>
+  
+  <author>
+    <name>北京趣拿软件科技有限公司 ｜ 基础架构</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>开篇序言</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/0-starter/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/0-starter/</id>
+    <published>2022-10-10T04:00:10.000Z</published>
+    <updated>2022-10-21T10:23:38.824Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/cover_a.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/feiye.jpg&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="云原生,研发效能" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E4%BA%91%E5%8E%9F%E7%94%9F-%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 1 基础设施容器化</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/1-container/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/1-container/</id>
+    <published>2022-10-10T04:00:09.000Z</published>
+    <updated>2022-10-21T10:25:25.408Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_a.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第一章-容器化落地&quot;&gt;&lt;a href=&quot;#第一章-容器化落地&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="云原生,研发效能" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E4%BA%91%E5%8E%9F%E7%94%9F-%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 2 服务化建设</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/2-service/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/2-service/</id>
+    <published>2022-10-10T04:00:08.000Z</published>
+    <updated>2022-10-21T10:32:28.741Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_b.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第三章-微服务架构建设&quot;&gt;&lt;a href=&quot;#第三章-微服务架构建设&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="服务化" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E6%9C%8D%E5%8A%A1%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 3 开发提效</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/3-develop/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/3-develop/</id>
+    <published>2022-10-10T04:00:07.000Z</published>
+    <updated>2022-10-21T10:34:55.664Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_c.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第五章-开发提效&quot;&gt;&lt;a href=&quot;#第五章-开发提效&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="开发效率" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 4 质量保障</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/4-quality/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/4-quality/</id>
+    <published>2022-10-10T04:00:06.000Z</published>
+    <updated>2022-10-21T12:47:55.469Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_d.jpg&quot; alt=&quot;part4&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第六章-测试环境治理&quot;&gt;&lt;a href=&quot;#第六章-测试环境治理&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="质量保障" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 5 CICD</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/5-cicd/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/5-cicd/</id>
+    <published>2022-10-10T04:00:05.000Z</published>
+    <updated>2022-10-21T10:47:51.626Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_e.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第九章-发布驾驶舱&quot;&gt;&lt;a href=&quot;#第九章-发布驾驶舱&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="CICD" scheme="https://qunarcorp.github.io/rdefficiency/tags/CICD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 6 可观测性建设</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/6-observability/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/6-observability/</id>
+    <published>2022-10-10T04:00:04.000Z</published>
+    <updated>2022-10-21T12:49:03.789Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_f.jpg&quot; alt=&quot;part6&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第十一章-分布式链路追踪系统实践&quot;&gt;&lt;a href=&quot;#第十一章-分布式链路追踪系统实践&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="可观测性" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E5%8F%AF%E8%A7%82%E6%B5%8B%E6%80%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 7 稳定性建设</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/7-stability/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/7-stability/</id>
+    <published>2022-10-10T04:00:03.000Z</published>
+    <updated>2022-10-21T10:59:26.244Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_g.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第十五章-混沌工程&quot;&gt;&lt;a href=&quot;#第十五章-混沌工程&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="稳定性" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E7%A8%B3%E5%AE%9A%E6%80%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Part 8 数字化实践</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/8-digital/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/8-digital/</id>
+    <published>2022-10-10T04:00:02.000Z</published>
+    <updated>2022-10-21T11:04:44.507Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/part_h.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;第十七章-组织效能数字化落地实践&quot;&gt;&lt;a href=&quot;#第十七章-组织效能数字化落地实践&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="数字化" scheme="https://qunarcorp.github.io/rdefficiency/tags/%E6%95%B0%E5%AD%97%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>结语</title>
+    <link href="https://qunarcorp.github.io/rdefficiency/9-end/"/>
+    <id>https://qunarcorp.github.io/rdefficiency/9-end/</id>
+    <published>2022-10-10T04:00:01.000Z</published>
+    <updated>2022-10-21T11:05:03.226Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;   !(/rdefficiency/medias/images/cover_part/end.jpg) &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/rdefficiency/medias/images/cover_part/cover_b.jpg&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

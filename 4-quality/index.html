@@ -1,0 +1,2473 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Part 4 质量保障, “基于云原生的研发效能实战”">
+    <meta name="description" content="
+第六章    测试环境治理6.1    测试环境管理平台6.1.1    背景公司业务的迅猛发展离不开项目的快速迭代，为确保项目有序快速的迭代上线，需要 PM 、DEV 和 QA 在测试阶段不断地优化、验证和调试产品的流程、代码，直至满足">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Part 4 质量保障 | 去哪儿旅行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/rdefficiency/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/rdefficiency/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/rdefficiency/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/rdefficiency/" class="waves-effect waves-light">
+                    
+                    <img src="/rdefficiency/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">去哪儿旅行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/rdefficiency/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">去哪儿旅行</div>
+        <div class="logo-desc">
+            
+            北京趣拿软件科技有限公司 | 基础架构
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/rdefficiency/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/rdefficiency/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/rdefficiency/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/rdefficiency/medias/featureimages/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Part 4 质量保障
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/rdefficiency/tags/%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C/" target="_blank">
+                            <span class="chip bg-color">质量保障</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    北京趣拿软件科技有限公司 ｜ 基础架构
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    28.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    99 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/rdefficiency/medias/images/cover_part/part_d.jpg" alt="part4"></p>
+<h1 id="第六章-测试环境治理"><a href="#第六章-测试环境治理" class="headerlink" title="第六章    测试环境治理"></a>第六章    测试环境治理</h1><h2 id="6-1-测试环境管理平台"><a href="#6-1-测试环境管理平台" class="headerlink" title="6.1    测试环境管理平台"></a>6.1    测试环境管理平台</h2><h3 id="6-1-1-背景"><a href="#6-1-1-背景" class="headerlink" title="6.1.1    背景"></a>6.1.1    背景</h3><p>公司业务的迅猛发展离不开项目的快速迭代，为确保项目有序快速的迭代上线，需要 PM 、DEV 和 QA 在测试阶段不断地优化、验证和调试产品的流程、代码，直至满足上线标准，最终发布上线。在整个迭代过程中，稳定的测试环境为项目顺利交付提供了最基础的保障。</p>
+<p>在去哪儿我们采用微服务架构，因此对于一个需求的变更可能会涉及很多应用、DB 等，即使涉及几个，但是我们在验证的过程中也需要搭建一套完整的业务环境保证整个业务逻辑的完全回归；再次业务迭代非常频繁。因此我们常常会面临并行开发测试的问题，而一个需求的测试必须保证该业务流程的完成覆盖，因此对于某一块业务存在同时搭建多套环境的需求，基于以上两点我们需要有快速搭建环境的能力，但是现实却非常残酷，环境成了项目 delay 、测试覆盖不全的主要因素，究其原因主要有以下两点：</p>
+<ol>
+<li><p><strong>环境搭建成本高</strong></p>
+<p>需要对业务流程比较了解，如应用之间的调用关系，其次需要了解每个应用的服务依赖、启动方式、其他依赖等，通常搭建一套环境至少需要一整天的时间，如果需求并行量小的话大家还能接受，但是经常的需求并行环境抢占就成了问题，即使多建几套环境，但是由于链路比较长，当没有需求的时候，环境资源的占用也是一个不小的浪费。</p>
+</li>
+<li><p><strong>环境维护成本高</strong></p>
+<p>搭建固定环境，就需要及时的对环境中的应用版本进行更新，应用的依赖变更、组件升级等也需要及时更新，一旦更新不及时很可能导致测试过程千奇百怪的问题，严重拉长了开发测试的周期，影响交付的速度。而且环境的维护对人员的技术和经验背景要求非常高，一旦人员流动，环境很可能就不可用了。</p>
+</li>
+</ol>
+<p>基于以上问题，我们开始搭建内部的环境治理平台，以提升一线工程师工作效率为最大目标，以环境搭建为切入点，集系统编排、资源分配、环境创建、应用部署、并行测试和资源管理等功能于一身，历时6年时间，主要经历了3个阶段：</p>
+<ol>
+<li><p><strong>支持环境定义并自动化构建</strong></p>
+<p>主要减少人工搭建/维护环境的成本，通过环境模版快速创建一套完整的测试环境；同时通过环境网络/配置动态隔离，达到多套环境并行存在，多个需求并行测试的目标。</p>
+</li>
+<li><p><strong>测试环境支持动态路由</strong></p>
+<p>主要解决多套环境引入的资源成本膨胀及维护多套环境成本据增的问题。通过 SoftRouter 机制减少资源占用及日常维护成本，并增加环境巡检机制，保证环境的高可用性。</p>
+</li>
+<li><p><strong>支持本地开发联调</strong></p>
+<p>通过 IDE 插件将本地环境跟测试环境联通，提升开发自测的效率。经过几年的建设，当前的平台架构如下图6-1。</p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/deployment_testing/framework.png" alt="平台架构"></p>
+<center>图6-1 当前平台架构</center>
+
+<p>平台主要包括四个部分：</p>
+<ol>
+<li><p><strong>业务层</strong> </p>
+<p>主要提供环境管理/模版管理/服务管理/业务线管理/计划管理/数据分析等功能</p>
+</li>
+<li><p><strong>编排层</strong> </p>
+<p>主要包含环境构建任务编排与执行/服务间依赖关系收集。</p>
+</li>
+<li><p><strong>适配层</strong> </p>
+<p>主要提供对环境所依赖的网络/存储/资源平台的适配</p>
+</li>
+<li><p><strong>基础服务</strong> </p>
+<p>主要包含资源平台 / SaltStack / 七层负载均衡/发布平台/存储相关操作平台</p>
+</li>
+</ol>
+<p>以下我们从演进过程来介绍我们整体的环境治理方案。</p>
+<h3 id="6-1-2-阶段一：自动化环境交付"><a href="#6-1-2-阶段一：自动化环境交付" class="headerlink" title="6.1.2    阶段一：自动化环境交付"></a>6.1.2    阶段一：自动化环境交付</h3><p>第一阶段我们首先要解决的是人工便自动的过程，也就是整个环境治理体系过程，所以我们首先需要对环境进行清洗的定义，其他我们还要明确最终的交付形态，以下从这两方面分别介绍。</p>
+<h4 id="6-1-2-1-环境定义和组成"><a href="#6-1-2-1-环境定义和组成" class="headerlink" title="6.1.2.1    环境定义和组成"></a>6.1.2.1    环境定义和组成</h4><p>由背景部分介绍，我们的环境需要能够支持某一块业务的测试验证，因此一个环境通常是包含多个应用及其依赖（ DB ，中间件）组合，同时为了保证能够提供多套测试环境，需要进行网络隔离，因此我们的一个环境包含如下图6-2中5个部分。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/assembly.png" alt="环境组成"></p>
+<center>图6-2 环境构成</center>
+
+<ol>
+<li><p><strong>应用</strong></p>
+<p>指代一个服务的唯一标识及该服务的基本信息/发布配置/依赖配置/运行时配置，主要开发语言涉及 Java / NodeJs / Python/Go</p>
+</li>
+<li><p><strong>数据存储</strong></p>
+<p>主要包含对于主流存储组件的支持，例如 Mysql / Redis 等</p>
+</li>
+<li><p><strong>中间件</strong></p>
+<p>主要包含对于主流中间件的支持，例如 ELK 组件/ RabbitMq/ ActiveMq 等，并提供灵活的扩展能力</p>
+</li>
+<li><p><strong>网络配置</strong></p>
+<p>主要包含 Openresty / Nginx / Dns 等服务</p>
+</li>
+<li><p><strong>环境变量</strong></p>
+<p>主要维护环境内部服务/中间件生成后产生的环境变量信息并支持用户自定义，用于环境内服务的互联互通及环境间服务的隔离</p>
+</li>
+</ol>
+<p>为了保证的快速交付，我们增加了模版功能，即用户可以先将一套环境定义为模块，当需要创建环境是从模版生成，这样避免了并行需求每次重复配置的成本浪费，也解决了个性需求配置修改对所有并行需求的影响问题。</p>
+<ul>
+<li>应用画像</li>
+</ul>
+<p>我们最终的目的是交付一套可用的测试环境，同时实现环境的日常自动运维，因此需要知道应用的运行时等相关信息以便实现环境的快速交付，我们内部称之为应用的画像，主要包含三个部分：资源配置/发布配置/运行依赖配置，资源配置包含kvm/容器类型，以及系统版本/实例个数等配置，详见下图6-3。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/appcode.png" alt="应用画像"></p>
+<center>图6-3 应用画像</center>
+
+<ul>
+<li>数据存储</li>
+</ul>
+<p>除应用外，为了保证测试环境的数据隔离，会将应用依赖的数据存储也作为环境的一部分，在去哪儿，我们主要使用的是 Mysql 和 Redis ，以 Mysql 存储为例，在测试环境建立基准库实例，实时同步线上 Mysql 集群只读节点数据至 beta 环境，同时提供基准库（逻辑概念）供用户拉取不同集群的库表信息，在环境创建时，从基准库实例 fork 出测试库实例，并分配 namespace ，供环境内服务使用，如图6-4所示。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/mysql.png" alt="数据库同步机制"></p>
+<center>图6-4 数据库同步机制</center>
+
+<ul>
+<li>中间件</li>
+</ul>
+<p>某些应用由于特殊的业务属性也会依赖一些中间件，比如 es,ng 等，因此我们也将其纳入环境管理；当前支持的中间件包含多种开源项目，同时支持自定义 SaltStack / Shell 相关脚本，满足日常扩展需要，这些中间件都会在环境创建过程自动创建，如图6-5。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/middleware.png" alt="中间件配置"></p>
+<center>图6-5 中间件配置</center>
+
+<ul>
+<li>网络配置</li>
+</ul>
+<p>网络配置方面，支持域名网关自定义配置（底层为 Dns + Openresty ）,同时支持自定义 nginx ，满足日常扩展需要。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/domain2.png" alt="网络配置"></p>
+<center>图6-6 网络配置</center>
+
+<ul>
+<li>环境变量</li>
+</ul>
+<p>环境变量主要是由环境内各种类型的服务生成的 kv 对，同时支持用户自定义环境变量，供 应用 类型服务进行引用。应用 类型服务在部署前会将部署目录下的配置文件以环境变量作为数据源进行替换，生成运行时配置，达到环境逻辑隔离效果，如图6-7所示。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/env.png" alt="环境变量"></p>
+<center>图6-7 环境变量</center>
+
+<h4 id="6-1-2-2-环境交付"><a href="#6-1-2-2-环境交付" class="headerlink" title="6.1.2.2    环境交付"></a>6.1.2.2    环境交付</h4><p>在交付环境时并非只需要将环境定义出来即可，我们更需要的是将部署好的可用的环境交付给开发测试同学，因此我们基于上述定义好的环境实现了自动构建，即将环境中的定义实力化，包括应用版本、中间件、数据库依赖性等，下图6-8是整体的构建流程：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/env_construct.png" alt="环境构建流程"></p>
+<center>图6-8 自动构建流程</center>
+
+<p>整个环境的构建流程实际上是一个 DAG (有向无环图)，如下图6-9：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/dag.png" alt="环境构建DAG"></p>
+<center>图6-9 环境构建流程</center>
+
+<p>整个环境构建流程实际上可以理解为一个分布式任务调度流程，测试环境在构建之前根据各个组件的依赖关系进行编排后生成一个 DAG (有向无环图)任务交由分布式任务调度系统 Ceres（公司自研），Ceres 服务启动构建，开始完成图上的所有任务的执行，执行完成后环境即被创建成功。</p>
+<h3 id="6-1-3-阶段二：动态路由机制"><a href="#6-1-3-阶段二：动态路由机制" class="headerlink" title="6.1.3    阶段二：动态路由机制"></a>6.1.3    阶段二：动态路由机制</h3><h4 id="6-1-3-1-背景分析"><a href="#6-1-3-1-背景分析" class="headerlink" title="6.1.3.1    背景分析"></a>6.1.3.1    背景分析</h4><p>经过第一阶段的建设，环境管理平台已经覆盖大部分业务线，业务线同学使用业务线模版生成多套环境，环境间相互隔离，依赖多套环境达到并行开发及测试的目的。然而此种使用方式存在以下几个问题：</p>
+<ol>
+<li><p><strong>环境资源成本占用过大</strong></p>
+<p>我们的环境不仅用于人工测试，也用于各种自动化工具，因为环境获取的成本降低，因此大家在使用量上也大幅提升，虽然我们做了及时销毁等策略，但是日常占用的成本依然非常巨大，不完全统计，内存暂用在10个 T 以上。</p>
+</li>
+<li><p><strong>多套环境日常维护人工成本比较大</strong></p>
+<p>日常的版本更新、组件更新等耗费成本，不及时更新等原因也为问题定位的效率等造成了影响。</p>
+</li>
+<li><p><strong>环境可靠性难以保障</strong></p>
+<p>我们日常并行使用的有上千套环境，大部分测试环境需要在项目期间持续使用，然而每天有近千条变更在线上环境产生。这些变更若不能及时同步到 beta 环境，那么测试质量显然⽆法得到有效保障，我们急需自动化的检查及自愈机制。</p>
+</li>
+</ol>
+<p>为了解决上述问题，我们调研了行业里相关的解决方案，引入了软路由机制（类似泳道环境）、基准环境日常巡检和实时同步、测试环境基础资源巡检与自愈方案。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/envs.png" alt="基本方案"></p>
+<center>图6-10  基本方案</center>
+
+<h4 id="6-1-3-2-方案设计：软路由机制"><a href="#6-1-3-2-方案设计：软路由机制" class="headerlink" title="6.1.3.2    方案设计：软路由机制"></a>6.1.3.2    方案设计：软路由机制</h4><p>如下图6-11所示，多个环境并行测试情况下，黄色部分服务是待测试的服务，然而白色部分的服务都是用来支持整个链路测试的服务，测试链路越长，浪费的资源越多。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/common.png" alt="原来的模式"></p>
+<center> 图6-11 原来的模式</center>
+
+<p>动态路由设计基于 QTrace (去哪儿网全链路追踪技术)，通过在各端( APP / PC /小程序等)取到 ID 标识，将流量进行染色，然后在 Http / Dubbo / Mq 各个通信中间件层面根据染色标识进行动态路由，这样我们只需要保证一套完整的环境也就是基准环境，其他日常测试环境都采用动态路由的方式，那么原来如果需要7套环境，每个环境10个应用，总计的70台机器变成软路由方式就变成了17台（假设每个环境只测试一个应用），这无疑大大提升了资源的利用率也降低了日常运维的成本，如下图6-12所示。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/softrouter.png" alt="动态路由方案"></p>
+<center> 图6-12 动态路由方案 </center>
+
+<p>入口流量如何染色? 测试阶段入口总计包含如下图6-13三种入口，如果我们根据身份标识/设备标识，则可以区分用户的测试流量。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/logo.png" alt="测试入口"></p>
+<center> 图6-13 测试入口 </center>
+
+
+<p>接下来我们需要做的是如何将用户测试流量绑定到软路由环境上，从而对用户流量进行动态路由，引导流量进入逻辑测试完全链路上面。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/qrcode.png" alt="环境绑定"></p>
+<center> 图6-14 环境绑定</center>
+
+<p>如上图6-14 所示，我们提供了扫码工具一键绑定软路由环境，绑定完成后，测试环境平台会生成路由标识信息，并将路由标识信息推送给 Openresty / Nginx 七层负载均衡组件。当客户端/浏览器/小程序发起测试时，则会经过七层负载均衡组件，负载均衡组件根据设备标识/路由标识映射关系，将路由标识放入 http header中，完成流量染色。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/draw.png" alt="绑定过程"></p>
+<center> 图6-15 绑定过程</center>
+
+<p>我们是如何做到动态路由的? 以 Http 为例（公司内部主要使用 Openresty / Nginx 作为七层负载均衡组件）</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/domain_locations.png" alt="http动态路由"></p>
+<center> 图6-16 </center>
+
+<p>如上图6-16所示，测试平台在软路由环境创建完成时，会针对基准环境内域名完成 location / upstream 组的添加，当测试流量到来的时候，Openresty / Nginx 会取 Header 里面的路由标识信息进行 location 匹配，若完成匹配则会打到对应的软路由环境的 Upstream 上面，若匹配失败则会将流量打到默认的基准环境 Upstream 上面。完成 http 流量的动态路由。</p>
+<h4 id="6-1-3-3-方案设计：实时同步及日常巡检"><a href="#6-1-3-3-方案设计：实时同步及日常巡检" class="headerlink" title="6.1.3.3    方案设计：实时同步及日常巡检"></a>6.1.3.3    方案设计：实时同步及日常巡检</h4><p>由上述软路由方案介绍可知，日常的测试除了本次变更的应用外其他都会动态路由到基准环境，因此对基准环境的可靠性和新鲜度要求非常高，基准环境必须要及时的将所有应用的变更及时的同步下来，因此为了达到这两个目标我们增加了日常巡检方案和实时同步方案，会对环境进行定期巡检也会对线上变更进行实时监控，及时的将线上服务所产生的代码 / 配置 / 数据 等变更，进行同步，且同步期间，基准环境服务不中断。因此，特别选择三个方案进行选型。</p>
+<ul>
+<li>基准环境采用双机滚动部署机制</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/deployment_testing/standenv1.png" alt="基准环境更新机制"></p>
+<center> 图6-17 基准环境更新机制</center>
+
+<ol>
+<li><p><strong>优点：</strong></p>
+<ul>
+<li><p>双实例保障基准环境日常服务稳定性</p>
+</li>
+<li><p>双机滚动升级，机器不需要被替换，日志信息可以进行保留</p>
+</li>
+<li><p>改动成本低</p>
+</li>
+</ul>
+</li>
+<li><p><strong>缺点：</strong></p>
+<ul>
+<li><p>双实例日常日志排查效率较低</p>
+</li>
+<li><p>基准环境采用双机滚动部署，日常单实例提供服务</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>基准环境采用双机滚动部署，日常单实例提供服务</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/deployment_testing/standenv2.png" alt="img_1.png"></p>
+<center> 图6-18 </center>
+
+<ol>
+<li><p><strong>优点</strong></p>
+<ul>
+<li><p>双机滚动升级，机器不需要被替换，日志信息可以进行保留</p>
+</li>
+<li><p>改动成本低</p>
+</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong></p>
+<ul>
+<li><p>发布期间，日志分散在多台实例，随着发布频次增加，问题会被放大</p>
+</li>
+<li><p>日常稳定性较差</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>基准环境服务流量切换方案</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/deployment_testing/standenv3.png" alt="流量切换方案"></p>
+<center> 图6-19 流量切换方案</center>
+
+<ol>
+<li><p><strong>优点</strong></p>
+<ul>
+<li>利用软路由环境机制验证日常变更是否可以合并进基准环境，间接提升链路稳定性</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong></p>
+<ul>
+<li><p>历史日志随着机器被换新会丢失</p>
+</li>
+<li><p>日常稳定性较差</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>为满足以下目标，我们最终选择方案一</li>
+</ul>
+<ol>
+<li><strong>基准环境服务不可中断</strong></li>
+<li><strong>提升软路由链路日常问题排查便捷性，以及日志查询便捷性</strong></li>
+<li><strong>更低的开发成本</strong></li>
+</ol>
+<p><img src="/rdefficiency/medias/images/deployment_testing/env_check.png" alt="基准环境更新"></p>
+<center> 图6-20 基准环境更新</center>
+
+<p>环境链路可靠性巡检通过收取线上（代码/配置/数据）变更，自动同步至 beta 基准环境，通过收取线上日志并进行筛选生成 case ，在 beta 基准环境进行回放，完成对核心链路的日常巡检。</p>
+<h4 id="6-1-3-4-方案设计：基础资源巡检与自愈"><a href="#6-1-3-4-方案设计：基础资源巡检与自愈" class="headerlink" title="6.1.3.4    方案设计：基础资源巡检与自愈"></a>6.1.3.4    方案设计：基础资源巡检与自愈</h4><p>为了高效利用资源，我们的测试环境机器都进行了超售，因此测试环境大量机器资源性能/稳定性等表现都不如线下环境，所以会经常出现资源不可用从而影响测试环境使用，因此为了提高测试环境稳定性，需要提升环境各类资源的健康度可观测性，同时针对异常场景期望做到自动恢复，以下是我们的详细方案：</p>
+<ul>
+<li><p>环境检查处理流程</p>
+<p>收集环境内基础资源的各项指标并进行分析生成健康度报告，如图6-21所示。</p>
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/deployment_testing/env_base_check.png" alt="环境检查处理流程"></p>
+<center> 图6-21 环境检查处理流程</center>
+
+<ul>
+<li>环境自愈处理流程</li>
+</ul>
+<p>接收异常事件并进行自动化恢复（以 KVM 磁盘告警处理为例），如图6-22所示。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/env_base_recover.png" alt="环境自愈处理流程"></p>
+<center> 图6-22 环境自愈处理流程</center>
+
+<p>通过环境日常基础资源巡检，并搭配针对各种异常场景的自动化处理机制，提升整个环境基础资源的稳定性，从而提升日常业务测试的稳定性。</p>
+<h3 id="6-1-4-本地化开发测试"><a href="#6-1-4-本地化开发测试" class="headerlink" title="6.1.4    本地化开发测试"></a>6.1.4    本地化开发测试</h3><h4 id="6-1-4-1-背景分析"><a href="#6-1-4-1-背景分析" class="headerlink" title="6.1.4.1    背景分析"></a>6.1.4.1    背景分析</h4><p>经过前两个阶段的建设我们已经可以快速的交付一套可用的环境而且能够保证环境的可用性和新鲜度，但是回归到我们的环境使用者，大部分用户是开发同学，开发同学在新开发功能时通常首先会在自己本机进行环境的准备，因此他们更希望直接复用本机环境，这样也节省了学习和配置成本，基于此我们展开了对于测试环境本地化开发的探索与实践。</p>
+<h4 id="6-1-4-2-方案设计"><a href="#6-1-4-2-方案设计" class="headerlink" title="6.1.4.2    方案设计"></a>6.1.4.2    方案设计</h4><p><img src="/rdefficiency/medias/images/deployment_testing/local_dev.png" alt="本地开发方案"></p>
+<center> 图6-23 本地化开发测试方案设计 </center>
+
+<p>所谓本地化，即将开发者本地 PC 融合为测试环境的一部分，让开发的目标服务在本地启动且达到与在测试环境中运行的同样效果，方案设计如图6-23。</p>
+<h4 id="6-1-4-3-实现原理"><a href="#6-1-4-3-实现原理" class="headerlink" title="6.1.4.3    实现原理"></a>6.1.4.3    实现原理</h4><p>去哪儿网的 Java Web 服务使用的服务容器是 Tomcat ，并使用 Maven 组件进行工程管理。因此，我们开发了一套 Maven 插件来实现对本地网络与服务的注册，并在编译期完成对环境变量的拉取与替换；同时，通过 Java Agent 技术在服务本地启动时完成本地网卡的识别与上报，并自动将测试环境中配置的 host 信息加载进本地的 JVM 中。</p>
+<ol>
+<li><p><strong>本地网卡的识别</strong></p>
+<p>由于现如今大多数的 PC 机都配备了多块网卡，因此，对于使用到本地 ip 的相关绑定操作时(如测试环境域名的 ip 映射、Dubbo 服务使用 ip 注册)，依赖对于使用本地化网卡的正确识别。在本地化的初始阶段，Java Agent 会向测试环境平台服务端发起一个请求，服务端会将请求的 ip 作为结果返回，从而获取到启动本地化用到的网卡 ip 。</p>
+</li>
+</ol>
+<ol start="2">
+<li><p><strong>Host 信息自动加载</strong></p>
+<p>在某些场景下，测试环境会通过配置 Host 信息来应对代码中写死固定域名的情况，在本地化使用中，Host 信息同样需要加载到本地来完成正确的域名 ip映射。Java Agent 会在本地化启动时，向测试环境平台服务端请求对应测试环境中的 Host 配置信息，并加载到本地 JVM 中，从而不需要用户手动对本地 Host 进行修改。</p>
+</li>
+</ol>
+<ol start="3">
+<li><p><strong>环境变量的拉取与替换</strong></p>
+<p>诸如数据库 Namespace 用户名密码等配置信息，都是维护在不同 Profile 所对应的配置文件中，代码会在发布过程中识别对应的 Profile 并完成相关环境变量的替换。由于本地化的本质是将本机服务替换掉测试环境中的服务，因此，本地化启动时需要获取对应测试环境中的环境变量配置。本地化 Maven 插件通过在工程编译期请求测试环境平台服务端对应测试环境的环境变量信息，以自动完成编译产物中相关配置文件的环境变量替换操作。</p>
+</li>
+</ol>
+<ol start="4">
+<li><p><strong>服务注册与upstream替换</strong></p>
+<p>要完成完整的链路测试，测试环境内其他服务的流量也同样需要正确地转发到本地服务中。因此，本地服务需要注册到对应的测试环境中，并将域名的 upstream 进行替换。 Maven 插件在本地化启动阶段，通过向测试环境平台服务端发起注册请求，来完成测试环境中对应服务的所有上游转发的替换。</p>
+</li>
+</ol>
+<p>至此，本地启动的服务就完成了对测试环境中对应服务的本地化实现。可以看到，无论是 Host 信息替换还是环境变量的替换，都是在即时产物（ JVM、编译产物）中进行的，因此，本地化对于工程代码是无侵入的。</p>
+<h3 id="6-1-5-总结和展望"><a href="#6-1-5-总结和展望" class="headerlink" title="6.1.5    总结和展望"></a>6.1.5    总结和展望</h3><h4 id="6-1-5-1-总结"><a href="#6-1-5-1-总结" class="headerlink" title="6.1.5.1    总结"></a>6.1.5.1    总结</h4><p>以上即是我们环境管理上的三个阶段的探索，回顾这个历程，我们经历了许多波折，也踩过了很多坑，但是最终还是落地了可靠的环境管理方案，总结起来最大的原因是我们在着手之前明确的定义了我们要解决的主要问题，而且所有的设计方案都是基于目标定义，而不是为了搭建一个平台，所以前期的问题分析、目标定义是我们走向成功的关键一步。</p>
+<h4 id="6-1-5-2-近期展望"><a href="#6-1-5-2-近期展望" class="headerlink" title="6.1.5.2    近期展望"></a>6.1.5.2    近期展望</h4><p>目前我们的测试环境已经能为整个公司的日常测试提供保障，但是我们的环境还是限定于某一个业务领域，并且随着业务的复杂性提升，业务的边界可能越来越模糊，比如机酒打包、订单和售后打包等，基于此我们未来计划打造一套稳定的线下仿真环境( Beta 基准环境)。通过收集线上变更同步至 Beta 基准环境，并根据线上日志自动生成 Case （通过自动化手段提升 Case 覆盖度）并将 Case 在 Beta 基准/子环境进行回放，减少人工维护测试环境的成本，并提升测试效率。通过本地化机制打通本地 PC 与 beta 基准环境连通性，从而提升开发自测效率。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/future.png" alt="未来规划"></p>
+<center> 图6-24 未来规划 </center>
+
+
+<h2 id="6-2-分布式编排调度平台"><a href="#6-2-分布式编排调度平台" class="headerlink" title="6.2    分布式编排调度平台"></a>6.2    分布式编排调度平台</h2><h3 id="6-2-1-背景"><a href="#6-2-1-背景" class="headerlink" title="6.2.1    背景"></a>6.2.1    背景</h3><p>在测试环境治理平台中，一键化部署整套可用的测试环境是其核心能力，这一功能的复杂度主要有这几点：</p>
+<ol>
+<li><p><strong>环境庞大且资源种类多</strong></p>
+<p>整套测试环境中常包含多种资源，包括应用、数据库、中间件、域名、各种配置等。</p>
+</li>
+<li><p><strong>资源间存在依赖</strong></p>
+<p>环境中的资源构建不能直接并行，因为它们之间可能存在强依赖，比如 应用启动时所依赖的数据库必须就绪、创建域名时上游的服务实例必须健康，整个依赖关系会很复杂。</p>
+</li>
+<li><p><strong>底层平台不稳定</strong></p>
+<p>测试环境治理平台会对接很多更底层的服务，如 OpenStack、OpenResty 等。这些服务由其他服务管理，稳定性一般，因此平台侧需要能弥补这一可用性问题，提供重试、容错等机制，尽可能保障最终的成功。</p>
+</li>
+</ol>
+<p>这一业务其实需要的是基于工作流的编排、调度能力。</p>
+<p>介绍下工作流，工作流定义了任务集合及它们之前的依赖关系，举个例子，目前有三个任务 1、2、3，其中 2 和 3 都需要等 1 执行完成后才开始，这就形成了强以来，可以通过一个 DAG （有向无环图）结构来表示，如下图6-25：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664071930885.png" alt="工作流"></p>
+<center> 图6-25 工作流 </center>
+
+<p>原来有一套测试环境治理平台专用的调度服务，随着业务发展，该调度服务慢慢暴露出很多问题：</p>
+<ol>
+<li><p><strong>性能瓶颈</strong></p>
+<p>任务状态非常多，导致调度器和执行器的交互次数过多、更新状态非常频繁；在任务量很大，伴随着很多冗余数据时，导致 MySQL 经常出现大事务、甚至 DB 死锁问题。</p>
+</li>
+<li><p><strong>无扩展性</strong></p>
+<p>当初的设计只是给环境构建用的，因此调度服务和使用方服务耦合严重，不可扩展。</p>
+</li>
+<li><p><strong>无容错</strong></p>
+<p>调度不稳定，经常出现工作流调度到一半，断了的情况。并且没有超时、重试等容错机制，导致工作流永不结束。</p>
+</li>
+<li><p><strong>问题难排查</strong></p>
+<p>调度服务和执行服务各自打到自己的日志中，要排查一个工作流问题，需要看好几个服务的日志，通过同一 trace 才能把请求连起来。</p>
+</li>
+<li><p><strong>难平台化</strong></p>
+<p>基于工作流的编排、调度能力其实是通用的，很多系统都需要这个能力，因此下沉到底层通用能力层是合适的。但由于之前的设计，导致当前服务平台化改造成本很高，不好给其他系统使用。</p>
+</li>
+</ol>
+<p>为了解决上述问题，决定重新实现一个通用的分布式编排调度平台，赋能各系统。</p>
+<h3 id="6-2-2-定位"><a href="#6-2-2-定位" class="headerlink" title="6.2.2    定位"></a>6.2.2    定位</h3><p>新系统的核心能力是工作流编排调度，编排为主，调度为辅，因此定位是分布式编排调度平台，想清楚定位后就可以梳理下功能列表了。</p>
+<ul>
+<li>功能性</li>
+</ul>
+<p>以编排为起点，推演下编排相关功能：</p>
+<ol>
+<li><p><strong>编排模块</strong></p>
+<p>接收任务及依赖关系，进行编排，产出一个完整的工作流。</p>
+</li>
+<li><p><strong>多种编排工具</strong></p>
+<p>形成任务及依赖关系，提交给编排模块。因为任务及依赖关系可能很复杂，所以需要提供工具方便用户，比如以页面拖拽方式，或者是 jar 包形式等。</p>
+</li>
+<li><p><strong>工作流管理</strong></p>
+<p>编排模块的产物是工作流，工作流会进行调度，是运行时状态资源，需要对其运行时状态进行管理，如启、停、取消等。该模块将编排与调度连接了起来。</p>
+</li>
+<li><p><strong>模板管理</strong></p>
+<p>为了让工作流可以执行多次，避免重复编排，故抽取出模板的概念。模板是静态的，由编排模块生成，基于模板可以生成工作流，实现一次编排多次执行。</p>
+</li>
+</ol>
+<p>以调度为起点，推演下调度相关功能：</p>
+<ol>
+<li><p><strong>触发模块</strong></p>
+<p>调度的发起者是谁，以什么形式触发？因此需要一个触发模块来控制调度的触发。触发方式可以是 API、定时触发、间隔触发等。</p>
+</li>
+<li><p><strong>调度模块</strong></p>
+<p>负责工作流的调度，包括执行任务的先后、将任务下发到执行器等，涉及负载均衡、限流、超时控制、容错补偿等，核心模块之一。</p>
+</li>
+<li><p><strong>注册中心</strong></p>
+<p>调度器需要知道可调度的主机列表，因此需要一个注册中心，登记能被调度的实例信息，调度器从注册中心中取选项，按照策略完成调度。</p>
+</li>
+<li><p><strong>通信模块</strong></p>
+<p>调度器需要将任务下达给执行器，当调度器、执行器跨进程时，需要通信模块完成任务的下发。</p>
+</li>
+<li><p><strong>执行模块</strong></p>
+<p>任务被下发到具体实例后，实例会正真执行该任务，实例就是执行器。</p>
+</li>
+<li><p><strong>日志模块</strong></p>
+<p>执行器执行任务时会输出日志，为了日志能集中管理，因此执行器需要把日志进行上报，由日志模块进行统一管理。</p>
+</li>
+<li><p><strong>告警模块</strong></p>
+<p>工作流执行失败后一般需要通知用户，因此有告警模块。用户配置告警条件和策略，当满足条件时触发告警。</p>
+</li>
+</ol>
+<p>整个功能架构如下图6-26，红色是核心模块，黄色代表必不可少，绿色则为可选。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664011727032.png" alt="功能架构图"></p>
+<center> 图6-26 功能架构图 </center>
+
+
+<ul>
+<li>非功能性</li>
+</ul>
+<p>作为公共能力层平台，除了功能性需求外还需要具备以下非功能性目标。</p>
+<ol>
+<li><p><strong>高性能</strong></p>
+<p>平台能支撑足够的并发工作流数；任务调度延迟应在几毫秒级。</p>
+</li>
+<li><p><strong>高可用</strong></p>
+<p>全组件高可用、无单点，支持横向扩展。</p>
+</li>
+<li><p><strong>可扩展</strong></p>
+<p>各模块均要一定扩展性以满足后续用户需求，例如 为了支持跨语言而使用新通信协议、新的告警方式等。</p>
+</li>
+<li><p><strong>易用性</strong></p>
+<p>接入和使用成本尽可能低，否则会影响后续推广。</p>
+</li>
+</ol>
+<h3 id="6-2-3-可选产品简介"><a href="#6-2-3-可选产品简介" class="headerlink" title="6.2.3    可选产品简介"></a>6.2.3    可选产品简介</h3><p>调研时开源的分布式任务编排调度框架不多，尤其是编排这块很少。这里简单介绍下当时调研的几个开源产品，并进行对比。</p>
+<ul>
+<li>Quartz</li>
+</ul>
+<p>Quartz 是 Java 语言实现的轻量级调度框架，以 jar 包形式加入到工程中。调度器和执行器都在一个工程里，因此不需要通信模块，其核心组件就三个：</p>
+<ol>
+<li>Schedule：调度器。</li>
+<li>Trigger：触发器，支持四种类型：SimpleTrigger、CronTirgger、DateIntervalTrigger、NthIncludedDayTrigger。</li>
+<li>Job：被调度的任务。</li>
+</ol>
+<p>Quartz 的集群部署方案属于无主模式，多个节点互相独立且互不感知，通过 MySQL 行锁来保证任务不会重复被调度。</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1663853426942.png" alt="Quartz"></p>
+<center> 图6-27 Qunartz </center>
+
+<p>可以发现 Quartz 功能比较少，集群模式是无中心化的，没有独立的调度节点，调度与执行耦合在一个服务中。</p>
+<ul>
+<li>ElasticJob</li>
+</ul>
+<p><a href="https://shardingsphere.apache.org/elasticjob/current/cn/overview/">ElasticJob</a> 是一个分布式调度解决方案，由 2 个相互独立的子项目 ElasticJob-Lite 和 ElasticJob-Cloud 组成，主要调研的是 ElasticJob-Lite，定位为<strong>轻量级无中心化解决方案，使用 jar 形式提供分布式任务的协调服务。</strong></p>
+<p>整体架构如下图6-28（图片来自官网）：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1663915306896.png" alt="Elasticjob"></p>
+<center> 图6-28 ElasticJob </center>
+
+<p>模块比较多，主要看虚线部分的组件就可以，分别介绍下：</p>
+<ol>
+<li>App1、App2 就是开发者开发的应用，引入 ElasticJob-Lite jar 后就具备分布式任务调度能力了</li>
+<li>Elastic-Job-Lite 是以 jar 嵌入到应用程序中的，从图中可以看出特性比较多，自动注册、触发器、选主、任务分片、任务执行、失效转移、监听器</li>
+<li>Registry：使用 Zookeeper 作为注册和配置中心，同时提供选主功能</li>
+<li>Console：可选组件，是以服务形式运行的一个 web 控制台，包含静态资源增删改查，和动态资源的控制能力</li>
+<li>Events、Logs：事件、日志持久化框架组件</li>
+<li>ELK：一条日志解决方案，其实与 ElasticJob-Lite 无关，可作为 Logs 的实现方案</li>
+</ol>
+<ul>
+<li>XXL-Job</li>
+</ul>
+<p><a href="https://www.xuxueli.com/xxl-job/">XXL-Job</a> 是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展，架构图如下（图片来自官网）：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1663915986675.png" alt="XXL-Job"></p>
+<center> 图6-29 XXL-Job </center>
+
+<p>该架构和之前两个框架差别较大，分为中心化的调度中心服务以及执行器服务。</p>
+<ol>
+<li><p>调度中心负责管理调度信息，按照调度配置发出调度请求，自身不承担业务代码。调度系统与任务解耦，提高了系统可用性和稳定性，同时调度系统性能不再受限于任务模块。支持可视化、简单且动态的管理调度信息，包括任务新建、更新、删除、GLUE 开发、任务报警等，所有上述操作都会实时生效，同时支持监控调度结果以及执行日志，支持执行器故障转移。</p>
+</li>
+<li><p>执行器负责接收调度请求（如执行、终止）、执行任务逻辑。任务模块专注于任务执行相关操作，开发和维护更加简单。</p>
+</li>
+</ol>
+<p>可以发现 XXL-Job 是个功能完备的调度平台，比较符合平台目标。</p>
+<ul>
+<li>特性对比</li>
+</ul>
+<p>Quartz 只是轻量级调度框架而非平台，因此下图6-30这里主要对比 Elastic-Job 和 XXL-Job：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Elastic-Job</th>
+<th>XXL-Job</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>触发方式</td>
+<td>Cron、API</td>
+<td>Cron、API、父子任务触发、固定间隔（实验中）</td>
+</tr>
+<tr>
+<td>任务分片</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>任务类型</td>
+<td>SimpleJob、DataflowJob、脚本、HTTP API</td>
+<td>Java Bean、脚本（Shell、Python、NodeJS 等）</td>
+</tr>
+<tr>
+<td>任务依赖</td>
+<td>×</td>
+<td>父子任务（父任务执行完成后自动执行一次子任务）</td>
+</tr>
+<tr>
+<td>路由策略</td>
+<td>×</td>
+<td>策略丰富，常见的路由策略都支持</td>
+</tr>
+<tr>
+<td>工作流</td>
+<td>×</td>
+<td>×（规划中 v2.4.0）</td>
+</tr>
+<tr>
+<td>通信实现</td>
+<td>无需通信</td>
+<td>基于 Netty 自研的 RPC，HTTP 协议</td>
+</tr>
+<tr>
+<td>注册中心</td>
+<td>ZooKeeper</td>
+<td>MySQL</td>
+</tr>
+<tr>
+<td>高可用</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>中心化</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>告警</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>日志</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>Web 控制台</td>
+<td>√（注册中心、事件、任务、执行器管理、执行纪录等）</td>
+<td>√（报表、任务、调度日志、执行器管理、用户管理等）</td>
+</tr>
+</tbody></table>
+<center> 图6-30 方案对比 </center>
+
+
+<h3 id="6-2-4-整体方案"><a href="#6-2-4-整体方案" class="headerlink" title="6.2.4    整体方案"></a>6.2.4    整体方案</h3><p>对于当前需求，执行器通常是各业务系统服务，因此一定要将调度能力独立出来，作为调度中心运行，因此 ElasticJob 并不合适。这个类似 C/S 的架构有很多好处：</p>
+<ol>
+<li>解耦：架构上各组件职责清晰，调度和执行不耦合在一个服务中。</li>
+<li>稳定：调度中心的稳定性不受执行器的影响。</li>
+<li>易于跨语言：只需要实现各种语言的执行器客户端，不涉及调度层。</li>
+</ol>
+<p>XXL-Job 不支持工作流，缺乏任务编排相关能力，也不满足要求，因此选择自研一套分布式编排调度平台。</p>
+<p>平台整体架构如下图6-31：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664034961846.png" alt="自研架构图"></p>
+<center> 图6-31 自研平台整体架构 </center>
+
+<p>从上往下依次介绍主要组件：</p>
+<ol>
+<li>console：平台 web 控制台，提供各种资源管理能力，包括工作流模板、工作流、在线日志、历史记录等。</li>
+<li>client：jar 包形式的工具类，提供编排工作流的 API。</li>
+<li>调度服务：核心模块，包含编排和调度相关能力，依赖 Redis 做缓存，并存储部分数据，MySQL 做主要存储组件。</li>
+<li>日志服务：统一收集和存储任务日志，提供日志查询等能力，底层存储使用 ES。</li>
+<li>执行节点：任务的执行器节点，一般是各业务服务，以 java 语言为例，通过引入平台提供的执行器 jar 包，实现执行方法，就可以自动接入平台，完成任务接收执行、结果上报等功能。</li>
+</ol>
+<h3 id="6-2-5-关键设计"><a href="#6-2-5-关键设计" class="headerlink" title="6.2.5    关键设计"></a>6.2.5    关键设计</h3><ul>
+<li>编排IR</li>
+</ul>
+<p>编排模块的工作是接收任务、任务间依赖关系，形成符合调度格式的工作流结构，本质是一种翻译，这和编译原理有异曲同工之妙，编译原理的核心就是将一门语言转换成另一门语言，因此在架构设计时参考了编译原理，形成符合当前业务的架构，如图6-32：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664014033649.png" alt="编排IR"></p>
+<center> 图6-32 编排IR </center>
+
+<ol>
+<li><p><strong>前端层</strong></p>
+<p>（不是指页面，而是编译原理中的前端）代表一系列不同形式的、生成 IR 的工具；IR 的含义是中间表达形式，是一种中间格式数据，json 格式；后端层就是编排模块，将 IR 转换成预期格式的工作流。</p>
+</li>
+<li><p><strong>IR 是稳定层，永远不变</strong></p>
+<p>无论前端工具的形式怎么变化，最终都是输出 IR；对于编排模块，输出的工作流格式可能变化，但输入的 IR 是不变的。这样前后端组件完全解耦，各自发展和变化。</p>
+</li>
+</ol>
+<p>关于 IR 格式的设计，对于一个工作流（DAG）其实只包含两种元素：点和边，图6-33这里给出一种避免数据冗余的 IR 格式供参考，代表了任务 1、2、3 串行的工作流：</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> <span class="token number">1              </span><span class="token comment" spellcheck="true"># 任务的唯一标识</span>
+    <span class="token punctuation">...</span>              <span class="token comment" spellcheck="true"># 其他属性</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> <span class="token number">2</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> <span class="token number">3</span>
+<span class="token key atrule">edges</span><span class="token punctuation">:</span> 
+  <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span> <span class="token number">2            </span><span class="token comment" spellcheck="true"># 需要依赖其他任务的任务 id</span>
+    <span class="token key atrule">to</span><span class="token punctuation">:</span> <span class="token number">1            </span><span class="token comment" spellcheck="true"># 被依赖的任务的 id</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">from</span><span class="token punctuation">:</span> <span class="token number">3</span>
+    <span class="token key atrule">to</span><span class="token punctuation">:</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<center> 图6-33 IR格式举例 </center>
+
+<ul>
+<li>编排 API</li>
+</ul>
+<p>针对工作流编排的 API 设计了两种模式，分别是简单模式和复杂模式，简单模式易于理解但代码量可能比较多，复杂模式 API 比较多，在形成复杂的工作流时需要的代码会比简单模式少很多。</p>
+<ol>
+<li><p><strong>简单模式</strong></p>
+<p>简单模式很好理解，把全部任务列出来，然后连线即可，因此只需两个方法：add（加点）、link（连接）。</p>
+<p>举个例子，现在要形成如下图6-33的工作流：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664026638377.png" alt="简单模式"></p>
+<center> 图6-33 简单模式 </center>
+
+<p>简单模式实现的伪代码如下图6-34：</p>
+</li>
+</ol>
+<pre class="line-numbers language-java"><code class="language-java">   Set<span class="token operator">&lt;</span>TaskParameter<span class="token operator">></span> allTasks <span class="token operator">=</span> Sets<span class="token punctuation">.</span><span class="token function">newHashSet</span><span class="token punctuation">(</span>openFridge<span class="token punctuation">,</span> putElephant<span class="token punctuation">,</span> closeFridge<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   TaskGraph elephantWorkflow <span class="token operator">=</span> TaskGraphFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>allTasks<span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">link</span><span class="token punctuation">(</span>openFridge<span class="token punctuation">,</span> putElephant<span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">link</span><span class="token punctuation">(</span>putElephant<span class="token punctuation">,</span> closeFridge<span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">buildTaskGraph</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<center> 图6-34 简单模式伪代码 </center>
+
+<p>   代码也好理解，不做解释。但这种模式对于复杂的工作流，代码就需要很多，会感觉很啰嗦。</p>
+<p>   <img src="/rdefficiency/medias/images/deployment_testing/ceres/1664026703156.png" alt="复杂工作流"></p>
+   <center> 图6-35 复杂工作流 </center>
+
+<p>要形成上图6-35所示，结构稍复杂的工作流，此时用简单模式需要 link 7 次写 14 个入参，不够简洁。</p>
+<ol start="2">
+<li><p><strong>复杂模式</strong></p>
+<p>复杂模式提供了一系列 API，主要思想是按顺序逐步构建出整个工作流，像大部分人画一个工作流的步骤一样，先画出头节点，然后是相关节点并进行连接，逐步形成整个工作流。</p>
+<p>仍以前面的复杂工作流为例，复杂模式下的伪代码如下图6-36：</p>
+<pre class="line-numbers language-java"><code class="language-java">TaskGraph workflow <span class="token operator">=</span> TaskGraphFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>ready<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>boilWater<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">hook</span><span class="token punctuation">(</span>ready<span class="token punctuation">,</span> washCup<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>makeTea<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">hook</span><span class="token punctuation">(</span>washCup<span class="token punctuation">,</span> cleanDesk<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>watchTV<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">buildTaskGraph</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<center> 图6-36 复杂模式伪代码 </center>
+
+<p>此时只需调用 6 个 API、写 8 个入参，当工作流中连线很多时，复杂模式代码的简洁优势会比简单模式大得多。复杂模式完整的 API 如下图6-27：</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">API</th>
+<th align="left">图示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">append(Task)</td>
+<td align="left"><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664027468036.png" alt=""></td>
+</tr>
+<tr>
+<td align="left">append(TaskGraph)</td>
+<td align="left"><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664027331148.png" alt=""></td>
+</tr>
+<tr>
+<td align="left">hook(Task, Task)</td>
+<td align="left"><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664027358348.png" alt=""></td>
+</tr>
+<tr>
+<td align="left">hook(Task,TaskGraph)</td>
+<td align="left"><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664027386542.png" alt=""></td>
+</tr>
+<tr>
+<td align="left">merge(TaskGraph)</td>
+<td align="left"><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664027394765.png" alt=""></td>
+</tr>
+<tr>
+<td align="left">link(Task, Task)</td>
+<td align="left"><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664027532308.png" alt=""></td>
+</tr>
+</tbody></table>
+<center> 图6-37 复杂模式完整API </center>
+
+
+<h3 id="6-2-6-通信模块"><a href="#6-2-6-通信模块" class="headerlink" title="6.2.6    通信模块"></a>6.2.6    通信模块</h3><p>要完成任务调度就少不了通信，通信的性能与可靠性决定了任务调度的速度和成功率，值得仔细考虑和设计。</p>
+<ul>
+<li>抽象层</li>
+</ul>
+<p>通信模块的具体实现方式有多种，为了可插拔及扩展性，需要根据具体业务做一层抽象，后续如果想更换通信协议只需要增加一个实现类，整体框架保持稳定。</p>
+<p>对于调度中心下发任务到执行器业务，可以抽象出下图6-38的两个方法：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1663904738329.png" alt="下发任务抽象"></p>
+<center> 图6-38 下发任务抽象 </center>
+
+<ul>
+<li>实现层</li>
+</ul>
+<p>Java 生态通信模块的框架比较丰富，有不同程度的封装及特性，下图6-39介绍三种成熟的方案。</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>概述</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基于 Netty 实现</td>
+<td>Netty 提供异步、事件驱动的网路应用程序框架，可以让开发者快速、简单的开发出实现了某种协议的网络应用<br /><img src="/rdefficiency/medias/images/deployment_testing/ceres/1663912722137.png" alt=""></td>
+<td>1、高性能<br />2、通信层扩展性好</td>
+<td>1、成本高。<br />框架偏底层，因此编码多，如 server、client、listener、handler 等；<br />框架聚焦于通信，因此还需要实现异常处理、负载均衡等功能</td>
+</tr>
+<tr>
+<td>基于 Akka  Toolkit</td>
+<td>Akka Toolkit 是 JVM 平台上对 Actoer 模型的实现框架，提供了一系列工具包，这里主要关注这两个模块：<br />1、akka-cluster：集群组件，包括集群成员管理、弹性路由等<br />2、akka-remote(artery-remoting)：更底层的通讯组件，对于分布式应用推荐使用 akka-cluster<br />基于 Akka Toolkit 可以方便的实现通信层</td>
+<td>1、实现简单，除了通信相关功能（传输、封包拆包）外，还提供了异常处理、失败重试、路由等功能<br />2、对 Actor 模型支持友好</td>
+<td>1、上手难。不同于传统编程思维，开发者可能比较难转变到基于 Actor 的编程模型上</td>
+</tr>
+<tr>
+<td>MQ 模式</td>
+<td>使用成熟的 MQ 进行通信，调度中心投递消息、执行器消费消息<br /><img src="/rdefficiency/medias/images/deployment_testing/ceres/1663911902247.png" alt=""></td>
+<td>1、完全解耦<br />2、实现非常简单，MQ 不仅解决了通信问题，还提供了负载均衡、异常处理、注册中心、健康检查等功能</td>
+<td>1、强依赖 MQ，对 MQ 的可靠性、功能性等要求高<br />2、系统负载和 MQ 挂钩，MQ 可能成为系统瓶颈，需要对 MQ 非常熟悉</td>
+</tr>
+</tbody></table>
+<center> 图6-39 方案对比 </center>
+
+<p>因为公司内部已经有一个非常强大、功能完善的 MQ 组件 (<a href="https://github.com/qunarcorp/qmq)（已开源），为了更快开发出第一版，所以最终选择了">https://github.com/qunarcorp/qmq)（已开源），为了更快开发出第一版，所以最终选择了</a> MQ 模式，MQ 使用我们自研的消息中心，这样省去很多开发工作，把注册中心、健康检查、负载均衡、容错等机制都包揽了，调度基本全部完成。因为有抽象层，提前预留了扩展点，即使以消息中心成为瓶颈，想换通信层实现也是比较方便的。</p>
+<p>使用 MQ 后要考虑一个问题，MQ broker 端会有 Topic 级别的 QPS 限流，如果通信都是用一个 Topic 性能会大打折扣；如果每个任务/工作流使用一个 Topic，会导致 Topic 无限多，不方便管理且影响 MQ 性能。因此需要找一个业务维度进行 Topic 的公用，比如业务线，此时我们将业务线拼接到 Topic 中，这样 Topic 数量会是有限集，并且能限制业务线维度的并发量，一举两得。</p>
+<h3 id="6-2-7-存储设计"><a href="#6-2-7-存储设计" class="headerlink" title="6.2.7    存储设计"></a>6.2.7    存储设计</h3><p>之前的调度服务在存储这块有明显性能问题，工作流在调度任务时，任务的状态很多，QPS 有放大效应，到 MySQL 这层容易扛不住。例如正在运行 100 个工作流，可能到 MySQL 这层，任务状态更新的 QPS 是 2000，此时 MySQL 容易成为性能瓶颈。</p>
+<p>在新的设计中，根据数据的业务特点，决定使用 Redis + MySQL 配合做存储，对于状态类频繁变更的数据尽可能存在 Redis 里。先后设计了两版方案，这里主要看最终落地的方案。</p>
+<ul>
+<li><strong>存储方案</strong></li>
+</ul>
+<p>核心思想是将很少变更的数据存 MySQL，频繁变更的数据存 Redis。通常存 Redis 后会损失一定的事务性，通过分析业务数据特点、设计存储结构和操作，能解决掉事务问题。</p>
+<p>方案的具体细节如下：</p>
+<ol>
+<li>将工作流模板信息存 MySQL，工作流运行时（存在频繁更新状态）数据存 Redis。</li>
+<li>工作流运行完成后就不需要更新了，此时将数据转移到 MySQL 中。</li>
+<li>还会使用一套 Redis 充当缓存，将热点模板、最近访问的已完成工作流等数据进行缓存，提高访问性能。</li>
+</ol>
+<p>对于事务可以分为这三种情况：</p>
+<ol>
+<li><p><strong>只操作 MySQL</strong></p>
+<p>MySQL 天然具备事务性。</p>
+</li>
+<li><p><strong>只操作 Redis</strong></p>
+<p>通用的方法是利用 Lua 脚本保证原子性，且 Redis 不需要回滚机制，详情可阅读官方文档。但 Lua 脚本维护成本比较高容易乱，没有使用该方案，而是根据业务特点设计了一套：</p>
+<ul>
+<li><p>针对运行时工作流，使用 Set 结构存放当前正在运行的、全部工作流 id。</p>
+</li>
+<li><p>针对每个工作流，使用一组 kv 存放工作流 id 和全部任务 id 集。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>再使用三个 kv 分别存放边信息、任务信息、上下文信息。</li>
+</ul>
+<ul>
+<li>在新增时先操作 B 和 C，最后操作 A，只有 A 中有了 id 才认为工作流保存成功。如果中间产生异常，Redis 里有了 B/C 脏数据，因为带 TTL 所以会自动过期。读的时候也是先读 A 中的 id，根据 id 查 B/C，因此读不到脏数据。</li>
+</ul>
+<ul>
+<li>在更新时，只存在更新 C 类型某一个 kv 的情况，不存在多次操作 Redis 的情况。</li>
+</ul>
+<ul>
+<li>在删除时，先删除 A 中 id，B/C 是否删除成功无所谓，和新增时类似</li>
+</ul>
+<ol start="3">
+<li><p><strong>既操作 MySQL，又操作 Redis</strong></p>
+<p>在当前场景中，只有一个业务需要同时操作 MySQL 和 Redis，就是在工作流运行完成后移动到 MySQL 的业务。只需要先操作 MySQL，数据存好后，Redis 删除数据的操作失败后也无所谓，因为有过期时间，到期自动删除。</p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664075898096.png" alt="业务流程"></p>
+<center> 图6-40 业务流程 </center>
+
+<p>因为整个业务不算复杂，所以可根据不同数据特征，进行精细化设计和控制。这不是一个通用的方案，如果是复杂业务不推荐如此精细，复杂度会很高。</p>
+<h3 id="6-2-8-日志系统"><a href="#6-2-8-日志系统" class="headerlink" title="6.2.8    日志系统"></a>6.2.8    日志系统</h3><p>通过调度系统可以获取到工作流的运行情况，比如工作流中已完成的任务、当前正在运行的任务信息，不过也仅限于任务状态，如果要看任务执行的具体情况就没办法了。更麻烦的是当某个任务执行失败后，需要登录到执行器所在机器上查看日志，很不方便，预期是在平台上就能看到执行的错误信息。</p>
+<p>这就需要引入日志系统，执行器在执行的方法中能获取到平台的 logger 对象，通过该 logger 记录执行日志，并自动尽可能实时地上报到统一的日志系统，平台通过日志系统就能查出工作流中每个任务的实时执行日志了，架构如下图6-41：</p>
+<p><img src="/rdefficiency/medias/images/deployment_testing/ceres/1664029662030.png" alt="日志系统架构图"></p>
+<center> 图6-41 日志系统架构图 </center>
+
+<ol>
+<li><p>worker 输出日志时，需要控制住日志量，避免海量日志的情况，否则会严重影响日志服务的性能和机器带宽。当日志量过大时进行丢弃，并将丢弃动作进行上报，让用户能知晓因数据量太大而被丢弃。</p>
+</li>
+<li><p>日志中需要自动带上工作流、任务相关标识，否则日志服务无法知道是哪个任务的日志；还需要携带时间戳，因为消费可能存在延迟。</p>
+</li>
+<li><p>日志先在 worker 本地缓存一会，当日志量积累到一个阈值，或等待时间过长时，将日志以消息的形式批量发出，充分让每条消息包含尽可能多的日志。</p>
+</li>
+<li><p>通过 MQ 实现削峰，日志服务按照自己能力慢慢消费，避免打崩日志服务。</p>
+</li>
+<li><p>日志服务消费消息，将日志存储到 ES 中。</p>
+</li>
+<li><p>平台提供日志实时展示能力，如果每次看日志，日志服务都从 ES 查一遍，性能会很差，机器带宽扛不住。</p>
+<p>因此日志服务需要为查询生成本地缓存文件，该缓存能覆盖一定时间范围的日志。当后续再有查询时，如果在缓存所覆盖时间范围内则直接从缓存取，超过该范围的进行增量获取，这样能大大减少查询 ES 的次数和网络带宽。</p>
+<p>另一个优化方式是前端做一些处理，第一次查出所有日志，后续查询的起点时间范围是已展示日志中最新的时间。</p>
+</li>
+</ol>
+<h1 id="第七章-自动化测试实践"><a href="#第七章-自动化测试实践" class="headerlink" title="第七章    自动化测试实践"></a>第七章    自动化测试实践</h1><h2 id="7-1-背景"><a href="#7-1-背景" class="headerlink" title="7.1    背景"></a>7.1    背景</h2><h3 id="7-1-1-旅游业务概览"><a href="#7-1-1-旅游业务概览" class="headerlink" title="7.1.1    旅游业务概览"></a>7.1.1    旅游业务概览</h3><p>去哪儿是典型的互联网旅游电商平台，那么它就有着旅游业业务复杂的特点。首先，它的版图比较大，涉及到的业务种类繁多。举几个例子，比如出行服务，有的用户会选择坐飞机，那么就涉及机票业务；有的会选择坐火车或者汽车，那么就涉及火车票汽车票的业务；还有选择自驾出行的同学，那么就涉及租车用车业务；再比如住宿服务，大部分同学会选择酒店，那么就涉及酒店业务；有一部分同学为了体验风土民情，可能会选择当地的客栈；还有一部分同学考虑到资金成本，尤其是一些学生，可能会选择民宿。</p>
+<p>除了这些大类之外，在每个类别内部，业务也是突飞猛进的发展，我们以机票业务举例，以前我们可能只是卖票，现在更多的可能是关注用户体验，为用户提供完整的商品包的概念，定向的为用户提供一些服务，提高用户的购票流程体验。与此同时，还有不断探索的旅游新玩法，比如机酒服务，甚至门票服务。</p>
+<p>但是现在，我们逐渐让这两个业务产生交集，用户可以在去哪儿的app上感受一条龙服务，比如如果用户想到上海迪士尼玩，那么使用去哪儿的产品可以一条龙买完机票订完酒店并搞到门票，体验方便简洁的购票流程，如下图7-1所示。</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.1-3.png" alt="去哪儿app多样化服务"></p>
+<center>图7-1 去哪儿app多样化服务</center>
+
+<p>那我们具体看下，在5年甚至10年间，我们的业务有哪些变化，我们以机票业务举例。</p>
+<p>几年前用户买张机票那就是买张机票，很纯粹的需求，付钱买票，按时出行。但是现在，随着服务意识的增强和提高，在用户体验提升为目标的鞭策下，各平台提供了更多的贴合用户的服务，比如包装产品，自助值机，附加服务提供和附加商品搭售等等。</p>
+<p>我们对比一下以前和现在业务的关注点，几年前，用户更关注的是如下3个维度的基础信息，如图7-2所示：</p>
+<ol>
+<li>比如起降地、出发日期、仓位信息。</li>
+<li>航程信息、比如是直飞还是中转、航司信息，因为有的同学可能在固定的航司办理了会员，所以就会有积分和里程服务。</li>
+<li>航站楼信息，经停点信息，以及起降时间点，这和用户的行程安排息息相关。</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/autotest/1.1-4.png" alt="关注维度"></p>
+<center>图7-2 关注维度</center>
+
+
+<p><img src="/rdefficiency/medias/images/autotest/1.1-5.png" alt="套餐产品"></p>
+<center>图7-3 去哪儿套餐产品举例</center>
+
+
+<h3 id="7-1-2-系统和业务迭代"><a href="#7-1-2-系统和业务迭代" class="headerlink" title="7.1.2    系统和业务迭代"></a>7.1.2    系统和业务迭代</h3><p>为了承载上述的业务逻辑，我们系统也变得越加的复杂，我们可以从图7-4对比看下我们业务系统的迭代变化。</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.2-1.png" alt="业务系统迭代过程"></p>
+<center>图7-4 业务系统迭代变化</center>
+
+
+<p>左图是几年前的一个近似大单体的服务，叫做 tts ，翻译过来说 the total solution ，顾名思义，所有的解决方案都在这里完成。再看右图，现在的业务系统是分层结构的，我们可以看到按照功能聚合划分之后，整个系统分为6层。</p>
+<p>除了系统的维度，承载这复杂业务的后台数据也同样变得复杂起来，比如上面提到的套餐，为了承载套餐提到的功能，那么我们就需要这么些个数据节点去包含这些业务信息。所以用户看到的报价信息对应的背后的数据结构也愈加的复杂，如图7-5所示。</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.2-2.png" alt="报价数据结构举例"></p>
+<center>图7-5 报价数据结构举例</center>
+
+<p>与此同时，公司的研发流程其实也越来越规范，比如说敏捷开发， OKR 管理，MVP 模型的使用，milestone 里程碑的使用等等，项目的交付速度加快，交付的周期大大缩短，做到了真正的持续交付。那么交付频率的提升带来的是测试频率的提升，按照之前人工的测试的回归过程，不仅要分析代码的改动范围，还要去决策回归的范围，然后得出回归的一个成本。同时，在那些人为决策之后，决定不需要回归的部分，其实经常发生漏测导致线上问题的状况。</p>
+<p>真正进入到测试过程中之后其实问题更多，比如说你要测试的系统的依赖很繁杂，它的上下游也不稳定，数据时有时无，构造 case 也会消耗大量的精力，但是覆盖度却无法得以保证，如图7-6。</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.2-5.png" alt="测试过程中的问题举例"></p>
+<center>图7-6 测试过程中的问题举例</center>
+
+<p>除了上下游依赖之外，测试对于流程的依赖程度也很高，举个例子，对于机票购票流程来说，它其实包含了从搜索到 booking 到生单再到支付，如果有后续退票改期的话，还需要走售后流程，整个流程环环相扣，很难只从其中的某一个环节单独测试，因为比如说booking依赖于搜索得到的数据，生单又依赖于booking 得到的数据，这里的数据不只是接口返回的数据，还有一些其他存储介质中暂存和缓存的数据，导致的结果就是比如说我想测试生单，那么势必要把搜索和 booking 先走一遍，如图7-7所示。</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.2-6.png" alt="测试流程举例"></p>
+<center>图7-7 测试流程举例</center>
+
+
+<p>最后我们再通过数据，更直观的感受下，图7-8显示的是我们去哪儿某事业群曾经一个季度的故障数据统计，漏测占比达到了66%。而公司线上高级别故障因为漏测导致的占比也在21%。可以看到这个数据是比较高的。</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.2-7.png" alt="故障数据统计"></p>
+<center>图7-8 故障数据统计</center>
+
+<h3 id="7-1-3-概述"><a href="#7-1-3-概述" class="headerlink" title="7.1.3    概述"></a>7.1.3    概述</h3><p>经过分析我们可以看到，测试和发布的工作量比较大且重复。并且在 dev 负责质量的背景下，问题更加凸显，主要有3个痛点：回归型测试占比大、人工验证成本高和环境管理困难。图7-9所示可以大概分为五大类：</p>
+<p><img src="/rdefficiency/medias/images/autotest/1.3-1.png" alt="测试难点"></p>
+<center>图7-9 测试难点</center>
+
+<ol>
+<li><p>**测试维度</p>
+<p>我们如何能够将测试维度，也就是我们所谓的 checklist 沉淀下来，能够代代相传，同时随着业务变化能够不断更新。</p>
+</li>
+<li><p><strong>测试的有效用例</strong></p>
+<p>我们如何能够用较低的成本去生成实时性较高的测试用例，并尽可能的保证 case 的覆盖度。</p>
+</li>
+<li><p><strong>测试环境</strong></p>
+<p>我们如何能够降低测试环境的维护成本，尽可能保证测试环境的可用性和线上的一致性。</p>
+</li>
+<li><p><strong>测试分析</strong></p>
+<p>我们如何能够降低用户排查问题的难度，缩短排查问题的流程，能够让用户精准定位问题所在。</p>
+</li>
+<li><p><strong>持续集成</strong></p>
+<p>我们如何能够将自动化测试融入到线上的 CICD 流水线当中，用户只需要在几个关键步骤上感知自动化测试的执行和结果即可。</p>
+</li>
+</ol>
+<p>除了痛点之外，我们再看下 去哪儿网 的测试工具现状。总结下来，可以有如下几种：手工测试，、基于脚本的接口测试、基于diff的接口测试，下面分别介绍一下。</p>
+<ol>
+<li><p><strong>手工测试（以机票售卖场景为例）</strong></p>
+<ul>
+<li><p><strong>编写checklist</strong></p>
+<p>5种航程类型<em>70个产品tag</em>乘机⼈*……</p>
+</li>
+<li><p><strong>构造用例</strong></p>
+<p>从订单数据等来源找到用例，并修改测试配置。</p>
+</li>
+<li><p><strong>部署环境</strong></p>
+</li>
+<li><p><strong>执行测试</strong></p>
+</li>
+<li><p><strong>分析结果</strong></p>
+</li>
+</ul>
+<p>过程较长。</p>
+</li>
+<li><p><strong>基于脚本的接口测试</strong></p>
+<ul>
+<li><p>维护用例</p>
+<p>把入参和断⾔维护到脚本中</p>
+</li>
+<li><p>部署环境</p>
+</li>
+<li><p>执行测试</p>
+<p>判断结果是否符合断言</p>
+</li>
+<li><p>分析结果</p>
+</li>
+</ul>
+</li>
+<li><p><strong>diff测试工具</strong></p>
+<ul>
+<li><p>线上流量录制</p>
+<p>按照⼀定的采样率录制参数和结果</p>
+</li>
+<li><p>部署环境</p>
+</li>
+<li><p>执行测试</p>
+<p>把前面录制的参数和结果回放</p>
+</li>
+<li><p>分析结果</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>针对这些情况，有必要实现一个自动化平台来辅助 dev / qa 做到更好的交付结果，降低因为回归漏测导致的bug 甚至故障，从根本上解放人力，让 dev 和 qa 能够投身于更重要的事情上，而不是机械的去做一些重复性的枯燥的，完全能够被代码取代的工作。</p>
+<p>根据上面的痛点可以知道，自动化平台至少需要满足4点要求：</p>
+<ol>
+<li>checklist和case管理</li>
+<li>接口对比测试和结果分析</li>
+<li>环境管理</li>
+<li>应用元信息管理</li>
+</ol>
+<p>至此，接口自动化测试平台应运而生。</p>
+<p>在下面的篇幅当中我们逐一的阐述我们所做的探索，包括踩过的坑，有过的创新，总结的教训以及积累的经验等等。</p>
+<h2 id="7-2-case智选"><a href="#7-2-case智选" class="headerlink" title="7.2    case智选"></a>7.2    case智选</h2><p><img src="/rdefficiency/medias/images/autotest/2-1.png" alt="自动化测试系统架构图"></p>
+<center>图7-10 系统结构 </center>
+
+<p>我们首先来看图7-10中系统结构 。整体架构比较复杂，这里只列出几个核心模块，包括接口自动化测试本身的四大模块，以及和外部交互的模块。</p>
+<p>最上层的黄色部分的模块是用户能够比较能直观看到的模块，即 UI 部分，它包含了配置管理部分，用户可以在这里配置需要进行测试的应用以及接口信息，还有测试管理部分，用户可以根据自己的需要去进行测试的调度。还有项目报告部分，用户可以看到自己执行的测试的结果信息和各个不同维度的分析，还有测试历史，用户可以看到某一个应用在某一段时间内执行的情况和趋势。</p>
+<p>第二部分中间靠左边蓝色的部分是测试管理控制模块，这一部分对于用户是黑盒的，这里定义了测试执行流程中的各个步骤，从测试的诞生到测试的编排，从 case 的生成到应用的部署，再到 case 执行和结果 diff ，最后到测试报告的生成和结果分析展示。</p>
+<p>第三部分是中间靠右边蓝色的部分，是数据控制模块，里面包含了 ELK 数据，用户文件上传的数据，API 对接接口数据等，这些数据都是用来生成 case 的。后面还有 mock 数据，主要是用来进行一种更特殊更复杂的测试场景，就是录制回放模式的测试，需要 mock 数据的支撑。</p>
+<p>第四部分是绿色部分，包括了录制回放模块需要的各个组件，主要是以阿里开源的 jvm-sandbox-repeater 组件为核心，在上面进行定制和二次封装，包括了入口的录制回放，子调用的录制回放，入口的白名单和采样配置，子调用的黑白名单配置，以及最重要的各个不同组件的录制回放插件，比如 redis，db，rpc（ http/dubbo ）等等。</p>
+<p>第五部分红色部分是去哪儿内部的其他组件，包括了 QSSO 单点登陆，邮件，IM 系统 ，ELK 日志数据，全链路追踪系统， 消息中间件等等。</p>
+<p>看完了整体系统架构，我们接下来看一下细节。首先是 case 智选，这里主要解决的是之前提到的两个痛点，测试维度的固化，和 case 生成问题。</p>
+<h3 id="7-2-1-case-生成方式和测试维度自动更新"><a href="#7-2-1-case-生成方式和测试维度自动更新" class="headerlink" title="7.2.1    case 生成方式和测试维度自动更新"></a>7.2.1    case 生成方式和测试维度自动更新</h3><ul>
+<li>测试维度</li>
+</ul>
+<p>对于测试维度来说，比较重要的两个概念就是 checklist 和 case 了。对于 checklist 来说，诉求是能把各系统重要的点都固化下来，支持增删查改，能够方便的检索。</p>
+<ol>
+<li><p><strong>多维度：</strong>可灵活的自由组合，界面上可勾选。</p>
+<ul>
+<li><p>航程类型</p>
+</li>
+<li><p>是否带儿童</p>
+</li>
+<li><p>报价源：政策/旗舰店</p>
+</li>
+<li><p>政策类型</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+</li>
+<li><p><strong>初始化</strong>：默认初始化部分维度叉乘的checklist点列表。</p>
+</li>
+</ol>
+<ul>
+<li>Case 维度</li>
+</ul>
+<p>对于 case 来说，要尽可能减少维护的成本，并且保证实时性/有效性。</p>
+<ol>
+<li><strong>至少覆盖无线和www</strong></li>
+<li><strong>覆盖足够多的产品形式</strong></li>
+</ol>
+<ul>
+<li>业务系统维度</li>
+</ul>
+<p>业务系统的测试维度是相对稳定，维度中的取值范围可能随业务迭代不断变化</p>
+<ol>
+<li>配置到⾃动化测试平台中</li>
+<li>多维度：航程类型、终端、乘机⼈…</li>
+</ol>
+<ul>
+<li>项目checklist是笛卡尔积结果的子集</li>
+</ul>
+<ol>
+<li>app端单程的低价特惠的儿童报价</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/autotest/2.1-1.png" alt="笛卡尔集">    </p>
+<center>图7-11 笛卡尔积 </center>
+
+<p>测试维度固化之后，通过笛卡尔积生成 checklist。</p>
+<p><img src="/rdefficiency/medias/images/autotest/2e0118d0-3b36-11ed-986a-a5f39c4740b8.png" alt="接口配置"></p>
+<center>图7-12 </center>
+
+<p><img src="/rdefficiency/medias/images/autotest/4dbe66f0-3b36-11ed-986a-a5f39c4740b8.png" alt="检查点配置"></p>
+<center>图7-13</center>    
+
+<p>这份 checklist 就是一个全集，比如一个1成人0儿童，直飞航程的搜索条件就是这个 checklist 全集中的一条记录。我们将直飞航程换成往返航程，其他约束条件不变，那么它就是checklist全集中的另一条记录。case生成来源包括如下几种：</p>
+<ol>
+<li><p><strong>根据测试维度生成用例</strong></p>
+</li>
+<li><p><strong>数据来源</strong></p>
+<ul>
+<li><p>ELK 业务日志</p>
+</li>
+<li><p>gent 标准化记录请求入参打印日志</p>
+</li>
+</ul>
+</li>
+<li><p><strong>时效性</strong></p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/autotest/2.1-5.png" alt="case生成过程">    </p>
+<center>图7-14 case生成过程</center>    
+
+<p>有了 checklist 之后，我们就可以用它来生成 case 了。我们首先看一下数据来源，这里我们使用的是 ELK 数据作为原始数据，为什么用 ELK 呢？在之前提到痛点的时候，我们提到了，我们希望用相对较低的成本去获取case ，而我们的业务同学为了排查线上问题，已经在线上打印了接口的请求和响应数据，并通过 ELK 收集起来，那么我们也使用这部分数据，做到自动化测试和业务线排查问题共享数据，减少数据冗余带来的成本消耗。</p>
+<p>然后我们这部分 ELK 数据和 checklist 一起去生成 case ，这里我们可以把 hecklist 想象成一个漏斗，ELK 数据流经这个漏斗，和 ecklist 中的各个维度进行匹配，匹配上之后就生成了属于该 checklist 某一条记录对应的case。除此之外还要另一种生成 case 方式，就是无规则采样，相比之下，这种方式更加的简单粗暴，因为它省略了 checklist 匹配的流程，这样会导致生成的 case 对于 checklist 集的覆盖度不可控，因为它完全取决于采样的结果。当然也不是说这种方式就一无是处，后面我们会提到使用这种case生成方式的场景。</p>
+<p>最后是 case 的实效性，因为 ELK 里的数据是用来排查实时线上问题的，所以它的实时性得到了保证，我们复用了同一份数据，那么 case 的实效性也就得到了保障。</p>
+<p>case 维护的一个重要问题是测试维度的更新问题。有的时候，业务迭代会新增某个维度的内容，就是说扩大了这个维度的取值范围，比如售卖终端又多了一种渠道，叫分销渠道。这种业务分支新增的情况如果都需要人为处理的话，会有一定的人力损耗。我们会在做 ES 和 checklist 匹配的过程当中，自动识别出 checklist 维度取值范围之外的值，同时补充到 checklist 已有的取值范围中去，实现维度自动扩充的一个效果。</p>
+<p><img src="/rdefficiency/medias/images/autotest/2.1-4.png" alt="case集"></p>
+<center>图7-15 case集</center>    
+
+<p><img src="/rdefficiency/medias/images/autotest/2.1-7.png" alt="case自动补充">    </p>
+<center>图7-16 case自动补充</center>        
+
+<p>反过来，如果一个业务维度已经很久没 case 覆盖，说明这个业务维度已经不存在了。比如售卖终端中的分销类型，某个代理商只和去哪儿签订了半年的合约，那么势必半年之后这个渠道就不再有报价了。那么评估一个业务维度的消亡，它不是一锤子买卖，这里我们引入了一个叫做周期覆盖度的概念，如果长时间一直没有覆盖的维度，我们才认为是是消亡的维度。同时，配合上面提到的自动补充逻辑，当一个维度周期的取值没有被覆盖，导致被删掉之后，过了一段时间又重新出现，那么也会重新被补充到 checklist 当中去。    </p>
+<p><img src="/rdefficiency/medias/images/autotest/2.1-8.png" alt="case自动更新"></p>
+<center>图7-17 case自动更新</center>    
+
+<p><img src="/rdefficiency/medias/images/autotest/2.1-9.png" alt="case自动更新"></p>
+<center>图7-18 case自动更新</center>    
+
+<p>下面说下 case 的生成策略，也有几种，对应不同的场景和优先级。比如说，用户测试的时候，实时触发生成的 case，这部分它的时效性最高，优先级也最高，是生成 case 的首选。但是因为线上实时产生的日志量非常的大，尤其是搜索场景，所以日志的筛选是在一个时间范围内的，比如说过去的三个小时之内，这三个小时的场景覆盖可能会有遗漏，所以还有一个逻辑是定时补充，线上会有定时任务每隔N小时去补充case，这里的补充当然是定向补充，会选取那些没有覆盖的 checklist 进行补充。</p>
+<p>那么经过线上长期的运行，已经证明，以上这两种策略可以获得足够高的覆盖了。不过有的系统因为有些特性，可能存在长尾的情况，比如一些冷门的产品，用户购买的频次就是很低，那么这些 case 一旦出现，我们就不能放过，因为后面很长一段时间都可能很难出现了，这种 case 我们要固化下来，在后面的测试中直接使用，进一步的提高覆盖度。</p>
+<h3 id="7-2-2-case-生成策略时机以及-case-有效性"><a href="#7-2-2-case-生成策略时机以及-case-有效性" class="headerlink" title="7.2.2    case 生成策略时机以及 case 有效性"></a>7.2.2    case 生成策略时机以及 case 有效性</h3><p>生成的这些 case 也是需要维护的，这里主要指的是 case 时效性的检验，举个例子比如说机票搜索场景，用户在今天搜索了一个2月1号的航线，这个搜索条件被我们的系统加工成一个 case，那么在2月1号之后，我们测试的时候如果使用到了这条 case，它搜索的就是一个过去时间的航线，自然就过期了。</p>
+<p> 其实对于那些通过 ELK 实时生成的 case，我们不需要太过担心，因为它的实时性能够得到保证。但是对于定时补充或者固化产生的那些 case，它们的新鲜度可能会比较低，尤其是固化下来的稀疏 case，可能是几天、几周甚至几个月前的数据，这种 case 是要被剔除的，因为它验证的代码流程是不符合预期的。</p>
+<p>还有一些场景，比如某条航线的机票售完了，那么结果可能会提示用户该航线已售罄，但是我们关心的核心逻辑是报价的计算和交易流程，这个时候可以配置一些关心节点，比如报价信息节点，如果没有这个节点，我们就会认为这个 case 也不再有效。 </p>
+<p>对于稀疏的 case 其实，它的产生非常不容易，如果只是因为日期过期而舍弃掉这个 case 的话，代价有些大，这个时候我们会使用类似于数据偏移的策略，修改它的触发日期，来起到续命的效果。这是一种在全链路压测领域中也经常采用的策略。</p>
+<p><img src="/rdefficiency/medias/images/autotest/2.2-1.png" alt="稀疏case"></p>
+<center>图7-19 </center>
+
+<h3 id="7-2-3-其他特殊场景"><a href="#7-2-3-其他特殊场景" class="headerlink" title="7.2.3    其他特殊场景"></a>7.2.3    其他特殊场景</h3><p>最后我们补充说一个相对来说比较特殊的场景，叫做入参单一问题。有的场景入参条件包含的信息量非常有限，比如说我们根据订单号去查询订单详情，订单号本身它只是一串数字和字母的组合，不具备丰富的业务语义，所以我们无法根据订单号这个维度来保证业务维度覆盖的程度。但是其实订单本身是有业务语义的，只是这个维度在结果中而不是参数中，对于这种场景我们就需要将结果和入参绑定起来，通过结果来匹配checklist。</p>
+<p> 还有一种更特殊的场景，它的业务维度既不在参数中也不在结果中，而是在中间过程中，比如说系统根据参数先去查询出一个中间结果，然后根据中间结果再去做其它操作，那么这种就需要特殊对待，同理，我们需要将这部分信息和入参绑定起来作为 case，完成 checklist 的匹配。</p>
+<p><img src="/rdefficiency/medias/images/autotest/2.3-1.png" alt="特殊case">    </p>
+<center>图7-20 </center>                        
+
+
+<h2 id="7-3-测试环境治理"><a href="#7-3-测试环境治理" class="headerlink" title="7.3    测试环境治理"></a>7.3    测试环境治理</h2><p>case 的问题解决了，我们来到测试环境问题这个 topic 。 测试环境的管理，尤其是资源的消耗，其实一直是一个很令人头疼的问题，这里我们主要围绕两个方面去展开，首先会看下我们现阶段的测试执行是如何同环境挂钩的，然后会看下我们的测试平台如何借助公司内的新产物“软路由环境”，来帮助我们解决之前测试环境存在的问题。</p>
+<p>最开始先说一下我们的这个测试执行流程，当代码发生变更或者 CICD 流水线中的某个环节触发了自动化测试，平台会得到通知进行环境的准备，代码的部署等等一系列事项。去哪儿内部的项目，是通过 PMO（也就是所说的 jira ）来管理的，如果只有一套测试环境的时候，同一个应用有多个 PMO 同时进行的时候，就涉及到环境的分时复用和资源抢占问题。</p>
+<p><img src="/rdefficiency/medias/images/autotest/3-1.png" alt="环境抢占"></p>
+<center>图7-21 环境抢占</center>
+
+<p>所以环境池这个最简单的方案就被用来解决这个问题，测试平台会为我们的用户，预先准备好 N 套环境，这个 N 的取值大小，会根据该应用项目的热度来决定，也就是说，项目并行度高的应用，就会给它更大的环境池来解决排队问题。但是往往一个应用的测试和它的上下游脱不开干系，所以我们不止要为该应用准备环境，它的上下游都需要准备好，而且能够串联起来，对于机票酒店这种复杂业务场景，一整套环境会涉及上百个应用，那么环境池对于资源的损耗会大大提高。</p>
+<p><img src="/rdefficiency/medias/images/autotest/3-2.png" alt="环境池"></p>
+<center>图7-22 环境池</center>    
+
+<p>对于为了应对上述问题，“软路由”闪亮登场。我们首先介绍一下，什么是软路由。 图7-22中有三个环境。</p>
+<p>第一个环境 base env 我们称之为基准环境，这里我们先假设这套环境中有6个应用。按照普通环境的玩法，只要有一个 PMO 中包含了这其中6个应用中的1个或多个，我们就需要单独去搭建以这6个应用为一组的测试环境，来做测试使用，N 个 PMO ，就需要 N 套环境。但是在软路由情况下，我们的测试环境其实不需要是这样六位一体的一整套环境，而是需要测哪个应用就单独搭建该应用对应的环境，而它的上下游会因为软路由的功能统一路由到 base 环境上。</p>
+<p>举个例子 PMO1 的项目涉及应用 A 和 D ，我们就单独搭建一套 test env1 的环境，这个环境中只包含 A1 和D1 两个应用。同时 PMO2 涉及应用 A 和 D ，当然也可以是其他应用，那么我们就单独搭建另一套 test env2 环境，这个环境只包含 A2 和 D2 两个应用，test env2 与 test env1 这两个环境完全隔离。假设我们的业务调用链路就是图中的 A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F ，那么软路由的路由能力，能够使 MO1 的测试流量从入口路由到 test env1 的 A1，然后回到基准环境 B，再到基准环境的 C，再到 test env1 的 D1，然后继续回到基准环境的 E 和 F。</p>
+<p>对于 test env2 同理，会走一条 A2-&gt;B-&gt;C-&gt;D2-&gt;E→F 的这样一个路径。</p>
+<p>在这种架构下，对于环境中包含上百个应用的大环境，但是测试又只测几个应用的场景，软路由占用的资源肉眼可见的少，对于资源的节省是非常非常可观的。</p>
+<p><img src="/rdefficiency/medias/images/autotest/3-3.png" alt="软路由"></p>
+<center>图7-23 软路由</center>        
+
+
+<h2 id="7-4-录制回放落地"><a href="#7-4-录制回放落地" class="headerlink" title="7.4    录制回放落地"></a>7.4    录制回放落地</h2><p>接下来说一下相对复杂的一个测试场景，录制回放。录制回放落地这个章节主要会从两个方面展开，首先是录制回放模式所应用的场景，以及实现的选型，然后是录制回放模式下排查问题困难这个痛点的一个细化的解决方案。</p>
+<p>说到录制回放，我们先聊一下自动化测试的两个维度。第一个维度就是接口的 diff ，主要应对查询类型的测试场景，也就是“读”场景下的接口自动化 diff 测试。</p>
+<p>第二个维度，就是所谓的录制回放，它应用的场景比较多，比如下游接口不稳定导致不幂等，同样的请求有时候能返回结果有时候却超时或者因为其他原因，没有办法返回正确结果；再比如下游没有数据，有些测试环境中，数据残缺不全，导致一些case测试的时候没有数据没有结果；还有的下游接口的调用可能会消耗资金，一些下游接口对接了一些外部公司的应用，有的可能是按次数收费，有的按流量收费，而这些应用有的没有对应的测试环境，走的都是同一套线上；还有一些写场景，比如下单等，同时该场景可能使用了仿真环境，而且隔离做的不够彻底，下游可能存在连接了某个应用的灰度或线上库，那么就可能对仿真或者线上库造成污染。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-1.png" alt="image"></p>
+<center>图7-24</center>    
+
+<p>去哪儿录制回放的选型，其实经过了时间的推移也有过迭代。第一个版本大概是三四年前，那个时候还没有 jvm-sandbox-repeater 这个开源组件，只有 jvm-sandbox ，所以去哪儿基于 jvm-sandbox ，在上面自己定制的封装了录制和回放的能力，实现测试当中子调用和其他组件 mock 的功能。18年阿里新开源了 jvm-sandbox-repeater，就是在 jvm-sandbox 上面将录制回放的能力抽象实现了一把。去哪儿为了利用开源社区的红利，我们迅速的使用了 repeater 去替换掉了去哪儿r自己内部的实现，同时在上面做了一些小小的定制。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-2.png" alt="sandbox"></p>
+<center>图7-25</center>        
+
+<p>接下来我们看一下，整个 jvm-sandbox-repeater 的结构，它大体可以分为两大部分，一块是数据面，一块是控制面，这个分法其实并不是官方的分法，而是参考了同样为阿里 jvm-sandbox 系的混沌工程利器 chaosblade的分法，chaosblade 在最后一个章节也会提到。 这里控制面，主要是进行录制回放请求的下发和和路由的分配，数据面则包含了沙箱核心功能的实现，包括录制回放的各种插件，数据上报以及存储的数据中心等等。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-3.png" alt="jvm-sandbox-repeater"></p>
+<center>图7-26  jvm-sandbox-repeater的结构</center>        
+
+
+<p>接下来再说一下去哪儿在上面的一些定制处理，整个控制面由去哪儿自己的自动化测试平台来接管的，包括了中控，case 录制、回放以及筛选等逻辑。数据面，自研了一些新的插件，包括 dubbo 的异步回调，ning 的异步httpclient 等一些异步 rpc 场景，还包括去哪儿内部的一些 db 和 redis 的组件。</p>
+<p>因为去哪儿的 dbclient 和 redis client 也是自研的，所以这部分组件的插件需要自己去搞。 那么数据面里面，case 存储管理这块，我们按功能划分拆分成了两个不同的类型，我们使用 ES 管理索引用来做 case 的筛选，使用 Hbase 去存储原始的数据，包括入口和所有子调用录制的信息，用来做 case 执行回放使用。ES 和 Hbase 的数据通过唯一Id实现关联绑定。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-4.png" alt="去哪儿录制回放实现"></p>
+<center>图7-27 去哪儿录制回放实现</center>    
+
+<p>录制回放模式落地之后，在推广使用的过程中其实会发现，当我们的测试出现预期差异的时候，相对于普通模式，录制回放模式下，问题定位的难度大大增加，因为引入录制回放组件之后，本身整个测试的复杂度就上升了，因为有 mock 数据这个依赖，用户在排查问题的时候不像之前纯接口 diff 那样的简单纯粹，比如说这里的数据不同，产生的 diff ，它就不单单是结果的 diff ，还包括了子调用入参的 diff 。而 mock 的结果和代码逻辑的变动，可能会共同导致代码流程的不同，也就是方法调用链路不同，这都带来了问题排查的复杂度。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-5.png" alt="diff结果"></p>
+<center>图7-28 diff结果</center>    
+
+<p>那么我们为了去解这最后一公里的问题，我们先看看之前一般有哪些排查问题的手段，总结一下，一般有三大类：</p>
+<p>第一种是最简单的，就是通过异常栈，因为异常栈信息当中，包含了方法的调用路径，所以通过研究这个路径可以定位到异常位置，调用关系以及引发它的问题；</p>
+<p>第二种是 debug ，这是开发最喜欢的一种方式，除了能够看到方法调用链路之外还能看到上下文信息，入参结果取值等等；</p>
+<p>第三种是 arthas ，因为有些时候 debug 不能随心所欲的使用，比如在仿真环境甚至线上，所以借助 arthas将 debug 功能可视化。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-6.png" alt="排查问方法"></p>
+<center>图7-29 排查问题方法</center>    
+
+<p>以上这三种都是 JVM 中链路排查的一些手段。那么对于跨 JVM 的链路排查，公司也有 qtrace 这种全链路追踪系统，能够在更宏观的层面，也就是微服务层面，去看到一次请求在哪个应用会出现问题。 </p>
+<p>那么我们抽象一下，我们的目标是为了在出问题的时候将 JVM 的内存方法调用链路去梳理出来，那么将上述宏观的这种应用维度降维成 JVM 的方法，在微服务内这个微观层面下，如果我们也能梳理出一个 JVM 方法链路调用拓扑图的话，我们将回放时基准环境的拓扑和测试环境的拓扑进行 diff ，就基本能够找到从哪个方法起，开始出现的问题，这比改造录制回放组件，在 diff 处去抛出一个异常，或者是用户 debug ，包括 arthas ，都更易用也更直观，大大简化了用户排查问题的路径，也可以降低时间和人力的成本。</p>
+<p><img src="/rdefficiency/medias/images/autotest/4-7.png" alt="应用拓扑"></p>
+<center>图7-30 应用拓扑</center>
+
+<p>因为一个 JVM 内链路上涉及到的方法可能有很多，除了我们自己写的应用代码之外，还包括了 jdk 的，还有一些公共包比如 guava ， Apache 的公共组件，还有一些公司技术部封装的内部组件，如果把所有的方法链路都串起来，整个链路拓扑可能会非常大，信息量也非常大。而其实真正涉及业务流程的大部分都是我们自己的写的那一部分代码，所以我们提供了一个配置功能，用户可以根据需要，按照包路径，类名，方法名等维度去配置，哪些链路是需要关心的，同时支持了黑白名单，在关心之外的调用链路不会被拉出来，这样可以进一步降低用户的排查成本。 </p>
+<p><img src="/rdefficiency/medias/images/autotest/4-8.png" alt="链路配置"></p>
+<center>图7-31 链路配置</center>        
+
+<h2 id="7-5-落地覆盖情况"><a href="#7-5-落地覆盖情况" class="headerlink" title="7.5 落地覆盖情况"></a>7.5 落地覆盖情况</h2><p>目前接口自动化测试平台已经覆盖300多个核心应用，涉及机票、酒店、火车票、服务平台、门票等核心部门，并作为发布质量检查中的一个拦截项。每天接口测试次数达2600+。</p>
+<h2 id="7-6-其他探索和实践"><a href="#7-6-其他探索和实践" class="headerlink" title="7.6    其他探索和实践"></a>7.6    其他探索和实践</h2><p>之前的三个大章节说的都是自动化测试的一些本职工作，主要是为了业务去保驾护航。那么除了进行业务回归之外，它还能发挥什么其他的作用，在其他方面去为公司赋能？这里就到了脑洞环节了。那么整个2021年，我们结合公司内的一些其他工具和平台，进行了一些所谓的“杂交”实验，在某些方面产生了一些1+1&gt;2的效果，这里就以三个例子来展开阐述，分别是“自动化测试与混沌工程”，“自动化测试与全链路压测”以及“自动化测试与基础组件升级”这三个方面。</p>
+<h3 id="7-6-1-结合混沌工程的实践"><a href="#7-6-1-结合混沌工程的实践" class="headerlink" title="7.6.1    结合混沌工程的实践"></a>7.6.1    结合混沌工程的实践</h3><p>混沌工程是去哪儿在2021年投入很大精力去落地实践的一个领域。其中一个和自动化测试结合的比较好的案例就是“强弱依赖”演练。首先先介绍一下强弱依赖的概念，图中 A 依赖了B、C、D这三个服务和一个数据库。那么假设，我们的服务D挂了，A还能正常对外提供服务，那么D就是弱依赖，反过来B、C和数据库这其中任何一个挂了，A都无法返回正常结果，那么B、C和数据库就是强依赖。</p>
+<p><img src="/rdefficiency/medias/images/autotest/5.1-1.png" alt="混沌测试"></p>
+<center>图7-32 混存测试</center>    
+
+<p>举个实际的例子，如图7-32，我们将上述的 A、B、C、D 和数据映射到去哪儿机票的预定场景，当然这里是一个简化版的预定流程，主要是为了解释清楚这个问题。 A对应机票预定的入口，B对应风控校验系统，数据库对应库存，C对应生单数据处理，D对应大数据平台的分析服务，那么这里看下来，只有 D 是弱依赖，因为即使我们的订单数据无法进入大数据平台，影响的也只是去哪儿自身的一个数据分析和统计，对于 C 端的用户来说，机票还是可以正常购买的，反过来，无论是风控，库存还是生单处理，哪一个环节有问题，用户都会受影响。 </p>
+<p>上面的例子比较简单，我们人工就能比较清晰的去判断这个例子中的强弱依赖关系。但是真实业务中的依赖关系多而且复杂，一个生单的流程可能涉及上百个应用。 那么强弱依赖演练就是为了发现这些繁杂的应用中，哪些是强依赖，哪些是弱依赖，进而推动业务线去根据数据做系统优化，当然我们最终的目的都是减少强依赖，然后对剩下的为数不多的强依赖进行HA处理。</p>
+<p><img src="/rdefficiency/medias/images/autotest/5.1-2.png" alt="混沌测试"></p>
+<center>图7-33 机票预订场景下的混沌测试</center>    
+
+<p>下面我们看一下图中7-33整个强弱依赖演练的流程，先看下和自动化测试平台结合之前的一个旧流程： </p>
+<p>在准备阶段，先启动强弱依赖治理，选择对应的应用，然后进行依赖分析，先手动标记，这整个过程主要是人去介入，我们会去借助 qtrace 产生的拓扑图，加上对业务的一个了解程度，完成手工的操作。</p>
+<p> 接下来在演练阶段，根据标记结果执行强弱依赖演练，也就是根据这些标记的强弱依赖去注入一些常见的故障和错误场景，然后在这些场景下去观测整个演练的结果——大多数是接口的返回值和业务的流程，来生成强弱依赖报告。</p>
+<p>最后，我们可以根据出来的报告，去修正之前在准备阶段的手动标记的强弱依赖的内容。可以看到整个过程需要人工参与的部分还是比较多的，主要在依赖分析，手动比较，根据断言生成报告和依赖标记的修正。 那么在这里我们加入自动化测试平台的帮助，就可以让整个流程更加简单，也就是我们所谓的强弱依赖自动演练和标注。那具体怎么做的？</p>
+<p><img src="/rdefficiency/medias/images/autotest/5.1-3.png" alt="混沌实践"></p>
+<center>图7-34 强弱依赖演练流程演进</center>
+
+<p>这里，我们不需要进行依赖分析和手动标记，我们直接使用自动化测试作为流量的入口，将同样的请求分别打到一个正常的基准环境和一个准备好强弱依赖演练的一个测试环境，然后我们借助自动化测试的断言能力对接口的返回结果直接进行智能分析，当断言不通过的时候，直接将本次演练的下游接口标记为强依赖，反之标记为弱依赖。这个环节不单大大提高了自动化的程度，减少了人为交互，提速效果明显，同时，通过自动化测试平台本身case 覆盖的保证，让整个比较过程的范围面更广，结果也更加可信了。流程详见图7-35所示。</p>
+<p><img src="/rdefficiency/medias/images/autotest/5.1-4.png" alt="自动强弱依赖验证"></p>
+<center>图7-35 强弱依赖演练流程</center>    
+
+<h3 id="7-6-2-与全链路压测的结合"><a href="#7-6-2-与全链路压测的结合" class="headerlink" title="7.6.2 与全链路压测的结合"></a>7.6.2 与全链路压测的结合</h3><p>这里的全链路压测主要借助了自动化测试平台的 case 获取能力，前面抖了个包袱，在说 case 生成的时候，提到了 checklist 过滤和线上随机采样的对比，那么在压测场景下，我们看重的更多是量，而不是业务逻辑覆盖，所以这里我们就可以使用线上随机采样甚至全采，来获得 case，用于压测这种需要大量 case 来探测系统性能的这样一个场景。 同时在一些复杂场景下的 mock 数据功能使用了刚才我们提到的自动化测试平台的录制回放能力，就是图7-41中所有的这些非灰色标注的部分。</p>
+<p>因为整个链路在压测的过程中有时候有些服务是不能被压的，比如一些外部依赖，像机票行业，涉及到航司或者代理商，除非你能够说服对方和你一起进行压测，否则这部分数据你只能 mock 。那么 mock 数据的准备，当然还是用录制回放的模式会更节省人力，虽然复杂度会提升。</p>
+<p>尤其像我们公司内部，压测的影子库相关功能的 agent 和录制回放的 agent 是两个不同的 agent ，所以还要去解决 agent 插桩兼容性的问题，比如同一个字节码修改的切点，如果因为提前返回，导致后生效切点无法工作，那么功能就不能正常完成了。我们在这方面也是做了很多工作，这里就不详细去展开说了，后面在全链路压测topic 中会展开去讲。</p>
+<p><img src="/rdefficiency/medias/images/autotest/5.2-1.png" alt="压测流程"></p>
+<center>图7-36 全链路压测流程</center>    
+
+<h3 id="7-6-3-基建变更和升级"><a href="#7-6-3-基建变更和升级" class="headerlink" title="7.6.3    基建变更和升级"></a>7.6.3    基建变更和升级</h3><p>然后再说一下基础组件自动升级这块。基础组件和中间件的升级其实一直是各大公司比较头疼的话题，这也直接体现了技术部门和业务部门之间的最大矛盾。业务部门更关心的是业务架构是否合理、是否满足业务需求、技术部的一些迭代：比如 dubbo 跟随社区升级、比如一些 apache 或者 guava 包的版本、比如 jdk 的升级，业务其实不太care，反而如果一旦出现了不兼容的升级，可能会增加业务线开发的成本。比如因为 API 的改动需要改代码，再比如maven版本管理的变化导致依赖冲突等等。更严重的，如果这些升级因为一些场景没有考虑的很周到，导致业务线升级之后发生了线上的故障，这会大大降低业务线对于公共组件升级的热情和信心，让技术部的同学的工作无法去开展和推进，OKR 也没法完成。</p>
+<p>同时对于技术部同学自己来说，怎么样才算回归完全，保证测试的核心应用的覆盖度。 在这样一个背景下，去借助自动化测试平台的能力，做基础组件自动升级这样一个方案走上了舞台。</p>
+<p>因为自动化测试的覆盖度和成熟度相对来说都比较高，执行效率也比较让人满意，所以技术部的同学只需要将新的公共版本的分支进行自动化回归，断言不过的时候再看下问题所在。一个晚上不需要熬夜即可轻轻松松覆盖所有应用，第二天早上来看测试结果，根据结果做修正，没有几次回归解决不了的，如果有，那么再来几次。最终，达成的效果，就是技术部和业务线的同学皆大欢喜，大家各自所做的事情能够互相借力，事情做成了，信赖也建立了，是一个 happy ending 。</p>
+<p>然后有了基础组件升级的这样一个成功的经验之后，我们将这一套流程继续复刻在其他类似的场景上，包括在2021年去哪儿内部重点落地的从 KVM 迁移容器的项目，也进行了使用。容器的迁移涉及到的应用范围很大，环境上既包含了测试环境，还包含线上环境。如果单纯靠人去搞，会投入很大的成本。同时，容器成熟之后，后续的一些镜像相关的更新和升级也同理，可以用上这整个回归流程。 这就是我们自动化测试平台和基建升级所做的一个有比较好效果的结合案例。</p>
+<p><img src="/rdefficiency/medias/images/autotest/5.3-1.png" alt="基建变更和升级"></p>
+<center>图7-37 基建变更和升级</center>
+
+<h2 id="7-7-总结展望"><a href="#7-7-总结展望" class="headerlink" title="7.7    总结展望"></a>7.7    总结展望</h2><p>最后总结和展望一下，整个案例我们介绍了去哪儿自动化测试平台在落地实践过程中的一些创新、亮点，以及趟过的坑和积累的经验教训。最后还囊括了一些和其他工具的结合，包括和质量保证息息相关的混沌工程和全链路压测，让整个自动化测试不再局限于它自己的圈子，不再着眼于自己的一亩三分地。因为自动化测试就那么些东西，如果我们固步自封的话，这个测试平台最后只会变成一潭死水。</p>
+<p>包括以后的展望，我们的方向也是在不断优化测试平台本身的同时，去开更大的脑洞，和前沿新鲜技术多去结合，擦出更多的火花，产生化学效果，衍生出更多的这种1+1&gt;2的案例。 </p>
+<h1 id="第八章-测试覆盖率"><a href="#第八章-测试覆盖率" class="headerlink" title="第八章    测试覆盖率"></a>第八章    测试覆盖率</h1><h2 id="8-1-背景与收益"><a href="#8-1-背景与收益" class="headerlink" title="8.1    背景与收益"></a>8.1    背景与收益</h2><p>伴随业务的不断完善，企业已经跳过快速扩张的阶段，更加重视服务质量与用户体验，因此我们做了很多质量建设，包括接口自动化、UI测试、单元测试、静态代码扫描等；同时将质量门禁与发布集成，进行检查拦截，即便如此仍然故障频发。</p>
+<p>对故障原因进行分析，我们发现近两年有超过三分之一是因为漏测造成，这无疑会被大家质疑我们质量建设的效果，总结分析根本原因是质量保障要保证验证覆盖度，而像去哪儿这样体量的公司经历了长久的发展演变，业务非常复杂，因此我们做质量建设的时候通常是优先保障核心应用链路的，这就导致虽然辛苦建设还是会有遗漏的问题。</p>
+<p>基于此我们在想历史包袱治理的成本太高，而且在业务快速发展的大环境下我们也不可能完全停滞进行全量的治理，因此我们最主要的还是控制新增变更的质量，前边已经说到手段已经建设完成，现在要做的就是保障手段在新增变更的执行，这时候测试覆盖率就变成了一种非常好的手段，虽然覆盖到了不一定有问题，但是没覆盖到更容易出问题。</p>
+<p>因此，从21年开始我们进行了测试覆盖率的建设，当前覆盖率平台已经被我们纳入提测上线前必须的质量保障步骤，同时也被广泛应用在更多的场景：如接口自动化 case 补充的参考、代码 review 的范围参考等，成为开发过程质量建设保障不可缺少的重要组成服务，而且统计数据，当前发布故障中，代码漏测得到了大幅的改善，占比由37%降低至8.3%。</p>
+<h2 id="8-2-实践框架"><a href="#8-2-实践框架" class="headerlink" title="8.2    实践框架"></a>8.2    实践框架</h2><p>覆盖率的建设经历了两个阶段，开发落地与覆盖提升。</p>
+<ul>
+<li><strong>开发落地</strong></li>
+</ul>
+<p>包括了调研、开发、集成 CICD 与落体过程，全面落地需要考虑落地对用户无干扰，平台性能，存储磁盘问题，更需要考虑覆盖率agent对业应用是否产生哪些影响、踩过的坑以及如何优雅的解决。</p>
+<p>截止2021年初，覆盖率平台也作为基础能力覆盖所有业务线，默认全部应用开启覆盖率，应用接入数占比98.96%。</p>
+<ul>
+<li><strong>覆盖提升</strong></li>
+</ul>
+<p>推广落地后面要做的是用户体验提升，提升覆盖平台数据的精准度与效率成为了首要任务。经过大半年的优化，到2021年底，发布质检平台中，覆盖率拦截数值比例由30%左右提升至70+%。</p>
+<p>以下我们从这两个阶段分别介绍。</p>
+<h3 id="8-2-1-阶段1—实现落地"><a href="#8-2-1-阶段1—实现落地" class="headerlink" title="8.2.1    阶段1—实现落地"></a>8.2.1    阶段1—实现落地</h3><p>开发阶段我们结合了公司内部的技术栈以及当前市面上解决方案，避免重复造轮子最终采用开源工具作为基础，集成到 CICD 中，并实现代码分支覆盖数据合并，与多维度查询功能。落地过程也出现多种特殊场景，如启动失败，业务报错等一系列问题。面对复杂的业务应用，我们踩过了很多坑，通过升级改造得到了很好的解决，以下对实现过程进行详细的介绍。</p>
+<h4 id="8-2-1-1-覆盖率简介"><a href="#8-2-1-1-覆盖率简介" class="headerlink" title="8.2.1.1    覆盖率简介"></a>8.2.1.1    覆盖率简介</h4><ul>
+<li><strong>覆盖率的基本原理如下：</strong></li>
+</ul>
+<ol>
+<li><p>Java 文件编译后的文件由一条条指令组成。</p>
+</li>
+<li><p>覆盖率工具在每一条指令后插入一个标识，常见boolean类型，默认 false。</p>
+</li>
+<li><p>请求进入系统后，该标识会设置为 true 。</p>
+</li>
+<li><p>将标识数据保存到下来，可以保存本地文件或 TCP DUMP 方式获取。</p>
+</li>
+<li><p>结合class文件与插装标识生成覆盖率数据；再结合源码可以生成可观察的报告文件。</p>
+</li>
+</ol>
+<p>​    插桩指令示意如图8-1：</p>
+<p><img src="/rdefficiency/medias/images/coverage/code-Instruction.png" alt="插桩指令示意图"></p>
+<center>图8-1 插桩指令示意图</center>
+
+<h4 id="8-2-1-2-工具选型"><a href="#8-2-1-2-工具选型" class="headerlink" title="8.2.1.2    工具选型"></a>8.2.1.2    工具选型</h4><p>公司技术栈以 java 为主，市场上主要的覆盖率工具有：Emma 、Jacoco 、Cobertura。功能对比如下图8-2所示。</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>Jacoco</th>
+<th>Emma</th>
+<th>Cobertura</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原理</td>
+<td>使用ASM修改字节码</td>
+<td>可以修改Jar、Class文件字节码</td>
+<td>基于Jcoverage。基于ASM框架对class插装</td>
+</tr>
+<tr>
+<td>覆盖颗粒度</td>
+<td>方法、类、行、分支、指令、圈</td>
+<td>行、块、方法、类</td>
+<td>行、分支</td>
+</tr>
+<tr>
+<td>插装模式</td>
+<td>on-the-fly 与 offline</td>
+<td>on-the-fly 与 offline</td>
+<td>offline</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td></td>
+<td>不支持JDK8，不再运维</td>
+<td>关闭服务器才可以获取覆盖率报告</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>快</td>
+<td>较快</td>
+<td>较快</td>
+</tr>
+</tbody></table>
+<center>图8-2 覆盖率工具对比</center>
+
+<ul>
+<li>两种插桩模式</li>
+</ul>
+<ol>
+<li><p><strong>onthefly</strong></p>
+<p>javaahent 参数指定特定的jar文件，启动 instrumentation 的代理程序。</p>
+<ul>
+<li>更方便，不用提前进行字节码插桩，无需考虑 classpath 的设置。</li>
+<li>以下情况不适用：部署环境不支持 javaagent ，部署环境不允许设置 jvm 参数，动态修改字节码过程中和其它 agent 有冲突，无法自定义用户加载类。</li>
+</ul>
+</li>
+<li><p><strong>offline</strong></p>
+<p>在测试前先对文件进行插桩，然后生成插过桩的 class 或 jar 包。</p>
+</li>
+</ol>
+<p>结合我们的场景、最后我们选择 Jacoco 作为覆盖率收集工具，采用 java agent动态插装模式，降低插装对发布耗时的影响，如期地完成了开发与落地。</p>
+<h4 id="8-2-1-3-平台建设"><a href="#8-2-1-3-平台建设" class="headerlink" title="8.2.1.3    平台建设"></a>8.2.1.3    平台建设</h4><ul>
+<li><p><strong>分支模式</strong></p>
+<p>由于分支模式对于我们覆盖率的实现方案有很大影响，因此我们先简单介绍下去哪儿的分支方案，我们主要采用分支开发，主干发布的方式，即 master 跟线上保持一致，当有新需求时就需要从 master 拉出来一条 feacher 分支，每次测试验证部署都会生成一个 btag ，测试验证是在 btag 上进行，最终上线前将分支的变更（所有 btag 内容）merge 到 master 上。</p>
+<p><img src="/rdefficiency/medias/images/coverage/dev-deploy.jpg" alt="分支模型"></p>
+<center>图8-3 分支模型</center>
+</li>
+<li><p><strong>平台设计</strong></p>
+<p>当我们对一个需求进行提测或者上线时，我们需要观测的是本次分支所有变更的覆盖率总和，因此需要将支持多次测试（所有 btag ）的覆盖率数据汇总，因此整体的架构流程图如下：</p>
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/coverage/qcoverage.png" alt="整体架构流程"></p>
+<center>图8-4 整体架构流程</center>
+
+<p>这里我们需要说明的是由覆盖率原理的介绍可以得知，生成报告需要三份数据。</p>
+<ol>
+<li>class 数据在发布平台获取 war 包解压；触发时机：收到发布成功的 mq 消息开始获取，一次性。</li>
+<li>源码数据在 git 平台获取；触发时机：收到发布成功 mq，开始获取，一次性。</li>
+<li>覆盖率数据通过 ip 与端口 dump 存储；触发时机：用户查看数据时，实时触发，可多次获取，数据追加。</li>
+</ol>
+<p>在业务线开发过程需要多维度的覆盖率数据，自动化测试获取本次发布tag的覆盖率报告；开发提测需要查看开发分支所有发布tag的覆盖率报告；覆盖率平台将数据文件以tag形式隔离，以覆盖率文件exec存储为例如图：</p>
+<p><img src="/rdefficiency/medias/images/coverage/exec-file.png" alt="image-20221013154604542"></p>
+<center>图8-5 覆盖率数据存储</center>
+
+<p>开发提测过程，覆盖率数据merge过程，需要获取分支发布列表，变更文件并实时获取数据生成覆盖率报告，如图</p>
+<p><img src="/rdefficiency/medias/images/coverage/branch-generate.jpg" alt="image-20221013154604542"></p>
+<center>图8-6 分支覆盖率报告生成</center>
+
+
+<p>下面简单介绍部分功能的细节：</p>
+<ol>
+<li>业务迭代过程存在大量代码不易测试，业务开发过程只关心修改后的方法测试，因此获取 git 源码时，需要做 gitdiff，数据入库。</li>
+<li>代码覆盖率只关心项目中的源码，因此需要根据 pom 解析出源码模块，将第三方 jar 包去除。</li>
+<li>覆盖率报告支持全量报告与增量报告，因此 class 拉取后保存全量同时，再根据 diff 数据生成变更的 class 文件。</li>
+<li>容器或 KVM 销毁时，避免覆盖率数据丢失，需要主动获取数据。</li>
+<li>Jacoco 源码需要拉取改造，支持 diff 数据以及报告展示。</li>
+</ol>
+<h4 id="8-2-1-4-落地坑点"><a href="#8-2-1-4-落地坑点" class="headerlink" title="8.2.1.4    落地坑点"></a>8.2.1.4    落地坑点</h4><p>由于业务应用复杂，嵌入 agent 启动过程会出现各种问题，下面介绍两个大坑。</p>
+<ul>
+<li><strong>反射天坑</strong></li>
+</ul>
+<ol>
+<li><p><strong>背景</strong></p>
+<ul>
+<li>Jacoco覆盖率实现原理是字节码插装方式，在业务 Class 中插入 $jacocoData 字段、$jacocoInit方法。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>参考代码：org.jacoco.core.internal.instr.InstrSupport，如图8-5。</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Name of the field that stores coverage information of a class.
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String DATAFIELD_NAME <span class="token operator">=</span> <span class="token string">"$jacocoData"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+ * Name of the initialization method.
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String INITMETHOD_NAME <span class="token operator">=</span> <span class="token string">"$jacocoInit"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+   <center>图8-7</center>
+
+<ol start="2">
+<li><p><strong>问题</strong></p>
+<p>业务线代码存在较多反射逻辑，误将覆盖率插装字段获取出来，出现应用启动失败以及对外接口错误造成故障等问题。</p>
+</li>
+<li><p><strong>解决方案</strong></p>
+<ul>
+<li><p>修改 jvm 反射类中的反射方法，在通过反射获取属性以及方法时，过滤 $jacoco 成员。</p>
+</li>
+<li><p>反射获取 JDK 反射类 sun.reflect.Reflection ，通过 asm 字节码修改，达到修改反射方法的目的。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>注意点</strong></p>
+<ul>
+<li><p>JDK11与JDK8中的反射类路径不一样，需要再次处理，JDK11中路径jdk.internal.reflect.Reflection#filter。</p>
+</li>
+<li><p>jacoco 自身也使用反射类，过滤时需要保障 jacoco 使用正常。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>端口相关问题</strong></li>
+</ul>
+<ol>
+<li><p><strong>端口占用</strong></p>
+<p>历史应用使用 KVM 部署，存在端口使用不规范，需要检查端口占用情况，避免启动失败。</p>
+</li>
+<li><p><strong>多应用部署</strong></p>
+<p>KVM 的 beta 环境，业务线为了使用方便出现多个应用部署在一个实例上面，需要支持同 ip 多端口。</p>
+</li>
+<li><p><strong>访问权限</strong></p>
+<p>多端口访问，注意访问权限问题。</p>
+</li>
+</ol>
+<ul>
+<li><strong>性能与存储</strong></li>
+</ul>
+<ol>
+<li><p>无脑 git clone 既耗时，又占用大量磁盘，注意设置仅 clone 一层。</p>
+</li>
+<li><p>TCP dump 耗时较长，特别容器化后 ip 众多，注意标识失效的 ip ，可以节约大量时间，当然并发拉取是必须操作。</p>
+</li>
+</ol>
+<h4 id="8-2-1-5-应用场景"><a href="#8-2-1-5-应用场景" class="headerlink" title="8.2.1.5    应用场景"></a>8.2.1.5    应用场景</h4><p>代码覆盖率我们有很多应用场景，主要包含以下几个场景：</p>
+<ol>
+<li><p><strong>发布流程强卡点</strong></p>
+<p>我们的开发上线过程存在多个阶段，需求提测前开发需要自测；上线前，QA 需要验证测试，在不同的阶段我们把测试覆盖率数据作为了流程传递的强卡点，同时根据测试人员的专业技能和投入成本，我们为不同的阶段设置了不同的拦截标准，下图8-8是我们的卡点阶段和标准值：</p>
+<p><img src="/rdefficiency/medias/images/coverage/deploy-process.png" alt="与发布系统集成"></p>
+<center>图8-8 与发布系统集成</center>
+
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>拦截指标与阈值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>提测发布</td>
+<td>1. 行覆盖度：50%   2.分支覆盖度：30%</td>
+</tr>
+<tr>
+<td>线上发布</td>
+<td>1. 行覆盖度：75%   2.分支覆盖度：50%</td>
+</tr>
+</tbody></table>
+<center>图8-9</center>
+
+<ol start="2">
+<li><p><strong>接口自动化测试覆盖度参考</strong></p>
+</li>
+<li><p><strong>接口自动化回归覆盖度参考</strong></p>
+</li>
+<li><p><strong>codereview测试覆盖度参考</strong></p>
+</li>
+<li><p><strong>线上应用覆盖率数据展示，业务线参考进行系统瘦身</strong></p>
+</li>
+<li><p><strong>本地化覆盖率数据上报</strong></p>
+</li>
+</ol>
+<h4 id="8-2-1-6-效果展示"><a href="#8-2-1-6-效果展示" class="headerlink" title="8.2.1.6    效果展示"></a>8.2.1.6    效果展示</h4><ul>
+<li><strong>执行数据</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>触发</th>
+<th>耗时</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>质检触发</td>
+<td>30万次/月</td>
+<td>&lt; 0.7s</td>
+</tr>
+<tr>
+<td>项目管理触发</td>
+<td>20万次/月</td>
+<td>&lt; 0.8s</td>
+</tr>
+<tr>
+<td>自动化触发</td>
+<td>15万次/月</td>
+<td>&lt; 0.5s</td>
+</tr>
+<tr>
+<td>覆盖率数据收集</td>
+<td>100万次/月</td>
+<td>&lt; 0.1s</td>
+</tr>
+</tbody></table>
+<center>图8-10</center>
+
+<ul>
+<li><strong>报告</strong></li>
+</ul>
+<p><img src="/rdefficiency/medias/images/coverage/report3.png" alt="覆盖率报告"></p>
+<p><img src="/rdefficiency/medias/images/coverage/report1.png" alt="image"></p>
+<center>图8-12 报告展示-2</center>
+
+<p>如图8-12展示，报告中记录变更代码行与对应的方法，未变更的方法不统计。提升一定量的精准测试，降低测试难度。</p>
+<h3 id="8-2-2-阶段2—覆盖提升"><a href="#8-2-2-阶段2—覆盖提升" class="headerlink" title="8.2.2    阶段2—覆盖提升"></a>8.2.2    阶段2—覆盖提升</h3><p>由于覆盖率被作为研发流程的强卡点，因此测试达标标准的覆盖率数据就成为开发与 QA 必须要保障的步骤，但是我们要做的事效率和质量的平衡，因此除了完善自动化测试平台，我们还需要尽可能给开发测试提供更精准与便捷的测试方式，以下介绍三个主要的尝试。</p>
+<h4 id="8-2-2-1-重复测试成本优化"><a href="#8-2-2-1-重复测试成本优化" class="headerlink" title="8.2.2.1    重复测试成本优化"></a>8.2.2.1    重复测试成本优化</h4><ul>
+<li><strong>业务痛点</strong></li>
+</ul>
+<p>开发与 QA 作为工具的使用者，遇到测试过的方法，发布几次后覆盖率消失了，需要平台识别并保留没有变更的方法覆盖率数据。</p>
+<p>开发在发布测试过程中，历史测试过的方法，期望覆盖率保留，不进行重复测试；这要求覆盖率保留到方法级别。</p>
+<ul>
+<li><strong>痛点原因</strong></li>
+</ul>
+<p>分析根本原因是 jacoco 原生覆盖率数据存储结构过于粗糙，数据中以整个文件为单元存储覆盖率数据。文件任何文本变更造成整个文件覆盖率均不可复用，反之则可以合并复用。</p>
+<p>覆盖率数据结构：id 对应文件文件，probes 为插装数据，如图8-13：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">[</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token string">"id"</span><span class="token operator">:</span><span class="token operator">-</span><span class="token number">5594133704031447426</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token operator">:</span><span class="token string">"com/google/common/util/concurrent/MoreExecutors$DirectExecutor"</span><span class="token punctuation">,</span><span class="token string">"probes"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">]</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token string">"id"</span><span class="token operator">:</span><span class="token number">8095165752988655296</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token operator">:</span><span class="token string">"org/springframework/context/annotation/BeanAnnotationHelper"</span><span class="token punctuation">,</span><span class="token string">"probes"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">]</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token string">"id"</span><span class="token operator">:</span><span class="token number">3793724476497282488</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token operator">:</span><span class="token string">"org/apache/tomcat/util/digester/ObjectCreateRule"</span><span class="token punctuation">,</span><span class="token string">"probes"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">]</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<center>图8-13 </center>
+
+<ul>
+<li><strong>业务期望</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">版本&amp;覆盖率</th>
+<th align="left">方法1</th>
+<th align="left">方法2</th>
+<th align="left">方法3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">发布版本V0 btag0</td>
+<td align="left">m1 【V0】</td>
+<td align="left">m2 【V0】</td>
+<td align="left">m3 【V0】</td>
+</tr>
+<tr>
+<td align="left">发布版本V1 btag1</td>
+<td align="left">m1 【V1】</td>
+<td align="left">m2 【V1】</td>
+<td align="left">m3 【V0】</td>
+</tr>
+<tr>
+<td align="left">发布版本V2 btag2</td>
+<td align="left">m1 【V2】</td>
+<td align="left">m2 【V1】</td>
+<td align="left">m3 【V0】</td>
+</tr>
+<tr>
+<td align="left">覆盖率结果</td>
+<td align="left">仅btag2覆盖率可使用</td>
+<td align="left">btag1，btag2覆盖率都可追加使用</td>
+<td align="left">btag0，btag1，btag2覆盖率都可追加使用</td>
+</tr>
+</tbody></table>
+<center>图8-14 </center>
+
+<ul>
+<li><p><strong>修复方案</strong></p>
+<p><img src="/rdefficiency/medias/images/coverage/exact-process.png" alt="修复方案"></p>
+<center>图8-15 修复方案</center>
+</li>
+</ul>
+<ol>
+<li><p>将最后一次发布作为基准，与改分支的每次发布对应的代码做 diff，将变更类中未变更的方法记录下来。</p>
+<ul>
+<li><p>一份代码重复使用，减少多次 clone 磁盘与时间浪费。</p>
+</li>
+<li><p>此处需要拉取 btag 的代码。</p>
+</li>
+</ul>
+</li>
+<li><p>将该分支历史发布分别生成覆盖率，获取变更类中未变更方法（1中记录）的覆盖率数据，并持久化到数据库。</p>
+</li>
+<li><p>分支覆盖率获取变更方法的覆盖率数据。</p>
+<ul>
+<li><p>初始方法插装数据录制，与后续多 tag 覆盖率插装数据汇总，均在相同方法。</p>
+</li>
+<li><p>可将变更方法类加载到 jacoco 类中，避免串行更改一连串方法，费时费力，还易错。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>代码参考：</p>
+<pre class="line-numbers language-java"><code class="language-java">org<span class="token punctuation">.</span>jacoco<span class="token punctuation">.</span>core<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>analysis<span class="token punctuation">.</span>MethodAnalyzer#accept
+org<span class="token punctuation">.</span>jacoco<span class="token punctuation">.</span>core<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>analysis<span class="token punctuation">.</span>InstructionsBuilder<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<center>图8-16 </center>
+
+<h4 id="8-2-2-2-精准测试"><a href="#8-2-2-2-精准测试" class="headerlink" title="8.2.2.2    精准测试"></a>8.2.2.2    精准测试</h4><ul>
+<li><strong>业务痛点</strong></li>
+</ul>
+<p>在酒店、机票、服务等大业务线，业务逻辑复杂的部门，历史遗留下来的逻辑较多，case 很难测试所有行。使用者共同的夙愿就是测试可以精确到变更行，不要以方法作为维度。并且可以识别日志、监控与注释等无业务逻辑的变更。</p>
+<ul>
+<li><strong>痛点原因</strong></li>
+</ul>
+<ol>
+<li>变更一行代码需要测试整个方法的所有行，按比例计算覆盖率，测试成本高。</li>
+<li>添加日志、监控、注释与空格等无业务逻辑代码也被算作变更行。</li>
+<li>覆盖率精准度不高，造成覆盖率偏低，且拦截意义不大。</li>
+</ol>
+<ul>
+<li><strong>优化方案</strong></li>
+</ul>
+<ol>
+<li><p>git diff 获取变更行；</p>
+</li>
+<li><p>使用eclipse ast 解析源码；</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.eclipse.platform<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>org.eclipse.core.runtime<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.25.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.eclipse.platform<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>org.eclipse.core.resources<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.17.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>添加过滤规则，动态配置过滤规则；目前支持前缀、包含、正则过滤；主要过滤日志、监控、注解、注释、引入包等；</p>
+</li>
+<li><p>汇总变更方法行；</p>
+</li>
+<li><p>修改jacoco，传入变更行；修改报告。</p>
+<p>覆盖率添加一种新的统计数据，修改模块较多，此处列举核心修改点。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//添加统计类型：</span>
+org<span class="token punctuation">.</span>jacoco<span class="token punctuation">.</span>core<span class="token punctuation">.</span>analysis<span class="token punctuation">.</span>CoverageNodeImpl
+<span class="token comment" spellcheck="true">//变更行</span>
+org<span class="token punctuation">.</span>jacoco<span class="token punctuation">.</span>core<span class="token punctuation">.</span>internal<span class="token punctuation">.</span>analysis<span class="token punctuation">.</span>SourceNodeImpl#incrementLine
+<span class="token comment" spellcheck="true">//报告：</span>
+org<span class="token punctuation">.</span>jacoco<span class="token punctuation">.</span>report<span class="token punctuation">.</span>html<span class="token punctuation">.</span>HTMLFormatter#createTable<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<ul>
+<li><p><strong>展示效果</strong></p>
+<p><img src="/rdefficiency/medias/images/coverage/report2.png" alt="覆盖率报告"></p>
+</li>
+</ul>
+<center>图8-17 覆盖率报告</center>
+
+<ol>
+<li><p>方法行：是统计变更方法的所有行，仅供业务线参考。</p>
+</li>
+<li><p>变更行：是统计变更行的总数，与测试走到的实际变更行，计算出变更行覆盖率。</p>
+</li>
+</ol>
+<h4 id="8-2-2-3-本地覆盖率数据收集"><a href="#8-2-2-3-本地覆盖率数据收集" class="headerlink" title="8.2.2.3    本地覆盖率数据收集"></a>8.2.2.3    本地覆盖率数据收集</h4><ul>
+<li><p><strong>业务痛点</strong></p>
+<p>作为一名开发，自测完就想上线，但是本地测试的数据又不能被覆盖率平台收集，发布 beta 环境后还需再次测试；不仅降低了开发效率，还增加了开发人员的困扰，影响美丽的心情。</p>
+</li>
+<li><p><strong>痛点原因</strong></p>
+</li>
+</ul>
+<ol>
+<li>本地测试的 case 无法作为有效数据被收集。</li>
+<li>新需求开发覆盖率很难满足，发布进度被拖长。</li>
+</ol>
+<ul>
+<li><strong>解决方案</strong></li>
+</ul>
+<ol>
+<li><p>覆盖率平台添加本地覆盖率。</p>
+<ul>
+<li>记录 git 信息、sha 值、用户信息、时间。</li>
+<li>记录 应用 、分支、来源等做数据分析。</li>
+</ul>
+</li>
+<li><p>添加本地覆盖率收集上报能力。</p>
+<ul>
+<li>单测执行生成覆盖率数据并自动上报。</li>
+<li>idea 开发插件，支持测试数据手动上报。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>使用效果</strong></li>
+</ul>
+<ol>
+<li><p><strong>调用数据</strong></p>
+<p>5k次/月</p>
+</li>
+<li><p><strong>单测触发</strong></p>
+<p>单侧实现较简单，pom 引入 jacoco 的 agent ，单测执行完调用 url 接口即可，这里不做介绍。</p>
+</li>
+<li><p><strong>idea插件简介</strong></p>
+<p>插件开发有一定的工作量，由于 idea 版本不一样提供的底层 api 有所变更，因此需要支持多个 idea 版本。idea 插件如图8-18和8-19：</p>
+</li>
+</ol>
+<p>​    自定义 tomcat 插件，绑定环境，VM 参数自动填充。</p>
+<p><img src="/rdefficiency/medias/images/coverage/local1.png" alt="IDE插件-1"></p>
+  <center>图8-18 idea 插件-1</center>
+
+<p>  启动后添加右键功能，上报覆盖率数据。<img src="/rdefficiency/medias/images/coverage/local2.png" alt="IDE插件-2"></p>
+  <center>图8-19 idea 插件-2</center>
+
+<ul>
+<li><strong>效果数据</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th align="left">优化前阈值</th>
+<th align="left">优化后阈值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>变更行拦截</td>
+<td align="left">50%</td>
+<td align="left">70%</td>
+</tr>
+<tr>
+<td>变更分支拦截</td>
+<td align="left">30%</td>
+<td align="left">50%</td>
+</tr>
+<tr>
+<td>跳过拦截申请</td>
+<td align="left">1.3k/周</td>
+<td align="left">100次/周</td>
+</tr>
+</tbody></table>
+<h2 id="8-3-总结展望"><a href="#8-3-总结展望" class="headerlink" title="8.3    总结展望"></a>8.3    总结展望</h2><h4 id="8-3-1-总结"><a href="#8-3-1-总结" class="headerlink" title="8.3.1    总结"></a>8.3.1    总结</h4><p>复盘覆盖率平台，一个工具的发会展经过三个阶段：</p>
+<ol>
+<li>做出来：根据业务需求做出工具，提供基础能力。</li>
+<li>推广开：落地到业务线，落地前先在本组试用。</li>
+<li>有价值：工具为公司带来实际价值，做好数据统计。</li>
+</ol>
+<p>达到第三个阶段才是企业的真实目的，心怀谦卑之心，倾听用户的心声，将工作做到有价值至关重要。</p>
+<h4 id="8-3-2-展望"><a href="#8-3-2-展望" class="headerlink" title="8.3.2    展望"></a>8.3.2    展望</h4><p>做工具我们希望它稳定运行的同时，能够应用到更多的场景，当前我们主要的应用场景还是在测试阶段，后续我们会逐渐在灰度、仿真、线上场景做出探索，比如说系统腐化分析、新业务需求评估等。</p>
+
+            </div>
+            <hr />
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Part 4 质量保障》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/rdefficiency/4-quality/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                北京趣拿软件科技有限公司 ｜ 基础架构
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/rdefficiency/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/rdefficiency/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ed98d39f94ff459ee228',
+        clientSecret: '9d04488d8bba75646a9ff2d97092c7379b796690',
+        repo: 'rdefficiency',
+        owner: 'qunarcorp',
+        admin: "zhangcf945",
+        id: '4-quality/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+    <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://qunarcorp.github.io/rdefficiency/4-quality/';
+        this.page.identifier = '/4-quality/';
+        this.page.title = 'Part 4 质量保障';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/rdefficiency/3-develop/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 3 开发提效">
+                        
+                        <span class="card-title">Part 3 开发提效</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍在serverless方向的探索和实践，包括前端低代码平台、FAAS服务平台、云开发三个部分
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/" target="_blank">
+                        <span class="chip bg-color">开发效率</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/rdefficiency/5-cicd/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 5 CICD">
+                        
+                        <span class="card-title">Part 5 CICD</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍基于云原生的发布过程可观测性建设--发布驾驶仓，以及提升交付能力的流水线建设
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/CICD/" target="_blank">
+                        <span class="chip bg-color">CICD</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 去哪儿旅行<br />'
+            + '作者: 北京趣拿软件科技有限公司 ｜ 基础架构<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归去哪儿旅行所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/rdefficiency/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 北京趣拿软件科技有限公司. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">133.6k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qunarcorp" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:infra@qunar.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/rdefficiency/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 10, 10, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/rdefficiency/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/rdefficiency/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/rdefficiency/libs/materialize/materialize.min.js"></script>
+    <script src="/rdefficiency/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/rdefficiency/libs/aos/aos.js"></script>
+    <script src="/rdefficiency/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/rdefficiency/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/rdefficiency/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+
+    
+    <script async src="/rdefficiency/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

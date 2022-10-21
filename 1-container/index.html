@@ -1,0 +1,1383 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Part 1 基础设施容器化, “基于云原生的研发效能实战”">
+    <meta name="description" content="
+第一章    容器化落地1.1    背景与收益1.1.1    背景近几年随着数字化时代的到来和云原生技术的不断成熟，大家已经认识到云原生是可以帮助企业实现数字化驱动和快速响应市场需求的最短路径。因此我们看到众多企业在不断地拥抱云原生，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Part 1 基础设施容器化 | 去哪儿旅行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/rdefficiency/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/rdefficiency/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/rdefficiency/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/rdefficiency/" class="waves-effect waves-light">
+                    
+                    <img src="/rdefficiency/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">去哪儿旅行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/rdefficiency/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">去哪儿旅行</div>
+        <div class="logo-desc">
+            
+            北京趣拿软件科技有限公司 | 基础架构
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/rdefficiency/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/rdefficiency/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/rdefficiency/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/rdefficiency/medias/featureimages/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Part 1 基础设施容器化
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/rdefficiency/tags/%E4%BA%91%E5%8E%9F%E7%94%9F-%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/" target="_blank">
+                            <span class="chip bg-color">云原生,研发效能</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    北京趣拿软件科技有限公司 ｜ 基础架构
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    15k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    51 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/rdefficiency/medias/images/cover_part/part_a.jpg" alt=""></p>
+<h1 id="第一章-容器化落地"><a href="#第一章-容器化落地" class="headerlink" title="第一章    容器化落地"></a>第一章    容器化落地</h1><h2 id="1-1-背景与收益"><a href="#1-1-背景与收益" class="headerlink" title="1.1    背景与收益"></a>1.1    背景与收益</h2><h3 id="1-1-1-背景"><a href="#1-1-1-背景" class="headerlink" title="1.1.1    背景"></a>1.1.1    背景</h3><p>近几年随着数字化时代的到来和云原生技术的不断成熟，大家已经认识到云原生是可以帮助企业实现数字化驱动和快速响应市场需求的最短路径。因此我们看到众多企业在不断地拥抱云原生，并尝试利用容器、k8s、service mesh 等新生技术解决企业面临的各种问题，比如服务扩容慢、资源成本高、研发效率低、环境一致性差、SDK 升级困难等。 在云原生落地之前，我们面对的问题主要有：</p>
+<p><strong>环境不一致，稳定性差</strong></p>
+<p>研发人员在测试联调过程中经常会因为某些特定场景而修改服务配置（比如 nginx 配置）、机器配置（比如 dns 配置）， 但是上线后却忘记恢复，这导致其他研发人员在测试联调新功能时经常遇到莫名其妙的问题，需要花时间排查问题，十分耗时。</p>
+<p><strong>环境交付慢</strong></p>
+<p>过去业务线会针对一个新的需求新建一套环境来进行测试联调，一套环境包括了多个应用、中间件、db 等资源，最大的环境会有上百个应用，交付时间从 15 分钟到 30分钟不等。其中1个 kvm 的交付是分钟级的，包括了 kvm 创建、各类软件的初始化等操作，如果所有这些组件的操作可以并行，环境交付还是很快的，不过由于应用和应用、应用和 DB、应用和中间件之间是有依赖关系的，整个环境的构建其实是一个有向无环图，并不能完全并行。对于大环境来说，在 kvm 资源交付上就会耗费不少时间，而容器化正好可以消除这部分浪费。</p>
+<p><strong>服务器运维人力成本高</strong></p>
+<p>每当宿主机硬件故障需要进行运维操作时，ops 同学会先联系宿主机上 kvm 的应用负责人，待这些应用负责人确认后才能进行运维操作，这个过程研发同学大概需要花费5分钟。宿主机数量少的时候这个运维人力成本可以忽略不计，但是当宿主机数量到达一定规模上千台、上万台时，这个人力成本就非常高了。</p>
+<p><strong>服务器资源利用率低</strong></p>
+<p>受疫情影响，各公司都把成本控制当作重中之重，而服务器资源成本是成本中很大一部分。过去通过 openstack 提供 kvm 服务器的方式在资源利用率上有很大浪费，我们希望能尽可能的提高服务器资源利用率来降低资源成本。</p>
+<p><strong>公司技术栈迭代缓慢</strong></p>
+<p>过去我们的技术栈都是基于 kvm、dubbo 等技术体系构建的，并且已经稳定运行了很长时间，这套技术体系已经没有太大的演进空间，针对这套体系的优化带来的价值也是非常有限的。如何通过技术演进而推动和赋能业务是一个难题。</p>
+<p> 面对上述痛点问题，云原生架构是我们要找的解决方案，它是新一代技术架构的最佳演进路径，同时也是既定事实。而容器化是云原生架构的底座，它能解决扩容慢、环境交付慢、服务器资源利用率低和运维人力成本高的问题。 因此我们首先做的是容器化的落地，于是由基础平台牵头、ops 、dba 、各业务线多个团队协同配合，最终成功完成了全司范围的容器化系统工程的落地。 截止到 2021年底，生产环境已经有 3000+ 的应用完成了容器化。</p>
+<h3 id="1-1-2-收益"><a href="#1-1-2-收益" class="headerlink" title="1.1.2    收益"></a>1.1.2    收益</h3><ul>
+<li><strong>直接收益</strong></li>
+</ul>
+<ol>
+<li>服务器资源利用率提升 76%。</li>
+<li>发布效率提升 45%。</li>
+<li>发布成功率从过去的 91% 提升到 95%。</li>
+<li>业务人员不再需要关心机器维护、扩缩容等操作，更多精力专注于业务。</li>
+</ol>
+<ul>
+<li><strong>工程师技能的积累</strong></li>
+</ul>
+<ol>
+<li><p>工程师更多地参与到云原生落地过程，对公司、行业输出更多的专业技能知识。</p>
+</li>
+<li><p>更多的工程师成长为领域专家。</p>
+</li>
+</ol>
+<h2 id="1-2-实践框架"><a href="#1-2-实践框架" class="headerlink" title="1.2    实践框架"></a>1.2    实践框架</h2><h3 id="1-2-1-容器化难点"><a href="#1-2-1-容器化难点" class="headerlink" title="1.2.1    容器化难点"></a>1.2.1    容器化难点</h3><p>由于各个公司都会有一定程度的技术债，容器化落地过程不可能是一帆风顺的，在进行实践之前我们也针对一些难点做了调研分析，例如：</p>
+<ul>
+<li><strong>容器场景下 IP 会频繁变化，基于固定IP的系统如何适配</strong></li>
+</ul>
+<p>我们有些应用间的访问是需要防火墙白名单的，比如涉及金融的服务，还有应用到DB的授权也是基于固定 IP 的，需要提前申请，申请过后几乎不会有变动。这些授权操作在容器化之前都是通过工单形式半自动化实现的。而容器化后，每次发布、驱逐都会导致容器的 IP 发生变化，并且容器的 IP 是在容器创建过程中才能获取到，因此之前的授权系统已经不再适用。要想实现容器化，这些授权必须在容器创建过程中自动化地进行授权。这个问题有2个解决思路：</p>
+<ol>
+<li><p><strong>通过 CNI 网络插件实现固定 IP</strong></p>
+<p>这种方式可以让业务同学以最小的改造成本接入容器化。不过在调研了 Neutron、calico、cilium 等多个网络插件后发现这些插件不能满足需求，并且对 CNI 的研发能力要求很高，因此放弃了这个思路。</p>
+</li>
+<li><p><strong>通过动态统一授权的方式</strong></p>
+<p>通过收敛各类授权操作到一个系统统一管理，实现上可以结合 k8s 的 hook、init 容器机制等来实现。其中init 容器在初始化的时候做授权，这个时机正好是在 IP 成功分配后和应用启动前，可以完成授权的操作， preStop hook 在销毁的时候执行，权限回收在这个阶段做正合适。其中授权过程还有几个考虑点，授权过程保持幂等和授权系统的防护问题，防止大批量应用发布过程的 qps 突增而导致后台的授权系统被打爆。具体动态授权的实现细节可以在中间件改造的章节看到。</p>
+</li>
+</ol>
+<ul>
+<li><strong>从 kvm 到容器，如何确保用户习惯顺畅地过渡</strong></li>
+</ul>
+<p>在 kvm 使用场景中，研发人员使用最多的功能就是应用发布、服务器自助运维、查看监控、在线远程debug等操作，这些操作的结果在 UI 界面上都有所展示，当用户想查看更具体的细节时会直接登陆机器进行操作，这个操作已经是研发人员的习惯。在容器场景下我们希望做到和 kvm 同样的可观测性和易用性，用户才更有意愿配合迁移到容器。不过落地过程我们也遇到了一些难题：</p>
+<ol>
+<li><p><strong>发布过程无法实时获取标准输入输出</strong></p>
+<p>发布过程中应用启动失败，查询容器的标准输入输出没有返回。这个问题在后面的坑点里会详细介绍。</p>
+</li>
+<li><p><strong>容器场景下如何支持 java 应用单个 pod 远程 debug</strong></p>
+<p>开发人员在测试环境调试、线上实例排查问题时为了快速定位问题经常会用到在线 debug 的功能，kvm 场景下这个的操作流程是选择指定 kvm 机器摘流量 -&gt; 更改 debug 配置 -&gt; 重启 java 应用 -&gt; 接流量（可选) -&gt; 调试。容器场景下这个操作流程是行不通的，容器不支持只针对一个 pod 进行配置变更，因为所有的 pod 都是通过一个 pod 模版创建的，配置都一样，如果要更改一个，只能更改模版，更改模版就会对所有的 pod 生效，这样会影响业务，不符合预期。</p>
+<p>为了支持单个 pod 进行远程 debug，最后我们通过把 pod 中的 java 配置持久化到 volume 中，这样修改 debug 配置后重启应用也不会丢失配置。这里我们的重启没有使用 kill 进程的方式，而是通过阿里开源的 Kruise CCR 旁路组件来实现的，它的好处是对原生 k8s 流程没有任何侵入性，同时也能保证容器的生命周期正确完整地执行，可以确保业务流量不丢失。总结容器场景下的实现方案是选择指定的 pod-&gt; exec 容器并更改 debug 配置 -&gt;  kruise CCR 重启应用容器 -&gt; 接流量 (可选) -&gt; 调试。这个流程和 kvm 的流程是一致的。</p>
+<p>另外为了优化使用体验，我们针对所有测试环境的容器镜像默认开启了远程 debug 配置，这样用户操作流程就不需要重启了，达到了秒级实现远程 debug， 用户反馈也特别好。而线上环境由于开启远程 debug 配置对性能会有毫秒级的损耗，很多关键应用是不能容忍的，因此只在测试环境默认开启远程 debug 配置。</p>
+</li>
+<li><p><strong>用户希望容器发布终止后 pod 不接流量</strong></p>
+<p>kvm场景下，发布过程中如果发现有异常报警，用户会直接终止发布，正在发布的 kvm 机器上的应用也会在当前状态终止，不会接入流量。</p>
+<p>由于惯性思维，用户在容器发布过程中进行同样的终止发布，以为正在发布中的 pod 会终止或者销毁了，不会接入流量，但实际上由于 k8s 的异步机制和自愈机制，后台 pod 还会不断重启，如果 liveness 和 readiness 检测通过，就会自动接入流量, 这就和操作人员的预期不一致，很可能造成线上故障。这会给用户排查问题造成困扰，导致故障恢复时间较长。</p>
+<p>为了杜绝这类问题的再次发生，我们通过添加异常状态，中断后续的自动上线操作，保证实际结果与用户预期一致。</p>
+</li>
+</ol>
+<ul>
+<li><strong>怎样降低用户的迁移成本</strong></li>
+</ul>
+<p>我们的目标是把 3000+ 应用完全容器化，如果每个应用的升级迁移成本是 1 人天 （其中包括 jar 包升级、配置变更、测试、上线等流程），那整个迁移成本就是 3000 人天， 这么多的人力成本业务线肯定不会同意。最终我们通过实现自动化升级和自动验证解决了这个问题，可以在系列文章《中间件自动升级》看到具体的实现细节。</p>
+<h3 id="1-2-2-容器化落地策略"><a href="#1-2-2-容器化落地策略" class="headerlink" title="1.2.2    容器化落地策略"></a>1.2.2    容器化落地策略</h3><p>应用容器化是一个十分复杂的系统工程，在迁移方案的设计上我们参考了公有云的上云策略，并结合自己的使用场景总结出一套具有普适性的容器化落地路线图。公有云上云的三种方式如下：</p>
+<ul>
+<li><p><strong>re-host</strong></p>
+<p>把应用部署的载体从虚拟机、宿主直接更换成容器的方式。这种上云方式会有更好的稳定性和可管理性，迁移成本也比较低。</p>
+</li>
+<li><p><strong>re-platform</strong></p>
+<p>除了上述应用迁移到容器之外，基础服务如 mysql、redis、mq 等组件也需要迁移到云组件中。这种方式对于公有云用户来说是可行的，对于私有云来说有很多额外成本，需要慎重考虑。比如我们有专门的 DBA 团队维护 mysql、redis 等组件，并且有完善的运维体系。这些系统如果要改造容器化，会花费很大的人力成本，整个投入产出比非常低。因此这部分基础设施我们没有进行容器化。</p>
+</li>
+<li><p><strong>refactor</strong></p>
+<p>对于不符合云原生应用标准的应用，进行系统重构改造。比如一些有历史技术债的应用、依赖于固定 ip 的应用进行小范围的重构消除这些依赖，才能进行容器化。</p>
+</li>
+</ul>
+<p>结合我们的场景，最后我们选择的是虚拟机直接迁移到容器和应用小范围重构的方式来完成容器化落地的，并如期地完成了任务。</p>
+<h3 id="1-2-3-容器化落地路线图"><a href="#1-2-3-容器化落地路线图" class="headerlink" title="1.2.3    容器化落地路线图"></a>1.2.3    容器化落地路线图</h3><p>在落地过程中，我们根据遇到的问题、难点、以及解决方案总结了一个有效的实践路线图，如图1-1所示。</p>
+<p><img src="/rdefficiency/medias/images/container/practise_roadmap.png" alt=""></p>
+<p>​                                                                      </p>
+<center>图1-1 容器化落地线路图</center>
+
+<ul>
+<li>价值认同</li>
+</ul>
+<p>做容器化落地这件事情之前，老板经常会问到这件事情的 ROI 是多少，怎么证明？经过实践发现，有三点是有效的：</p>
+<ol>
+<li><p><strong>自证价值- 自己的服务先容器化</strong></p>
+<p>想要说服其他人认可容器化的价值，最好的方式就是用数据说话，这样才有说服力。建议自己团队内部的服务先容器化，体验容器化带来的优势，把容器化的好处能更客观地传递给其他业务线。<br>与此同时，自己团队在容器化过程的坑点提前趟了一遍，解决过程中遇到的问题，不断打磨容器化的平台，让平台好用，这样业务线同学接入使用过程中会更有信心。</p>
+</li>
+<li><p><strong>放大价值- 解决业务线实际问题</strong></p>
+<p>如何切实地让用户感受到容器化带来的好处，这个是需要花心思的。建议多分析下用户反馈的问题列表，找到用户当前最痛的点作为抓手，比如资源交付效率、服务稳定性等方面，把这些问题用容器解决好，用户认可度会更高。</p>
+</li>
+<li><p><strong>技术宣讲- 价值宣传，找 VIP 用户</strong></p>
+<p>容器化是一个系统工程，只靠一个团队是不可能完成的，因此找战友，壮大队伍是十分必要的。而在公司内部，技术宣讲是最有效的方式，对新技术感兴趣的同学会主动找来询问并讨论相关的价值点，其中最有意向的团队就是我们的 vip 用户，他们的诉求在后续的支持过程中要优先考虑。</p>
+</li>
+</ol>
+<ul>
+<li>规范制定</li>
+</ul>
+<p>为了方便后期容器化周边系统的改造, 前期制定一些规范和标准是十分必要的。我们实践过程的标准化主要包括如图1-2所示要点。</p>
+<table>
+<thead>
+<tr>
+<th>规范</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用部署节点</td>
+<td>1. 应用不需要关心部署在哪个机房，默认都是多机房部署  <br>2.应用不应该依赖节点和 IP 信息</td>
+</tr>
+<tr>
+<td>应用日志</td>
+<td>1. 业务日志不要打到 catalina.out 中 <br>2. Java 应用统一使用 logback 管理日志, 格式统一</td>
+</tr>
+<tr>
+<td>应用部署信息</td>
+<td>1. 部署路径和端口号统一 <br>2. 应用启动后 hook 不再支持，支持启动前、上线前、和下线前的 hook</td>
+</tr>
+</tbody></table>
+<center>图1-2 容器化过程标准化</center>
+
+<ul>
+<li>工具能力建设</li>
+</ul>
+<p>在容器化落地过程中需要改造的组件很多，整体架构如图1-3所示。<br><img src="/rdefficiency/medias/images/container/tools_architecture.png" alt=""></p>
+<center>图1-3 整体架构图</center>
+
+<p>上图1-3中彩色画像的组建都是需要改造的，这里我们重点介绍 <strong>应用画像</strong>、<strong>授权中心</strong>、<strong>CI/CD</strong> 、<strong>Openresty</strong> 、<strong>k8s 多集群部署 <em><em>、 </em></em>HPA 弹性扩缩容</strong> 部分。</p>
+<p><strong>应用画像</strong></p>
+<p>云原生倡导的是声明式配置，统一数据源，这和 devops 提倡的以应用为中心本质上是一致的。基于这个理念，我们统一了应用的数据源集成到了应用画像中, 包括应用的基本信息、环境属性、发布参数、依赖信息四个部分，如图1-4所示。<br><img src="/rdefficiency/medias/images/container/app_profile.png" alt=""></p>
+<center>图1-4 应用画像</center>
+
+<ul>
+<li><p><strong>授权中心</strong><br>容器化之前的授权过程都是半自动化的，需要开发人员提交工单并人工审核后授权才能成功。在云原生场景中，这些操作是需要自动化来实现无人值守。</p>
+<p> <img src="/rdefficiency/medias/images/container/db_grant.png" alt=""></p>
+</li>
+</ul>
+<ul>
+<li><p>一个 pod 的授权流程：</p>
+<p>pod 创建过程，init 容器会调用授权中心的接口针对当前 pod 进行授权操作。</p>
+<p>授权中心接到授权请求后，会根据应用的依赖配置信息执行授权，在 db user 表中添加用户和 ip 信息。</p>
+<p>授权成功后 init 容器结束，业务容器的应用开始启动。</p>
+<p>一个 pod 的权限回收流程：</p>
+<p>当操作删除 pod 时，sidecar 容器配置的 preStop hook 会调用授权中心的回收接口。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>CI/CD</strong></p>
+<p>容器化后用户最直观的感受是发布效率快了，除了容器的启动快的因素外，还有一个原因就是容器场景下发布策略的优化改进。我们针对多种发布策略进行比对，最终选择了双deployment更新的方式。如图1-6和图1-7 所示。</p>
+<table>
+<thead>
+<tr>
+<th>_</th>
+<th>KVM 发布策略</th>
+<th>滚动更新</th>
+<th>双 deployment 更新</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>更新方式</td>
+<td>原地更新，先减后增</td>
+<td>原生的 rolling update 策略</td>
+<td>分批次更新，先扩后缩</td>
+</tr>
+<tr>
+<td>支持分批</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>实例个数少的服务发布过程中响应时长可能会增加</td>
+<td>1. 更新速率不好控制，太快不稳定,  太慢体验差  2. 不支持分批，整个发布流程不可控</td>
+<td>资源要有一定的 buffer</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>过程可控</td>
+<td>1. 整个发布过程自动化                                      2.资源可控，不占用外 buffer</td>
+<td>1. 发布过程可控                                                                  2.操作复杂性低, 只有 create 和 patch 操作</td>
+</tr>
+</tbody></table>
+<center>图1-6 发布策略对比</center>
+
+
+
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/container/deploy_strategy.png" alt=""></p>
+<center>图1-7 容器化场景下的发布流程图</center>
+
+
+
+<ul>
+<li><p><strong>Openresty</strong></p>
+<p>去哪儿网 使用商业版本的 Openresty 作为流量网关，在 kvm 场景下通过提工单半自动的实现 upstream 机器列表的更新。在容器场景下，pod 实例的 ip 是频繁变化的，所以过去的方式是行不通的。关于如何打通 k8s 多集群和 Openresty 实现动态更新 upstream，方案有 push 和 pull 两种模型。</p>
+<ul>
+<li><p>push：通过监听 endpoint 对象变更，调用 Openresty 接口实时更新 upstream 列表。这个方案在集群和应用规模不是特别大的时候是没问题的，但是当集群和应用规模大了会导致更新 Openresty 超时，严重情况下会造成流量损失，因此最后我们选择了 pull 模型。</p>
+</li>
+<li><p>pull：Openresty 支持了自定义 k8s upstream 和 service，当对应的 endpoint 发生变更时， Openresty 会自动拉取对应的 endpoint 列表。这个功能 Openresty 商业公司单独做了性能优化，解决了 push 模型更新超时的问题。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>k8s 多集群部署</strong></p>
+<p>我们内部 k8s 的使用方主要有 ops 运维团队和基础平台的发布系统，运维团队主要关心的是运维便捷性、可视化、安全性等特性，而发布系统和 k8s 对接方式是通过资源调度层调用 k8s api 来控制集群资源，所以发布系统主要关心的是接口的实时性、一致性。在初期集群规模不是很大的时候，选择开源的一些产品 rancher、kubesphere 等多集群管理方案可以满足多方的需求，但是当接入容器化的使用场景增多、接口调用指数增加后，性能问题也随之而来，因此就需要对数据接口有针对性的优化。</p>
+<ul>
+<li>基础平台的 k8s 查询优化：当自动化测试、第三方系统都接入容器化后，接口调用会成为性能瓶颈，这个瓶颈会严重影响 k8s 集群的稳定性。因此对 k8s 的数据做一层数据缓存是非常必要的，所有的查询入口都走这个数据缓存层。</li>
+</ul>
+</li>
+<li><p><strong>HPA 弹性扩缩容</strong></p>
+<ul>
+<li>弹性扩缩容是云原生场景下的一个核心能力，它可以应对业务场景的突发流量、也可以针对资源使用率低的服务进行缩容从而减少资源成本。在酒店、机票、火车票等业务场景中，节假日等特殊日子里流量是不确定的，这个时候弹性扩缩容就有用武之地了。下面详细介绍我们的多集群 HPA 实现方案和使用流程。</li>
+</ul>
+</li>
+</ul>
+<p>  <img src="/rdefficiency/medias/images/container/hpa_config.png" alt=""></p>
+  <center>图1-8 扩缩容配置</center>
+
+<ul>
+<li><p>在多集群生成下发 HPA 配置。</p>
+</li>
+<li><p>HPA 动态拉取  cpu/memory, 用户自定义的指标并决策是否进行扩容或缩容。</p>
+</li>
+<li><p>扩容或者缩容成功后，回填应用画像中应用的副本数。</p>
+</li>
+</ul>
+<p>在使用 HPA 过程中的一个最大难点就是阈值设置多少合适，通过历史的监控值并不能准确的判断当前的容量水位，因为服务是动态变化的，每天都有新功能上线，过去的阈值很可能已经失效。我们的做法是业务线同学在低峰阶段利用压测平台阶梯式地对当前应用进行压力测试，压测数据也是来源于线上的真实流量数据，通过实时监控应用的核心链路指标情况并不断调整发压数据，最后可以确定一个合理真实的容量水位。</p>
+<h3 id="1-2-4-迁移落地"><a href="#1-2-4-迁移落地" class="headerlink" title="1.2.4    迁移落地"></a>1.2.4    迁移落地</h3><p>业务线的应用迁移到容器我们分解成6个步骤来完成，如下图1-9所示，每个步骤尽量做到自动化，让用户更容易地迁移到容器。<br><img src="/rdefficiency/medias/images/container/migrate.png" alt=""></p>
+<center>图1-9 自动迁移容器流程</center>
+
+<ul>
+<li>迁移流程如下：</li>
+</ul>
+<ol>
+<li><p><strong>前置校验</strong></p>
+<p>编译前自动校验应用有哪些方法不符合标准化规范，比如 getHostName 等依赖 host 信息的方法，发现后会提示用户改造。</p>
+</li>
+<li><p><strong>测试环境验证</strong></p>
+<p>这个阶段我们会自动帮业务线升级 SDK ，升级到支持容器化的版本。(具体升级方案后面的章节会介绍)。</p>
+</li>
+<li><p><strong>线上验证</strong></p>
+<p>应用容器自动发布到线上后首先不接入线上流量，业务同学会跑自动化 case 并做回归验证。如果没问题会把这部分容器接入线上流量。</p>
+</li>
+<li><p><strong>混合部署</strong></p>
+<p>为了保证迁移过程的服务 SLA、kvm 和容器会混部一段时间。</p>
+</li>
+<li><p><strong>全量部署</strong></p>
+<p>混合部署没有问题后，会把 kvm 流量全部切到容器。</p>
+</li>
+<li><p><strong>观察</strong></p>
+<p>观察一段时间后 （我们是观察1周），容器服务没有问题则回收 kvm 机器。</p>
+</li>
+</ol>
+<h3 id="1-2-5-验收"><a href="#1-2-5-验收" class="headerlink" title="1.2.5 验收"></a>1.2.5 验收</h3><p>容器化后为业务带来了哪些价值，用哪些指标衡量，这个是所有人都关心的问题，我们从图1-10 的3个指标来看。</p>
+<p><img src="/rdefficiency/medias/images/container/value.png" alt=""></p>
+<center>图1-10 容器化收益</center>
+
+<ul>
+<li><strong>计算方式</strong>：</li>
+</ul>
+<ol>
+<li><p><strong>每天节省运维人力</strong></p>
+<p>宿主机数量 <em> 宿主机上的 kvm 数量 </em> 应用的 app owner * 1个人处理运维的时间。</p>
+</li>
+<li><p><strong>交付效率提升</strong><br>KVM 发布的平均时长: 3.8 min。<br>容器发布的平均时长: 2.1 min。</p>
+</li>
+<li><p><strong>资源利用率</strong><br>每个宿主机部署的 kvm 数量: 17。<br>每个宿主机部署的容器数量: 30。</p>
+</li>
+</ol>
+<p>另外还有一些看不见的无法直接量化的价值，比如说工程师专业知识与技能的提升；云原生架构给大家带来了更多的成长机会；公司内部成立了SIG兴趣小组，给大家提供了更多交流学习的机会等等，这些都是技术同学非常看重的。</p>
+<h2 id="1-3-容器化实践过程坑点"><a href="#1-3-容器化实践过程坑点" class="headerlink" title="1.3    容器化实践过程坑点"></a>1.3    容器化实践过程坑点</h2><h3 id="1-3-1-发布过程读不到标准输入输出"><a href="#1-3-1-发布过程读不到标准输入输出" class="headerlink" title="1.3.1    发布过程读不到标准输入输出"></a>1.3.1    发布过程读不到标准输入输出</h3><ul>
+<li><p><strong>场景介绍</strong></p>
+<p>应用容器为了兼容 kvm 时期业务线可以自定义启动前 hook 脚本的功能，测试环境中这个脚本业务线主要用来准备测试数据，是必不可少的。因此我们把用户自定义脚本放到了应用容器的 postHook 中。实际运行过程中当用户的自定义脚本出错、比如 npm 安装超时并 hang 住的时候，用户发布页面看不到实时的标准输入输出，直至10分钟超时，这个给用户的体验非常不好，不知道发生了什么，可观测性非常差。</p>
+</li>
+<li><p><strong>问题点</strong></p>
+<p>发布过程 k8s api 为什么拿不到应用容器的标准输入输出？</p>
+</li>
+<li><p><strong>答案</strong></p>
+<p>经过查阅官方文档和非官方文档，终于在非官方文档 <a href="https://unofficial-kubernetes.readthedocs.io/en/latest/concepts/containers/container-lifecycle-hooks/">https://unofficial-kubernetes.readthedocs.io/en/latest/concepts/containers/container-lifecycle-hooks/</a> 中找到了相关描述，如果 hook hang 住，容器的状态也会hang 住，这个时候 api 读取日志是读不到的。</p>
+</li>
+<li><p>问题剖析</p>
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/container/hook_issue.png" alt=""></p>
+<center>图1-11 Hook Handler Execution 文档</center>
+
+<ul>
+<li><p><strong>解决方案</strong></p>
+<p>通过引入 sidecar 的方式解耦 postStart hook 和 容器的生命周期，具体流程和图示1-12 如下。</p>
+</li>
+</ul>
+<p><img src="/rdefficiency/medias/images/container/run_user_hook.png" alt=""></p>
+<center>图1-12 初始化流程</center>
+
+
+<ol>
+<li>第1个 init 容器执行资源初始化、db 授权操作。</li>
+<li>第2个 init 容器 copy 应用的数据、用户自定义的 hooks 到共享 volume。</li>
+<li>应用容器、sidecar 挂载 volume, 并启动容器。</li>
+<li>sidecar entrypoint.sh 启动过程会执行用户自定义的脚本。</li>
+<li>发布模块调用 k8s api  查询应用容器的标准输入输出。无论自定义执行成功与否，应用的标准输入输出都可以读到。</li>
+</ol>
+<h3 id="1-3-2-批量发布过程中个别-pod-失败"><a href="#1-3-2-批量发布过程中个别-pod-失败" class="headerlink" title="1.3.2    批量发布过程中个别 pod 失败"></a>1.3.2    批量发布过程中个别 pod 失败</h3><ul>
+<li><p><strong>场景介绍</strong></p>
+<p>在使用 deployment 发布过程中， 所有 pod 都是从一个模版中派生出来的，没有任何差异。因此理想状态是：只要有一个 pod 发布成功，所有的 pod 都应该是成功的。但现实情况比较复杂，有很多情况会造成 pod 失败，比如后端缓存、db 连接池满、授权系统挂掉、宿主异常、镜像拉取超时等问题。在发生个别 pod 失败的场景下，采取什么策略是需要根据场景仔细思考的。</p>
+</li>
+<li><p><strong>问题点</strong></p>
+<p>如何处理个别失败的 pod 来提升发布效率。</p>
+</li>
+<li><p><strong>参考方案</strong></p>
+</li>
+</ul>
+<ol>
+<li><p><strong>让整个发布失败</strong></p>
+<p>这个策略比较严格, 要求所有 pod  都成功，不太现实。</p>
+</li>
+<li><p><strong>重建失败的 pod 直至成功</strong></p>
+<p>针对失败的 pod 执行删除操作，让 k8s 重新调度直至 pod 启动成功。这种方式对发布来说是最安全的，兼容了发布效率和质量。</p>
+</li>
+<li><p><strong>按比例忽略失败的 pod</strong></p>
+<p>当发布失败的 pod 数量低于规定的阈值，继续发布，不做任何失败处理，等新流量完成切换后再做处理。这种方式发布效率是最高的，不过有一定的质量隐患。对于回滚场景来说这种策略是比较合适的。</p>
+</li>
+</ol>
+<p>我们当前采用的策略是第2种，重建失败 pod 的方式。</p>
+<h3 id="1-3-3-容器实时日志方案怎样实现性价比最高"><a href="#1-3-3-容器实时日志方案怎样实现性价比最高" class="headerlink" title="1.3.3    容器实时日志方案怎样实现性价比最高"></a>1.3.3    容器实时日志方案怎样实现性价比最高</h3><ul>
+<li><p><strong>场景介绍</strong></p>
+<p>容器的可观测性是用户的一项基本要求，用户在发现问题、排查定位问题过程中都严重依赖日志信息。比如发布过程中，接到告警排查问题的时，有时还有某些特定场景也都有查看日志的需要。过去 kvm 可以通过 ELK 查看实时日志，当然还可以直接登陆 kvm 机器查看，但是容器场景下就不现实了，因为容器在重新发布或者驱逐后就销毁了，想看的日志也不确定在哪个机器上。</p>
+</li>
+<li><p><strong>问题点</strong></p>
+<p>满足用户的需求，同时要考虑机器成本。</p>
+</li>
+<li><p><strong>参考方案</strong></p>
+</li>
+</ul>
+<ol>
+<li><p><strong>ELK</strong></p>
+<p>ELK 是实时日志的一个标配方案，之前业务同学也有使用它的经验，所以我们的日志方案第一期就是采用的 ELK，但是试用一段时间后发现机器成本很高、查询速度等使用体验上达不到用户的要求，因此最终也就放弃了这个方案。</p>
+</li>
+<li><p><strong>Loki</strong></p>
+<p>Loki 是 grafana 针对云原生场景定制开发的日志查询系统，它的查询方式和体验都非常好，包括提供了实时 tail 日志的功能。但是当用户对实时日志的保留时间提出更高要求后，Loki 的资源占用也逐渐升高，最后也只能放弃。</p>
+</li>
+<li><p><strong>通过 ws api 实时查看pod日志</strong></p>
+<p>最终的方案是调用 ws api 实时查看 pod 的日志。这种方式的最大优点就是耗费的资源少，经济实惠。不过也有个缺点，当 pod 销毁后，就查不到相关日志了。因此需要离线日志的配合，当 pod 不存在或者发生驱逐，通过离线日志工具取查询。</p>
+</li>
+</ol>
+<p>我们当前采用的是第3种方案：通过 ws api 查看实时日志，hdfs 实现离线日志的查询，这种实现方式的实现成本非常低，同时也能满足用户需求。</p>
+<h2 id="1-4-总结展望"><a href="#1-4-总结展望" class="headerlink" title="1.4    总结展望"></a>1.4    总结展望</h2><p>回过头复盘容器化落地的整个过程，它的成功可以归结为以下三点：</p>
+<ul>
+<li><strong>价值认同</strong></li>
+</ul>
+<p>这里引用朱熹《朱子语类》的一句话 “知之不深，则行之不笃； 知之愈明，则行之愈笃”。 我们通过技术宣讲等手段让大多数人认同容器化的价值，大家的目标一致，成功是必然的 。</p>
+<ul>
+<li><strong>产品同理心</strong></li>
+</ul>
+<p>自己一定要是容器化项目的第一个用户，提前发现并填好坑点，这样用户才会有信心、放心地配合迁移容器。</p>
+<ul>
+<li><strong>工程化方法</strong></li>
+</ul>
+<p>最大化的减少用户迁移成本，比如通过自动化前置检测、自动升级 SDK、自动化迁移等手段来减少用户的迁移成本。</p>
+<p> 在云原生的路上容器化只是一个起点，后续我们会结合 service mesh、serverless 、OAM 、OpenTelemetry 等技术的能力来为业务研发同学提供更多好用、实用的开发者体验，为业务的研发效能提升保驾护航。</p>
+<h1 id="第二章-中间件容器化适配"><a href="#第二章-中间件容器化适配" class="headerlink" title="第二章    中间件容器化适配"></a>第二章    中间件容器化适配</h1><h2 id="2-1-背景"><a href="#2-1-背景" class="headerlink" title="2.1    背景"></a>2.1    背景</h2><p>随着容器化技术的逐步成熟，越来越多的公司开始拥抱云原生技术。一方面容器化后扩容缩容更加灵活，能提升资源利用率、降低总体成本。另一方面，容器化后整体环境标准化程度提升，业务的发布、运维效率都能得到提升。经过慎重考虑和权衡，去哪儿网内部也决定全面容器化。</p>
+<p>虚拟机和容器差异较大，我们最终的目标是要在整个公司落地容器化，为云原生建设打下基础，所以我们需要在推动业务团队容器化之前做好中间件的容器化适配工作，屏蔽虚拟机和容器这 2 种不同环境的差异，降低业务团队容器化的成本。</p>
+<h2 id="2-2-实践路径"><a href="#2-2-实践路径" class="headerlink" title="2.2    实践路径"></a>2.2    实践路径</h2><p>在本节中，我们会详细介绍基础架构团队在支撑业务团队容器化方面具体做出的准备工作，从业务直接使用的中间件组件到为了支撑容器化而新增的公共服务都会涉及。</p>
+<h3 id="2-2-1-组件梳理"><a href="#2-2-1-组件梳理" class="headerlink" title="2.2.1    组件梳理"></a>2.2.1    组件梳理</h3><p>首先，我们先简单介绍一些公司内部比较重要的组件，他们包括：</p>
+<ol>
+<li><p><strong>公共核心库</strong></p>
+<p>这是一个核心的接入层依赖包，用于项目自动接入公司的应用体系，可以为其他中间件提供应用、机器环境等基础信息。</p>
+</li>
+<li><p><strong>配置中心</strong></p>
+<p>公司内的配置中心，统一管理应用的配置，支持配置热更新。</p>
+</li>
+<li><p><strong>消息中心</strong></p>
+<p>公司内的消息队列，主要处理业务相关的消息。</p>
+</li>
+<li><p><strong>定时任务</strong></p>
+<p>公司内的任务调度系统，用于业务统一管理定时任务。</p>
+</li>
+<li><p><strong>dubbo</strong></p>
+<p>公司内使用的 RPC 框架，包含了一些内部定制化的功能。</p>
+</li>
+<li><p><strong>redis &amp; mysql client</strong></p>
+<p>公司内的数据源客户端，屏蔽了集群细节和具体 IP 地址，支持动态集群变更。</p>
+</li>
+</ol>
+<p>这些组件的整体关系可以参考：</p>
+<p><img src="/rdefficiency/medias/images/middleware/middleware-evolution-1.png" alt=""></p>
+<h3 id="2-2-2-容器化环境特点"><a href="#2-2-2-容器化环境特点" class="headerlink" title="2.2.2    容器化环境特点"></a>2.2.2    容器化环境特点</h3><p>首先，我们从公司内部的虚拟机环境说起。使用虚拟机时，新项目上线或者是现有项目扩容，都需要开发人员预先提交机器申请，经过审批、交付获得机器后才能发布。如果项目本身对 JDK、tomcat 或其他软件有要求，还需要自行调整新机器的环境。虚拟机一旦交付，机器的 IP 和 hostname 基本就保持稳定了，发生变动的情况很少。虚拟机环境的项目发布时，发布系统选择的策略是一批批下线、更新、上线的策略，这个过程中提供服务的虚拟机是先减少再恢复正常。</p>
+<p>容器环境整体上和虚拟机环境有一些明显差异。容器由 k8s 统一管理，不再需要业务同学提前申请了，业务同学在发布时确定好容器数量即可，发布时会由 k8s 自动创建出足够数量的容器。项目的容器环境也是预先定义好的，不再需要业务同学一台台单独调整。由于容器是发布时由 k8s 自动分配，所以机器 IP 和 hostname 都是随机的。在发布阶段，公司内的发布团队选择了双 k8s deployment 更新的模式，上线过程从容器数量上看变成了扩容、上线新版本、下线老版本、缩容老版本，整个过程中提供服务的容器数量是先增长再减少，这样可以减少发布过程中的负载能力下降问题。</p>
+<p>从上面的描述可以看出虚拟机环境和容器环境最大的差异有 2 点：</p>
+<ol>
+<li>容器化后 IP 和 hostname 都从相对稳定变成了完全随机</li>
+<li>项目发布从逐批替换发布变成了先扩容再缩容</li>
+</ol>
+<h3 id="2-2-3-适配核心思路"><a href="#2-2-3-适配核心思路" class="headerlink" title="2.2.3    适配核心思路"></a>2.2.3    适配核心思路</h3><p>为了让业务服务能够迁移到容器化环境，中间件必须首先适配容器化环境，否则业务根本无法迁移。中间件适配容器化环境的核心问题有 2 个，中间件自身的正常运行和尽量屏蔽环境差异。由于环境的变化，很多中间件功能也都无法直接在容器化环境中运行，要让中间件功能适配容器化环境，能够适配的功能要尽量隐藏 2 种环境的差异，无法适配的功能需要考虑屏蔽或者重新根据容器化环境的特点设计功能。</p>
+<p>根据组件层级的划分可以看出核心接入层的公共核心库适合做环境识别工作，而公共组件层的各个组件则需要根据自己的情况做适配并且尽量屏蔽差异。</p>
+<p><img src="/rdefficiency/medias/images/middleware/middleware-evolution-2.png" alt=""></p>
+<ul>
+<li>环境识别</li>
+</ul>
+<p>无论是兼容不同环境还是针对不同环境单独重新设计功能，都需要首先进行环境类型的识别，这是后续一切工作的基础。客户端需要进行环境识别的工作，然后根据环境做相应的兼容操作，尽力屏蔽环境差异，保持对外接口行为的一致性。服务端也一样，除了尽力保证功能的一致性外，还需要针对无法兼容的功能单独设计开发对应的新功能。那我们该如何做环境识别呢？目前公司里提供了 2 种方案。</p>
+<ol>
+<li>请求一个统一的中心服务，这个中心服务根据 IP 返回对应的环境信息。</li>
+<li>在容器和虚拟机上添加一个描述文件，里面包含对应的环境信息。</li>
+</ol>
+<p>在客户端中，为了减少外部依赖，提高可靠性，我们选择了描述文件的方式。由发布系统在发布时生成描述文件，描述文件中包含了当前的机房信息、环境信息等。之后再由我们的公共核心库读取描述文件统一对外提供环境识别的接口，由于其他公共组件库之前已经接入核心库，就不需要再自己做环境识别的工作了。</p>
+<p>在服务端中，则需要根据具体的业务场景做不同的处理。对于直接和客户端交互的服务，通常客户端会主动汇报目标节点的环境信息，或者是在请求中带上环境信息，这种情况下服务端会直接使用客户端传递的环境信息，减少外部交互。而对于不会和客户端交互的服务端部分，则需要根据 IP 从中心服务上查询出对应的环境信息。</p>
+<ul>
+<li>适配思路</li>
+</ul>
+<p>环境识别问题解决后，就要考虑各个组件中的各项具体功能如何适配了，要判断哪些功能能够兼容，哪些功能需要重新设计。我们之前总结了虚拟机和容器环境的 2 个主要差异点，可以看到影响比较大的主要是单机相关的部分，所以这里根据功能是否涉及单机分为 2 类来考虑。</p>
+<ol>
+<li><p>对于非单机功能，由于不需要针对不同的单机做处理，所以能够识别环境后基本都可以屏蔽具体差异，提供一致的服务行为。</p>
+</li>
+<li><p>对于单机功能，由于组件较多，整体就比较复杂了。我们逐个分析了各个中间件里涉及单机的功能，下面是一些例子：</p>
+</li>
+</ol>
+<ul>
+<li>公共核心库和应用中心：主要涉及到单机的环境识别</li>
+<li>配置中心：主要涉及到单机配置推送、单机版本锁定等需要指定固定机器的功能</li>
+<li>定时任务：主要涉及到执行节点手工上下线功能</li>
+<li>消息中心：主要涉及到广播消费功能</li>
+<li>dubbo：主要涉及到服务单实例配置相关的功能</li>
+</ul>
+<p>从上面可以看出，适配容器化的主要问题点在单机功能部分。单机功能适配的主要问题是随机 IP 和 hostname。为了解决这个问题，我们最初考虑了 2 个方案：</p>
+<ol>
+<li>引入一个唯一 ID 生成服务，为容器化应用的每个实例都产生一个固定 ID</li>
+<li>接受随机性，从功能层面上适配随机 IP</li>
+</ol>
+<p>在综合考虑实现难度、运维复杂度、功能必要性、未来技术方向等各方面因素之后，我们决定选择接受随机性，从功能层面做适配和改造。不依赖一个唯一 ID 生成系统，整体的可靠性会更好。对各个系统中针对单机的功能进行分析后，发现大部分都可以做适配。容器化后的技术方向就是屏蔽单机，从服务维度考虑，因此那些不兼容的功能我们也可以从服务维度重新设计实现。</p>
+<h2 id="2-3-适配实践"><a href="#2-3-适配实践" class="headerlink" title="2.3    适配实践"></a>2.3    适配实践</h2><h3 id="2-3-1-公共核心库容器化适配"><a href="#2-3-1-公共核心库容器化适配" class="headerlink" title="2.3.1    公共核心库容器化适配"></a>2.3.1    公共核心库容器化适配</h3><p>公共核心库本身是由很多模块组成的，比如：</p>
+<ol>
+<li>common-core，包括了应用接入、上下线管理、公共核心 API 等部分。</li>
+<li>common-web，针对 spring 环境的各种定制化增强功能模块。</li>
+<li>common-http，内部封装的 http client，添加了很多增强功能，比如外网访问代理、链路追踪接入等等。</li>
+</ol>
+<p>公共核心库中最核心的功能就是 common-core 模块提供的应用身份及环境信息识别功能。common-core 模块会上报应用 token 数据和当前运行的机器环境数据到应用中心，应用中心会校验应用身份、环境等信息，通过后生成一个临时动态 token，最后会将 token 和应用环境信息再返回给 common-core。其他中间件和一些业务组件都会依赖 common-core 提供的 token 和环境信息。</p>
+<p>这一次公共核心库容器化适配最关键的改动就是环境信息识别部分。在虚拟机环境中，公司机器的 hostname 是包含了环境、机房等信息的，所以 common-core 模块和应用中心依赖 IP 和 hostname 判定环境、机房信息，在容器化场景下这种做法就行不通了。同时，为了避免每个组件都自己判断当前是虚拟机环境还是容器化环境，核心库也得提供一个辨别具体环境的 API。</p>
+<p>参考前面环境识别中描述的方案，common-core 中最重要的改动就是放弃从 hostname 中获取环境信息，转向读取机器上的服务器环境描述文件。应用中心上也是同理，不能再依赖 IP 反解获取 hostname，而是只能使用 common-core 中上报的信息。</p>
+<p><img src="/rdefficiency/medias/images/middleware/middleware-evolution-3.png" alt=""></p>
+<h3 id="2-3-2-Dubbo-容器化适配"><a href="#2-3-2-Dubbo-容器化适配" class="headerlink" title="2.3.2    Dubbo 容器化适配"></a>2.3.2    Dubbo 容器化适配</h3><p>Dubbo 容器化适配的主要问题点有 2 个。一是单机配置相关的部分，包括上下线功能、业务单机配置等。二是公司内部开发的注册中心故障保护功能。下面会分别介绍这 2 个方面的详细适配方案。</p>
+<p>这里，我们先简单介绍下公司内 dubbo 的服务注册与上下线功能。我们内部目前是使用 zookeeper 作为 dubbo 的注册中心，dubbo provider 启动后会在 zookeeper 注册，consumer 订阅 zookeeper 上的对应节点从而及时获取 provider 机器列表、动态配置等数据。原始的 dubbo 实现中，这里会遇到一个问题，provider 服务的注册是全自动的，代码初始化之后就会自己在 zookeeper 上写入节点信息，这时候 consumer 端就能够获取到最新数据并建立连接发送请求了。但是一种可能出现的问题场景是 provider 已经注册，应用却尚未启动完成，此时处理接收到的 consumer 端请求会报错。为了解决这个问题，我们引入了上下线机制。在 provider 注册到 zookeeper 上之前，我们会在 zookeeper 上的相应配置节点下写入一条下线配置，将这个节点提前标记为下线状态。等到应用收到上线信号后，我们会主动删除之前写入的下线配置，让 provider 节点上线。为了避免应用发布关闭时继续接收请求导致报错，我们也会在应用发布关闭前提前写入下线配置，让 provider 提前下线。</p>
+<p><img src="/rdefficiency/medias/images/middleware/middleware-evolution-5.png" alt=""></p>
+<p>容器化之后，对于大多数业务方来说，dubbo 不做任何改动也能在容器化环境中正常提供服务注册、服务上下线、服务调用等核心功能。但是容器化环境中的随机 IP 还是会带来一些额外的问题。一是上下线机制加上频繁的 IP 变更会导致 zookeeper 上残留大量的过期数据，因为每次应用发布提前下线时都会写入一条下线记录。二是随机 IP 会导致和 IP 相关的配置失效，比如单机配置、路由配置等等。为了 zookeeper 服务的稳定性和 dubbo 功能的完整性，必须得针对容器化环境做相应的适配工作。</p>
+<p>我们先介绍下容器化环境里的上下线方案。最初，考虑了两种解决容器化环境上下线的方案：</p>
+<ol>
+<li>修改 dubbo，让 provider 注册的数据延迟到最终上线时再写入。</li>
+<li>修改上下线逻辑，将下线记录由永久节点改为临时节点，永久节点需要主动删除，临时节点应用关闭后就自动被 zookeeper 清除了。</li>
+</ol>
+<p>第1种方案涉及到修改 dubbo 本身的代码，整体会更加复杂。第2种只需要修改上下线部分的代码，这部分代码本身是作为插件形式存在的。我们最终选择了方案 2，主要是整体的代码修改量更少。</p>
+<p><img src="/rdefficiency/medias/images/middleware/middleware-evolution-6.png" alt=""></p>
+<p>上下线配置都是临时性的，可以切换为临时节点。但是其他单机配置是不行的，因为很多配置是需要一直保留下去的。由于每次发布后都随机分配 IP，固定 IP 的单机配置发布后自然就失效了。最初，我们考虑整体方案是想要引入唯一 ID 生成系统来唯一标识某个单机，但是最终我们还是放弃了。一来引入唯一 ID 会带来额外的中心依赖，可靠性会降低。二来我们这边选择的发布模式是类似先扩容再缩容的模式，唯一 ID 也不好处理。目前我们是放弃了长期生效的单机配置，推荐业务使用整个服务级别的配置，这种级别长期看是更有好处的，避免了单机的不一致问题。</p>
+<p>Dubbo 故障保护机制是我们为了避免 zookeeper 故障导致服务 provider 大量节点下线最终出现服务无法调用而开发的容错功能。正常情况下，如果 zookeeper 直接彻底挂掉，consumer 端的影响是不大的。但是我们历史上出现过 zookeeper 因为压力过大导致大量节点过期被清理掉的情况，这种情况下 consumer 端是有可能感知到 provider 大量下线的，此时很容易出现大量请求失败。</p>
+<p>因此我们设计实现了故障保护机制。当 consumer 发现 zookeeper 上存在的 provider 数量低于正常值的 35% 时，保护机制自动启用，consumer 会将所有预先缓存的 provider 视为正常的provider 进行调用。保护机制处于启用状态时，当 consumer 发现 zookeeper 上存在的 provider 数量大于等于正常值 75%，保护机制自动关闭，consumer 只会调用 zookeeper 上存在的 provider。Provider 数量正常值指最近 6 小时zookeeper 上存在过的 provider 数量，缓存的 provider 为最近 6 小时 zookeeper 上存在过的 provider。</p>
+<p>容器化环境中先扩容再缩容的发布模式和 dubbo 故障保护机制刚好冲突了，发布批次少的应用很容易触发这个机制，导致业务日志中出现大量异常，但是实际上这个又并不会影响业务正常请求。针对这个功能，我们的改良点主要是两个。一是完整 provider 列表由累计最大改为瞬时最大，避免每次发布 provider 完整列表都翻倍，降低触发概率。二是触发 dubbo 故障保护功能后通过应用中心接口强制获取当前应用的完整在线容器列表，剔除掉确定下线的记录，避免大量报错。</p>
+<h3 id="2-3-3-消息中心容器化适配"><a href="#2-3-3-消息中心容器化适配" class="headerlink" title="2.3.3 消息中心容器化适配"></a>2.3.3 消息中心容器化适配</h3><p>QMQ 是公司内部开发的一个消息队列，目前已经开源，想要详细了解的话可以参考 <a href="https://github.com/qunarcorp/qmq。QMQ">https://github.com/qunarcorp/qmq。QMQ</a> 容器化适配主要涉及了 3 个问题，这些问题也都是由随机 IP 和新发布模式导致：</p>
+<ol>
+<li>广播消费问题。</li>
+<li>大量过期数据的清理问题。</li>
+<li>使用持久消息和事务消息时的数据库授权问题。</li>
+</ol>
+<p>QMQ 支持的消费模式和常见的 kafka 有些差异，所以这里我们先简单介绍下广播消费。QMQ 的消费进度都是是按消费组管理的，消费组内可以有一台或者多台机器，消息会被组内的消费者均分，增加组内的消费者数量就能提升消费能力。一般来说，大部分的业务消息都是希望多台机器均分消费的。不过也有一些场景中业务希望应用的每一台机器都能消费到主题的所有消息，比如触发本地缓存刷新的消息。广播消费就是针对这种场景设计的消费模式，在 QMQ 里实际上就是每个消费者都生成一个单独的消费组。</p>
+<p>了解了广播消费的模式，大家应该很容易考虑到容器化后随机 IP 带来的问题，那就是广播消费的消费进度管理问题。在虚拟机环境中，机器是比较稳定的，无论是数量还是具体的 IP 等，这种场景下广播消费的进度是可以稳定管理的，每次应用重新启动都可以定位到之前的消费组并接着之前的消费进度继续消费。而容器化后，随机 IP 配合先扩容再缩容的发布模式，会导致广播消费的消费组非常不稳定，我们不得不重新考虑这种场景下消费进度该如何管理。</p>
+<p>最初，为了解决广播消费消费进度管理的问题，我们也考虑采用固定 ID 生成服务。但仔细考虑后发现这样也还是不能满足要求，主要冲突的点在于发布模式的改变。采用固定 ID 的本意是发布时消费组的归属自动由老容器转移到新容器。但由于采用先扩容再缩容的发布模式，消费组归属自动转移就没法做了，因为发布时并行存在的消费组数量总是比正常情况下要多。这个问题我们纠结了挺久，后来才突然意识到一点：扩容缩容本身其实和广播消费不冲突。在虚拟机环境下，业务本身也是得扩容缩容的，这就说明业务本身使用广播消费时必然已经处理了扩容缩容带来的问题，否则他们自己的应用在虚拟机环境下也无法正常运作。所以我们最终放弃了固定 ID，完全接受随机 IP，将其当做扩容缩容场景对待。</p>
+<p>广播消费接受了随机 IP，我们也要做相应的适配工作，除了 client 端根据环境做简单适配外，还有 2 个涉及到 QMQ 服务端的问题：一个是随机数量变多，会产生很多过期数据；二个是现有的消费进度默认实现会导致新消费组大量消费旧消息。第一个问题处理起来比较简单，梳理并增加相应的数据清理任务，加快清理频率就可以了。第二个问题是最初 QMQ 为了避免消费组先上线且主题后发送消息时依旧丢失最初发送的消息而设计的，让消费组默认从历史位置开始消费，这就导致容器化场景下每次发布广播消费的新机器都会变成从历史开始消费。但这里直接改成从最新位置消费很容易丢失消息，因为主题是发送消息时才分配具体的 QMQ 服务端节点，这就导致必然是先收到发送请求才能收到消费拉取请求。为了解决这个问题，我们调整了初始消费进度的判断算法，确定最初消费进度时额外考虑主题的创建时间，近期创建的从最旧开始，否则从最新位置开始。</p>
+<p>为了给消息发送方提供更高的可靠性，QMQ 借助业务数据库提供了持久消息和事务消息。QMQ producer 支持发送消息前将消息先保存到业务数据库实例中，发送成功时自动删除，发送失败时从业务库里补偿发送，这就是持久消息。而事务消息则是在持久消息的基础上做了一致性增强，业务在数据库事务中发送的消息会等到事务成功提交后再发送，如果事务回滚则不会发出这条消息，这样业务的 DB 操作和消息发送就通过事务保持一致了。由于持久消息和事务消息都需要保存消息到业务数据库实例里，所以实际上数据库实例里会有一个 QMQ 专用的库，实例的使用方共享这个专用库，这里就会涉及到数据库访问权限的问题。容器化之前业务发送持久消息和事务消息时都需要在管理平台上提交上线申请，上线申请提交后会自动创建 QMQ 专用库，同时为业务机器授权。容器化带来的问题也就很明显了，随机 IP 导致数据库权限无法预先授权。这里的授权问题不仅仅是 QMQ 会遇到的，业务自己的 DB 授权也一样有这个问题，这个问题最终是引入了一个自动授权系统来解决，我们后面会详细介绍。</p>
+<h3 id="2-3-4-其他组件容器化适配"><a href="#2-3-4-其他组件容器化适配" class="headerlink" title="2.3.4    其他组件容器化适配"></a>2.3.4    其他组件容器化适配</h3><p>剩余的各个中间件的改动就比较少了，主要都是一些单机功能的取舍问题。下面我们做一些简单介绍。对于配置中心，容器化适配主要是 2 个改动点：</p>
+<ol>
+<li>由于容器每次重启都会重建，所以容器环境下只好放弃 client 端本地配置缓存。</li>
+<li>第二个是放弃管理界面上针对单机的功能，改为组级别的模式，比如指定机器锁定版本、长期指定机器灰度配置等。</li>
+</ol>
+<p>对于定时任务，我们只是放弃了一些单机功能，比如指定任务的某些执行者下线功能。</p>
+<h2 id="2-4-DB-自动授权"><a href="#2-4-DB-自动授权" class="headerlink" title="2.4    DB 自动授权"></a>2.4    DB 自动授权</h2><p>公司里很多应用都需要使用数据库，线上应用访问数据库都需要提前申请权限，然后 DBA 按照机器维度进行授权。这种模式在容器化环境中无法继续使用，因为容器环境每次发布 IP 都会随机变化，并且无法提前知道 IP，因此无法提前申请机器级别的权限。同时 IP 变化速度加快，必须及时回收过期的权限，否则权限记录会不断膨胀。</p>
+<ul>
+<li><p>以 IP 级别进行授权</p>
+<p>从安全方面考虑，DBA 没有放开整个容器网络的访问限制，授权依旧需要按照 IP 级别进行。经过沟通，我们联合 CM 和 DBA 团队开发了自动授权服务，用来做容器环境下数据库的授权和回收。DB 自动授权系统按照应用管理数据库账号，根据外部的请求执行授权和回收操作。CM 团队负责让容器创建后自动触发授权操作，容器关闭时自动触发回收操作。DBA 团队负责将自动授权系统接入之前的权限管理体系中。</p>
+</li>
+<li><p>授权记录管理</p>
+<p>DB 自动授权系统的第一个重点功能是授权记录管理功能，需要根据将数据库授权记录组织到应用级别，同时对外提供对应的修改接口。授权记录中保存了账号名称、数据库表名称、账号权限等。同时为了保证安全，库中不能直接记录任何的命名密码，只能记录相应的密码 hash。授权记录的来源主要有 2 个。第一个是业务申请账号和权限后，DBA 的自动推送。第二个是业务提交上线申请后的消息自动推送。为了降低业务切换到容器的成本，我们做了一次初始数据导入，由 DBA 导出所有数据库实例中的单机授权记录，我们将这些授权记录转换整理为应用级别的授权记录并保存。</p>
+</li>
+<li><p>权限的授予和回收</p>
+<p>有了比较完善的授权记录后，下面就是权限的授予和回收了。在应用发布时，CM 增加了一个初始化容器，让 pod 创建后主动触发授权操作。Pod 销毁时则是主动触发回收操作。授权和回收时，请求会带着应用和 IP 信息，自动授权系统根据应用查找到所有的授权记录，然后遍历授权记录，由自动授权系统直连各个业务库执行指定 IP 和账号的授权或回收操作。这里的授予和回收都需要考虑幂等。授予操作本身是幂等的，重复执行不会有问题。回收操作不是幂等的，需要处理重复执行时的异常。</p>
+</li>
+</ul>
+<p>整体的系统结构如下所示，更详细的实现方面并不复杂，这里不再详述。</p>
+<p><img src="/rdefficiency/medias/images/middleware/middleware-evolution-4.png" alt=""></p>
+<p>除了功能方面需要满足要求外，自动授权系统作为一个阻塞发布流程的应用，必须要提供足够的服务可靠性保证。我们做了以下措施来保证可靠性：</p>
+<ol>
+<li><p>授权记录同时在 DB 和 Redis 中保存，数据不过期。优先读 Redis，Redis 故障可以降级到数据库。数据库故障不影响授权，只影响新授权记录的推送。</p>
+</li>
+<li><p>服务多机房部署，避免单机房故障。</p>
+</li>
+<li><p>授权记录数据库多机房部署，避免数据库单机房故障。 </p>
+</li>
+<li><p>限制单个数据库实例授权的并行度，避免高度并行影响授权效率。</p>
+</li>
+</ol>
+<h2 id="2-5-总结"><a href="#2-5-总结" class="headerlink" title="2.5    总结"></a>2.5    总结</h2><p>在整个中间件容器化适配过程中，我们的所有核心改动点都是围绕固定 IP 变为随机 IP 和发布模式变为先扩容再缩容这 2 个核心问题进行。在客户端组件中尽力屏蔽环境差异，保证客户端的兼容性。在服务端中屏蔽差异的同时适当放弃单机功能的支持，推动业务切换到基于应用环境维度的管理模式上。目前，公司内部已经完成了容器化切换过程，中间件无缝的支持为业务的切换提供了坚实的基础。</p>
+
+            </div>
+            <hr />
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Part 1 基础设施容器化》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/rdefficiency/1-container/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                北京趣拿软件科技有限公司 ｜ 基础架构
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/rdefficiency/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/rdefficiency/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ed98d39f94ff459ee228',
+        clientSecret: '9d04488d8bba75646a9ff2d97092c7379b796690',
+        repo: 'rdefficiency',
+        owner: 'qunarcorp',
+        admin: "zhangcf945",
+        id: '1-container/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+    <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://qunarcorp.github.io/rdefficiency/1-container/';
+        this.page.identifier = '/1-container/';
+        this.page.title = 'Part 1 基础设施容器化';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/rdefficiency/0-starter/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="开篇序言">
+                        
+                        <span class="card-title">开篇序言</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍云原生已经去哪儿网技术背景，既本书产生背景，同时简单介绍了本书的主要内容
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E4%BA%91%E5%8E%9F%E7%94%9F-%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/" target="_blank">
+                        <span class="chip bg-color">云原生,研发效能</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/rdefficiency/2-service/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 2 服务化建设">
+                        
+                        <span class="card-title">Part 2 服务化建设</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍架构的几个重要模式以及去哪儿网的微服务架构实现，同时包含servicemesh探索和基于架构的开发效率提升实践：Spring Cloud Qunar和开发插件
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E6%9C%8D%E5%8A%A1%E5%8C%96/" target="_blank">
+                        <span class="chip bg-color">服务化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 去哪儿旅行<br />'
+            + '作者: 北京趣拿软件科技有限公司 ｜ 基础架构<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归去哪儿旅行所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/rdefficiency/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 北京趣拿软件科技有限公司. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">133.6k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qunarcorp" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:infra@qunar.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/rdefficiency/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 10, 10, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/rdefficiency/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/rdefficiency/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/rdefficiency/libs/materialize/materialize.min.js"></script>
+    <script src="/rdefficiency/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/rdefficiency/libs/aos/aos.js"></script>
+    <script src="/rdefficiency/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/rdefficiency/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/rdefficiency/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+
+    
+    <script async src="/rdefficiency/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>

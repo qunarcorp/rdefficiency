@@ -1,0 +1,1369 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Part 2 服务化建设, “基于云原生的研发效能实战”">
+    <meta name="description" content="
+第三章    微服务架构建设3.1 背景首先介绍一下去哪儿网的业务。去哪儿网是一个典型的在线旅游平台，它上面的业务繁多，有机票、酒店、度假、火车票、汽车票等等。
+
+这些业务都有不同的业务流程，其中机票的标准化和线上化是最高的，但是像酒店这">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Part 2 服务化建设 | 去哪儿旅行</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/rdefficiency/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/rdefficiency/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ce84511d3df71640a9378a69f6293044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+
+    <script>
+        (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+        })();
+    </script>
+
+<meta name="generator" content="Hexo 6.0.0"><link rel="stylesheet" href="/rdefficiency/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/rdefficiency/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/rdefficiency/" class="waves-effect waves-light">
+                    
+                    <img src="/rdefficiency/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">去哪儿旅行</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/rdefficiency/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-comments"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/rdefficiency/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">去哪儿旅行</div>
+        <div class="logo-desc">
+            
+            北京趣拿软件科技有限公司 | 基础架构
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/rdefficiency/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/rdefficiency/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-comments"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="/rdefficiency/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/rdefficiency/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/rdefficiency/medias/featureimages/cover.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Part 2 服务化建设
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                        <a href="/rdefficiency/tags/%E6%9C%8D%E5%8A%A1%E5%8C%96/" target="_blank">
+                            <span class="chip bg-color">服务化</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-10-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                    北京趣拿软件科技有限公司 ｜ 基础架构
+                    
+                </div>
+
+                
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    16.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    58 分
+                </div>
+                
+                
+
+                
+                <div id="busuanzi_container_page_pv" class="info-break-policy">
+                    <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                    <span id="busuanzi_value_page_pv"></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><img src="/rdefficiency/medias/images/cover_part/part_b.jpg" alt=""></p>
+<h1 id="第三章-微服务架构建设"><a href="#第三章-微服务架构建设" class="headerlink" title="第三章    微服务架构建设"></a>第三章    微服务架构建设</h1><h2 id="3-1-背景"><a href="#3-1-背景" class="headerlink" title="3.1 背景"></a>3.1 背景</h2><p>首先介绍一下去哪儿网的业务。去哪儿网是一个典型的在线旅游平台，它上面的业务繁多，有机票、酒店、度假、火车票、汽车票等等。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/qunar_app.png" alt=""></p>
+<p>这些业务都有不同的业务流程，其中机票的标准化和线上化是最高的，但是像酒店这样的业务，在线化和标准化就比较低，同样的名字可能是不一样的酒店。这些业务在从商品、库存到整个交易过程其实都是不一样的，所以这些业务从背后来看还是相对比较复杂的。</p>
+<p>我们为什么要选择微服务，其实有以下几个方面的原因。第一个就是业务逐渐复杂，最早去哪儿网其实只有机票的比价，而且是一个搜索比价，是没有交易环节的。后来业务扩展就慢慢地发展出来了包含机票、酒店、火车票、度假、汽车票等等其他的业务。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/qunar_products.png" alt=""></p>
+<p>所以业务是逐渐复杂的一个过程，那按照康威定律大家都知道，业务变化了之后，组织结构要进行相应的调整，组织架构其实也会跟着相应的膨胀，膨胀也会带来协作上和分工上的一定损耗，这也是我们要选择微服务的原因之一。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/products_search.png" alt=""></p>
+<p>第三个就是开发效率的低下，我们之前开发的时候大部分都是以最早的模式，也就是通过 HTTP 协议，加上 JSON 这样的数据结构，然后使用 Nginx 作为网关，把服务治理的这些动作全部耦合在业务代码里面，比如重试的逻辑等等。这样的话就会导致我们每一个服务做对应开发的时候，都需要重复性地去考虑这些问题，开发效率相对就会比较低下。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/advanced_infra.png" alt=""></p>
+<p>第四个就是服务质量是比较失控的，因为这些服务质量很难能在统一的一个地方去得到比较有效、及时地处理，就像刚才说的治理的逻辑其实是放在了业务代码里面，有一些治理逻辑可能会放在 Nginx 里面，但是 Nginx 是一个大统一的网关，这就意味着当我们想要去对它进行修改的时候，其实是需要非常谨慎的，这就面临了一个运维和开发诉求不对等的问题。使用微服务我们认为是可以比较有效地解决这些问题的。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/service_type.png" alt=""></p>
+<p>接着介绍一下我们去哪儿网的在线数据。我们现在的应用数据是这样的：活跃的、在线跑着的应用大概有 3000 多个；提供了 18,000 多个 Dubbo 的 RPC 服务接口；有超过 3500 个 HTTP 域名；13,000 多个 MQ 的主题；公司内部大概有 5 种语言的技术栈，当然主要是以 Java 和 Node 为主。</p>
+<h2 id="3-2-微服务架构模式的最佳实践"><a href="#3-2-微服务架构模式的最佳实践" class="headerlink" title="3.2 微服务架构模式的最佳实践"></a>3.2 微服务架构模式的最佳实践</h2><p>接下来介绍一下架构模式，架构模式里面有几个方面。</p>
+<h3 id="3-2-1-服务发现模式"><a href="#3-2-1-服务发现模式" class="headerlink" title="3.2.1 服务发现模式"></a>3.2.1 服务发现模式</h3><p>第一个就是服务发现的模式，服务发现里面其实有三种模式，这三种模式对应不同的适用场景会有不同的效果。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/connect.png" alt=""></p>
+<p><strong>直联模式，</strong>客户端从注册中心发现服务端的列表并缓存在本地，这种模式适合于语言统一的这种内网通信，为什么呢？因为直连模式里面大部分 RPC 采用的这样的模式，主要是比较简单、高效，而且在统一语言的内网通信里面，这种服务端的实例的变更通知是比较简单的。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/proxy_mode.png" alt=""></p>
+<p><strong>代理模式</strong>，服务端注册到网关上，客户端对一个服务端其实是无感知的，这种模式比较适合于外网服务，为什么呢？是因为当你的服务端变更的时候，客户端其实是不需要去感知，也不需要对此进行任何变更，这样对外网来说，其实用户侧的设备是不需要去关注信息的，这样通知起来就比较简单。但是它也会面临一个问题，它会多一跳的通信，从性能或者效率上来说，肯定是不如直连模式的。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/sidecar_mode.png" alt=""></p>
+<p>最后一个就是<strong>边车模式</strong>，Sidecar 去负责注册和发现，应用程序是无感知的，这种比较适合于多语言、多协议的这种内网通信，它其实跟直连模式相对来说是比较相似的，但是它其实是由边车的模式替代了业务程序里面混入的这种基础功能，所以简单来看其实就是直连模式里面把公共的基础设施的逻辑下沉到了边车里面。这样的话边车就可以统一地配合我们的灰度发布或者是其他的热更新的机制，能够做到比较容易地去对这些边车进行升级。</p>
+<h3 id="3-2-2-服务通信模式"><a href="#3-2-2-服务通信模式" class="headerlink" title="3.2.2 服务通信模式"></a>3.2.2 服务通信模式</h3><p>接下来我们说一下服务通信的模式，服务通信模式里面主要有两种，大家其实日常里面比较经常会碰到就是同步的编程模式，这种模式比较简单易懂，非常符合人类的思考习惯，它比较适用于时间比较敏感的、吞吐量也比较小的这种场景。但是这种通信的方式在吞吐量比较大、QPS 比较高的场景里面就会有一系列的问题，比如说可能会把你的资源耗尽，但其实这些资源都处于等待中。比如我们在 Java 里面可能会有线程池的资源，使用起来其实是比较低效的。然后在异步的这种场景里面，它其实比较适用于高吞吐、削峰填谷的作用。</p>
+<p>其实这里面会有几种，从我们的实践上来看的话，比如说搜索系统它其实是一个非常高并发的场景，其实对于这种高吞吐的场景下是必须要用异步的，不然的话其实资源的损耗是非常高的，我们在某些系统上做过改造，由原来的同步改为异步的话，基本上可以节省掉 80% 左右的机器的资源。除此之外，交易系统的事件驱动也是比较适合异步的一个场景，因为交易系统的事件其实是非常关键的，但是它又不能每个人都去通知，因为很多人都需要关注这个事件，这个时候利用 MQ 等方式去做这种事件的驱动是比较合适的。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/httpclient.png" alt=""></p>
+<p>然后在异步的这个场景里面，去哪儿网其实做了一些自己内部的一些支持，比如说我们封装了异步的 HttpClient，把公司内部其他的组件类似于 QTracdue，还有一些其他基础的监控、日志等等之类的组件都做了统一的封装埋点。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/dubbo.png" alt=""></p>
+<p>第二个我们对 Dubbo 的异步通信进行了改善，Dubbo 里面原有的几种通信方式，其实是调用端和被调用端，是会存在一定的耦合逻辑的。比如说像参数回调这样的方式，其实是调用端需要进行异步，但是被调用端不得不配合这个方式进行改造，所以在这种背景下，我们对 Dubbo 的异步通信进行了魔改，其实现在的最新版的 Dubbo 的模式里面，跟这个是比较相似的。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/qmq.png" alt=""></p>
+<p>自研可靠事务消息队列 </p>
+<p>第三个就是我们其实内部做了一个自研的消息队列，它其实支持可靠的事务消息，广泛地应用在我们去哪儿网的交易系统里面。</p>
+<h3 id="3-2-3-协议"><a href="#3-2-3-协议" class="headerlink" title="3.2.3 协议"></a>3.2.3 协议</h3><p><img src="/rdefficiency/medias/images/micro_service/agreement.png" alt=""></p>
+<p>第三个主要提一下协议这部分，我们在公司里面主要有三种协议。第一种私有协议，主要负责 App 和外网网关之间的通信协议；第二个 HTTP 协议，主要是外网网关到 Node、Node 到 Java 之间，甚至有一些 Java 到 Java 之间也会有自己使用的这种 HTTP 协议，不过这种量其实是比较少的；第三个 Dubbo 协议，后端的 Java 服务之间的通信基本上都是用 Dubbo 为主，只有少量的使用 HTTP。</p>
+<h3 id="3-2-4-设计模式"><a href="#3-2-4-设计模式" class="headerlink" title="3.2.4 设计模式"></a>3.2.4 设计模式</h3><p>从设计模式上来说的话，我们其实可以知道在互联网的架构里面，特别是在高并发的模式里面，我们有很多折中，这些折中里面其实会有不同的模式和它的沉淀。比如说像 BASE 这样的模式，它其实不追求强一致性，它是有这种基本的可用和软状态这样的优点，进而去避免因为强一致导致的其他的不可用性。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/CQRS.png" alt=""></p>
+<p>第二个就是 CQRS，这个模式其实非常有用，至少我发现很多场景是能够用上它的，换句话说其实只要是数据异构的这种场景，都是比较适合去使用它的，当然这取决于你的查询模式。大家都知道查询模式其实有很多种的，比如说像 KV 的查询模式、复杂条件的 Query，除此之外，还有 Scan 这种扫描形式，不同的查询形式会对应着不同的存储结构是比较合适的。但是我们在对这些数据进行操作的时候，其实它的数据载体是唯一的，那这个数据载体怎么样才能支持多种的查询模式呢？其实这里面就需要对这些数据进行异构，比如说像我们的订单、配置等等这些方式都需要去进行一定的异构。</p>
+<p>比如说像去哪儿网内部的话，代理商在去哪儿网上就可以进行一定的调价，调价的配置其实就是一个比较适合去做数据异构的场景。代理商去录入的时候是比较复杂的，但其实是从航空公司拿到的一个配置，当它放到平台上来的时候，也是用同样的方式去放，但是对于检索来说的话，用户其实关心的是这个城市，到这个城市的时候，你的调价规则是什么样子，他并不需要一个大一统的调价规则。所以这里面就会面临一个数据异构的过程，我们在这个过程里面其实也使用了 CQRS 这个模式来解决问题。</p>
+<h2 id="3-3-微服务开发效率提升实践"><a href="#3-3-微服务开发效率提升实践" class="headerlink" title="3.3 微服务开发效率提升实践"></a>3.3 微服务开发效率提升实践</h2><p>然后来看一下效率提升的这部分，大家都知道业界 Spring Cloud 在近期或者是近几年来说是一个最佳实践，特别是在微服务比较火之后，大家亟需一套成型的解决方案。这个里面包含不同的功能，比如说像分布式的配置、服务的注册、发现、通信，还有服务的熔断、服务调用、负载均衡、分布式消息等等。其实大家可以看到官方的一个实现，当然实现基本上都是来源于 Netflix 的，这里面会有不同的这些组件，但这些组件其实很多时候可能有一些已经不再维护了。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/compare.png" alt=""></p>
+<p>对应地可以看到 Spring Cloud Alibaba 也有自己的实现，像 Nacos、Sentinel、Dubbo、RocketMQ 等等。我们其实就在思考着去哪儿网自己有这么多自研的组件，是否能够适配 Spring Cloud 这样的一套标准，进而去达到开发提效、互相串通组件的目的？</p>
+<h3 id="3-3-1-Spring-Cloud-Qunar"><a href="#3-3-1-Spring-Cloud-Qunar" class="headerlink" title="3.3.1 Spring Cloud Qunar"></a>3.3.1 Spring Cloud Qunar</h3><p><img src="/rdefficiency/medias/images/micro_service/spring_cloud_qunar.png" alt=""></p>
+<p>我们做了一个尝试，基于 Spring Cloud 做了配置中心、注册中心、服务治理等等之类的组件的串通，这样的话能够做到比较好的开发模式。然后值得一提的是我们在 Spring Cloud Qunar 里面，其实提供了两种通信的模式，一种是前面提到的直联模式，就是由应用本身包含的 SDK 来负责注册、发现和通信。除此之外，我们还有一个模式是基于 Sidecar 的这种 Mesh 模式，我们也可以由 Mesh 的 Sidecar 去负责注册、发现和通信，这两者之间的开启其实是比较简单的，只需要有一些特定的注解就可以开启 Mesh 模式。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/example.png" alt=""></p>
+<p>大家可以看到这里面，比如上面的代码，有 Dubbo Service 这样的一个服务的提供，下面就会有 Dubbo Reference 这样的一个服务的引用，并且在注解里大家可以看到 Qunar Mesh 这样的一个注解，这个注解就是用于开启我们的 Mesh 功能的，是对于 Dubbo 这个协议的。对于 HTTP 协议的话，其实跟官方的也是非常类似，我们也是使用了 OpenFeign 这样的一个组件来进行通信，下面也同样会有 Qunar Mesh 组件进行 Mesh 化。</p>
+<h3 id="3-3-2-开发插件"><a href="#3-3-2-开发插件" class="headerlink" title="3.3.2 开发插件"></a>3.3.2 开发插件</h3><p>下面说一下开发插件，我们为什么要做开发插件，以及开发插件为什么能够做到效率上的提升呢？其实这里面的话，我们分析了大量的业务研发的开发模式，能够发现存在一些重复性或者是低效的环节，比如说像手动编写很多的调用代码，甚至可能会出现要手写这些反序列化类等等。</p>
+<p>第二个就是在交互的过程中大量地去使用类似于文档，或者是内部的 IM，甚至比如说大家做的比较好的场景下是有 apiDoc 这样的方式去沟通这些接口的语义和细节。</p>
+<p>第三个就是服务上线之后才去考虑治理，这个里面就会面临开发和运维的不对等。你的服务上线了后，它不出问题时，其实你是很少会去考虑治理的，只有在你开发的时候可能会有一定的考虑，但是这个考虑其实不是基于真实数据的。比如说你设置一个超时时间，大家经常能够在代码里面看到 1 秒、30 秒、60 秒等等之类的数字，这些数据真的有意义吗？不一定，只是大家习惯性地这么写，然后还有成百上千个 HttpClient Wrapper，就是自己不停地去实现这些 HttpClient，这些都是一些开发比较低效的场景，我们怎么解决这个问题呢？</p>
+<p><img src="/rdefficiency/medias/images/micro_service/IDE.png" alt=""></p>
+<p>我们其实做了一个基于 idea 的 IDE 的开发插件。开发插件它可以满足以下的几个功能，比如像服务调用的代码自动生成，这个是一个什么样的场景？是说当你在 IDE 里面打开我这个插件，你就可以选择对方的应用、对方提供的服务，直接就一键生成调用的代码，甚至包括一些其他 jar 包的引入，比如如果它是 Dubbo 协议的，它会自动引入这些 Dubbo 的 SDK 和对方提供的这些 API 的 jar 包等等。</p>
+<p>第二它可以快速地发现这些应用接口方法，集成对应的文档服务，这个就是刚才提到的我们其实打开了这个插件，就能快速地去检索它对应的应用和提供的服务，是比个人沟通要高效很多的。</p>
+<p>第三它打通了服务治理。在编码生成的过程中，你需要去配置这些治理的参数，然后这些治理的参数通过上报的方式，把它统一地注册到我们的服务治理平台，然后跟 Mesh 的模式去进行打通。这样的话有一个非常有效的方式，在你去生成这些调用代码的时候，你就可以参考一些对应的指标、参数，比如对方提供的接口的监控是什么样子的，以及其他人设置的指标是什么样的，做一定的智能化推荐，这样能够保证我们的这些指标相对来说是配置的比较合理的。</p>
+<p>第四个就是代码规范的最佳实践是能够比较好去落地的。我们都知道，很多时候这些代码规范是需要靠文档，比如我们出一个什么样的规范，什么样的标准去保障，或者是类似利用这些代码检查工具，比如 Sonar 等等之类的方式去保证我们的代码规范的落地。但是其实通过这种生成代码的方式，我们直接就可以把最佳实践嵌入到生成的过程里面，来保证它生成的代码一定是符合最佳实践的。</p>
+<p>除了上面这四个方面之外，我们其实还在插件上做了大量的工作，比如说像 CI/CD 的左移，这个左移包含了我们可以在本地去跟远程的环境打通，以及它还提供了对应的 CI/CD 流水线的功能，还有代码覆盖率的功能等等。通过这样的一个开发插件，我们可以把日常的一些重复性的、低效性的工作就可以被完成掉，是一个比较好的提效方式，推荐大家去使用。</p>
+<h2 id="3-4-服务治理实践"><a href="#3-4-服务治理实践" class="headerlink" title="3.4 服务治理实践"></a>3.4 服务治理实践</h2><p>然后在服务治理这里面，我们其实也做了一些自己的思考。首先我们来看一下，常规的这些服务治理的四板斧是什么样子。</p>
+<h3 id="3-4-1-常规四板斧"><a href="#3-4-1-常规四板斧" class="headerlink" title="3.4.1 常规四板斧"></a>3.4.1 常规四板斧</h3><p><img src="/rdefficiency/medias/images/micro_service/service_manage.png" alt=""></p>
+<p>不可避免地，第一，我们一定要设置超时；第二，要在一些场景里面去考虑重试的逻辑；第三，考虑熔断的逻辑，不要被下游拖死；第四，一定要有限流的逻辑，不要被上游打死。</p>
+<h3 id="3-4-2-最终目标"><a href="#3-4-2-最终目标" class="headerlink" title="3.4.2  最终目标"></a>3.4.2  最终目标</h3><p>这些都是非常普遍，也是非常有效的一些措施，但是有效建立在于你的配置，或者是你的这个动作是有效的场景，但实际上我们很大程度上其实是在滥用这四种技术。我认为服务治理的一个最终的目标就是稳定可用、可观测、防腐化，这是什么意思呢？</p>
+<p><img src="/rdefficiency/medias/images/micro_service/final_goals.png" alt=""></p>
+<p>稳定可用指的就是我们通过各类的防控手段去达到在可用的容量场景下，提供有效的服务，这样才能叫稳定可用。第二个可观测，就是我们从多个维度，比如说像关系、性能、异常、资源等维度对它进行度量并且分析。第三个防腐化，我们的代码和架构其实不可避免地都是在腐化的一个过程之中，我们不停地往里面去添加东西的过程中，其实也会缺乏一定的治理。我们服务治理的目标，其中一点就是要做到如何去对它进行防腐，这个里面有一些考虑的维度，比如服务的层级，你的服务并不是越微越好，也不是层级越多越好，所以服务的层级一定要有所控制。</p>
+<h3 id="3-4-3-保护机制"><a href="#3-4-3-保护机制" class="headerlink" title="3.4.3 保护机制"></a>3.4.3 保护机制</h3><p>第二就是链路的分析，链路里面上下游的超时、串行、并行的调用等等之类的这些东西在编码的过程中可能会被忽略掉的，这些我们其实可以通过偏后置一点的方式对它进行一个分析和预警，这里面提一下我们在保护机制上做的一些工作，我们都知道在 RPC 的框架里面，其实特别是在直连的模式下，调用端 Consumer 端和 Provider 端其实是直连通信的。</p>
+<p>对于注册中心来说，它只负责一个注册和变更通知的作用，但是在有一些特定的场景里面并不是这样子的。举个例子来说，当一个注册中心因为自身的原因处于一个半死不活的状态，它一会儿能服务、一会儿不能服务的时候，就会发生一个比较恐怖的事情，Provider 端因为它要跟注册中心去保持心跳判活的状态，所以需要和注册中心保持长期有效的连接。如果是失效的情况，作业中心就会判断这个 Provider 是不存活了。不存活的时候，注册中心就会把这个消息通知给 Consumer 端，Consumer 端只要接收过一次下线通知，Consumer 就会从它的列表里面把这个 Provider 从本地的缓存里面去移除掉。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/register.png" alt=""></p>
+<p>如果注册中心处于一个半死不活的状态，最后会处于一个什么状态呢？Consumer 端慢慢地会把所有的 Provider 都移除掉，这样就会导致我们的 Consumer 端到 Provider 端其实是不可通信的。对于这个问题，我们其实基于 Dubbo 做了一定的改造，做了一个保护机制。这个保护机制就是当 Provider，特别是注册中心上的 Provider 数少于一定的阈值的时候，我们的保护机制就会自动地启用，它的生效是在 Consumer 端的，也就意味着 Consumer 端需要缓存这段时间内所有历史的 Provider 的列表。</p>
+<p>大家可能在这里会有一点担心，你缓存的 Provider 如果失效了怎么办？它是真的失效了，比如说它被下线了，或者是它本身经过迁移，像我们在容器场景里面，经过了一定的发布，其实它对应的信息都变化了，这个时候你再去通信不就有问题吗？其实我们在保护机制里面也考虑了这个问题，我们在通信之前还是会做一个直连的检查，Consumer 到 Provider 的连接存活是否是真正存在，如果不存在，我们会把这一个连接给扔掉，保证通信的时候使用的是一个可用的连接。</p>
+<p>当这个信息机制启用了之后，注册中心恢复到一定的状态的，这个 Provider 又能重新注册到注册中心里面了，接着我们又会把保护机制自动关闭掉，这样的话 Consumer 就只会调用注册中心上存活的这些 Provider，就可以避免掉因为注册中心半死不活，导致所有的这些分布式的应用里面的 RPC 调用是不可用的。</p>
+<p>这其实是一个比较有效的方式，因为如果出现了这种场景，其实你内网里面的大部分应用通信其实是处于一个不可用的状态，甚至你想让它恢复都是非常困难的事情。比如你想启动的时候，其实 Consumer 发现 Provider 都不存活了，这也会导致启动失败等等各方面的问题。</p>
+<h3 id="3-4-4-动态限流"><a href="#3-4-4-动态限流" class="headerlink" title="3.4.4 动态限流"></a>3.4.4 动态限流</h3><p>接着我来介绍一下限流里面我们做的一些工作，这里面我们做的模式我把它叫做动态限流。普通的一个限流里面，通常来说是这样的一个方式，我们有 A、B、C 的服务都对 X 这个服务进行了调用，它的来源可能是不一样的，X 为了保护自身的状态是可用的，它不可避免就要对上游 A、B、C 的这些访问分配固定的一些配额，谁超过了配额就不可用了。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/current_limit.png" alt=""></p>
+<p>比如说像 A 分配了 100、B 也分配 100、C 分配给了 50。当 A 超过了 100 的时候，其实它的一些请求是会被拒绝掉的，这个是基于容量的考虑，X 不可能具备无限的容量，这时它需要一定的保护措施。但是这地方就会有一个问题，假如 A、B、C 里面，比如说 B 服务，它其实是从 App 过来的，它的价值不可避免来说的话，要更高一点。比如说第三个服务 C，它是从 Web 里面来，它的价值相对来说比较低一点。这个价值是基于你的业务形态来的，比如说你的 App 的成单、转化更高，那就意味着它的请求更珍贵。</p>
+<p>这个里面就会出现一个问题，服务 B 和服务 C 自己都得到了一定数量的配额，但是假如 App 的流量上涨了，Web 的流量没有上涨，这时就会面临一个问题，服务 C 的配额没用完，但是服务 B 的配额又不够用，这个场景下怎么解决呢？就需要靠人工来不停地去调整它，而且这个调整需要相当实时才可以，我们有没有办法能够相对统一地解决这个问题呢，其实我们做了一个探索，这个探索从实践结果来看的话是比较有效的。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/dynamit_limit.png" alt=""></p>
+<p>我们对这些服务进行配额分配的时候，其实不是一个固定的配额，而是一个动态的分配。动态的分配意思就是，我只有一个总的容量，并不给每一个服务进行分配，总的容量我分配给所有人。但是我要对所有的调用方进行一个排序，也就是说谁的价值高谁就排在前面，这样的话就能得到一个比较有效的结果。你的限流模型是基于你的业务逻辑来的，也是基于你的业务价值来的，当你发生限流的时候，优先丢掉的一定是最没有价值的那部分的业务请求。</p>
+<p>当然这里面也会有一个前提，你的请求来源是需要有差异化的。还有第二个点，你的这些 trace 连通性一定要高，也就意味着，你的这些标志要能够一路畅通地携带下去，如果只是基于某一层去做限流逻辑，其实是没有意义的。</p>
+<h3 id="3-4-5-防腐化"><a href="#3-4-5-防腐化" class="headerlink" title="3.4.5 防腐化"></a>3.4.5 防腐化</h3><p>接着就是防腐化，这里面其实我们需要对架构、应用的分布、应用的关系去做大量的分析，得出改进的措施，我们在这上面改进的措施其实有很多。比如我们会分析哪些应用是频繁修改的，这些频繁修改的意思是不是所有的需求，这些应用都相关地需要去做修改，那就意味着说它的业务域是一样的。如果这些业务域一样的情况下，你把它的微服务划分得很细，实际上它是一一绑定的话，其实并不符合微服务化的原则。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/service_relation.png" alt=""></p>
+<p>第二个是否存在重复的调用，这条链路里面，这些重复的调用是否能够去缓存化，或者是避免它重复调用。</p>
+<p>第三个大量的串行调用是不是能够把它异步化，比如常见的，从数据库里面拿出一批记录，这一批记录通过循环的方式，挨个去对它发起远程调用，这些过程里面其实比较有效的方式就是通过异步化、并行化的方式去把速度给提上来。</p>
+<p>第四个异步的整个链路的这些超时配置里面，其实会有一定的相关的关系。比如上游的超时是不应该比下游短的，如果下游的超时比上游的还长，那意味着说下游还在计算，上游可能已经超时了，这个计算的结果其实有可能返回不了上游，这些就是无用的配置。除了这之外其实整个链路里面大量的超时可能是不合理的，比如刚才提到的大量重复的调用，这些重复的调用或者循环的调用，再乘以同样的超时时间，可能就会比整个终端的操作时间要长很多，这些都需要去做一定的分析和考虑，才能达到它防腐化的目的。</p>
+<h2 id="3-5-ServiceMesh探索"><a href="#3-5-ServiceMesh探索" class="headerlink" title="3.5    ServiceMesh探索"></a>3.5    ServiceMesh探索</h2><h3 id="3-5-1-ServiceMesh-定义"><a href="#3-5-1-ServiceMesh-定义" class="headerlink" title="3.5.1    ServiceMesh 定义"></a>3.5.1    ServiceMesh 定义</h3><p>在云原生架构里，单个应用程序可能由数百个服务组成；每个服务可能有数千个实例；而且这些实例中的每一个都可能处于不断变化的状态，因为它们是由像 Kubernetes 一样的编排器动态进行调度的，所以服务问通信异常复杂，Service Mesh 就是用来解决应用间稳定高效的通信问题产生的，以下是 Buoyant 的创始人 Wiliam Morgan，于 2016年9月在 SFMicroservices 的 Meetup 上第一次提到 Service Mesh，并且在其公司的博客上给出了 Service Mesh 定义：</p>
+<blockquote>
+<p>A Service Mesh is a dedicated infrastructure layer for handling service-to-service communication. It’s responsible for the reliable delivery of requests through the complex topology of services that comprise a modern， cloud native application. In practice， the Service Mesh is typically implemented as an array of lightweight network proxies that are deployed alongside application code， without the application needing to be aware.</p>
+<p>服务网格（Service Mesh）是处理服务间通信的基础设施层。它负责构成现代云原生应用程序的复杂服务拓扑来可靠地交付请求。在实践中，Service Mesh 通常以轻量级网络代理阵列的形式实现，这些代理与应用程序代码部署在一起，对应用程序来说无感知。</p>
+</blockquote>
+<p>通俗来说，Service Mesh 就是增加了一个额外进程，代理业务进程的流量，在这个额外进程中集成各种治理能力，sdk 仅负责服务编解码以及与额外进程的通信。Service Mesh 通常由两部分组成：</p>
+<ol>
+<li><p><strong>数据平面</strong></p>
+<p>这个额外进程即为数据平面，常称为 sidecar。sidecar 的存在形式通常是与业务进程共享一个 pod，由于和业务进程隔离，基础组件的同学可对 sidecar进行独立升级部署，业务同学只需专注业务逻辑，减轻其心智负担。 </p>
+</li>
+<li><p><strong>控制平面</strong><br>控制平面通常是一个集中式服务，与数据面进行通信，下发治理参数，如路由规则，实例列表，重试超时配置等。</p>
+</li>
+</ol>
+<h3 id="3-5-2-去哪儿网服务治理遇到的问题"><a href="#3-5-2-去哪儿网服务治理遇到的问题" class="headerlink" title="3.5.2    去哪儿网服务治理遇到的问题"></a>3.5.2    去哪儿网服务治理遇到的问题</h3><p>去哪儿网内部已实现微服务架构多年，协议以 dubbo / http 为主，开发语言以 java 为主，同时存在 golang 、python、node 等，随着业务的不断发展，一些服务治理上的问题逐渐凸显：</p>
+<ol>
+<li>业务与中间件强耦合，迭代周期长，当sdk出现问题，需要业务方跟着升级或回滚。生产环境版本众多，每次迭代都需要做好向前兼容。</li>
+<li>多语言治理复杂，每个治理逻辑需要开发不同语言版本。工作冗余，维护成本高。</li>
+<li>公司内部 dubbo 治理相对完善，但 http 治理相对薄弱，业务方主要使用 openRestry 进行治理。其他的需求零散分布在不同平台，这对开发同学极不友好。</li>
+<li>治理能力的不统一导致重复轮子的出现。费时费力，增加了维护成本。</li>
+</ol>
+<p>基于以上痛点，我们期望构建这样一个服务治理体系：</p>
+<ol>
+<li>统一治理，http/dubbo，java/golang/python多语言多协议都可以在服务治理平台统一治理。</li>
+<li>治理能力增强，能够补充当前缺失的服务治理功能。化零为整，降低用户去多个平台逐一治理的使用成本。</li>
+<li>治理能力下沉，基础组件开发周期和业务开发周期解耦。快速迭代，快速推广。</li>
+<li>操作友好，尽量保留用户的使用习惯，以产品思维，从用户角度出发。</li>
+</ol>
+<p>在2021年我们逐步进行了容器化落地，因此结合 Service Mesh 我们开始重建自己的服务治理体系。</p>
+<h3 id="3-5-3-实践框架"><a href="#3-5-3-实践框架" class="headerlink" title="3.5.3    实践框架"></a>3.5.3    实践框架</h3><h4 id="3-5-3-1-技术选型"><a href="#3-5-3-1-技术选型" class="headerlink" title="3.5.3.1    技术选型"></a>3.5.3.1    技术选型</h4><p>由于 Service Mesh 在业界已经有非常成熟的产品，因此我们不需要重复造轮子。基于已有能力快速享受 mesh 化带来的红利。我们调研了国内外部分厂商的 Service Mesh 产品以及落地方案，如下图3-1（如有差异，请联系我们及时更正）。</p>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th>数据面</th>
+<th>控制面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(google/ibm/lyft)istio</td>
+<td>envoy(c++)</td>
+<td>pilot(golang)，与k8s强耦合</td>
+</tr>
+<tr>
+<td>(腾讯)TSF</td>
+<td>envoy(c++)</td>
+<td>pilot(golang)，基于pilot二次开发，解耦了k8s</td>
+</tr>
+<tr>
+<td>(头条)ByteMesh</td>
+<td>envoy(c++)</td>
+<td>自研</td>
+</tr>
+<tr>
+<td>(美团)OctoMesh</td>
+<td>envoy(c++)</td>
+<td>自研为主</td>
+</tr>
+<tr>
+<td>(蚂蚁金服)SofaMesh</td>
+<td>mosn(golang)</td>
+<td>pilot(golang)，开源可对接istio</td>
+</tr>
+<tr>
+<td>(微博)WeiboMesh</td>
+<td>自研(golang)</td>
+<td>golang</td>
+</tr>
+<tr>
+<td>(华为)cesMesh</td>
+<td>自研(golang)</td>
+<td>golang</td>
+</tr>
+<tr>
+<td>(唯品会)OSPMesh</td>
+<td>自研(java)</td>
+<td></td>
+</tr>
+<tr>
+<td>(陌陌)MOAMesh</td>
+<td>自研(java)</td>
+<td>golang</td>
+</tr>
+</tbody></table>
+<center>图3-1 ServiceMesh产品对比</center>
+
+<p>在选型时，我们考虑了以下7点因素。</p>
+<ol>
+<li>产品是否成熟。</li>
+<li>社区活跃度。</li>
+<li>性能是否满足公司需求。</li>
+<li>开发和维护难度， 部门内主要使用 java 开发语言，尽可能控制不同语言的引入。</li>
+<li>最大程度使用开源产品，避免重复造轮子。</li>
+<li>控制面：istio 的 xds 协议已经成为 Service Mesh 的事实标准，因此在控制面我们选择 istio。</li>
+<li>数据面：考虑性能需求，学习成本，扩展性，社区活跃度等，我们选择和 mosn 合作共建。非常感谢在落地期间，社区提供的很多帮助。mosn 是蚂蚁金服开源的一款数据平面，既可以替代 envoy ，也可以集成 envoy 在网络层高性能的优势作为 mosn 的网络插件。</li>
+</ol>
+<h4 id="3-5-3-2-整体架构"><a href="#3-5-3-2-整体架构" class="headerlink" title="3.5.3.2    整体架构"></a>3.5.3.2    整体架构</h4><p>qunarMesh 整体分为如下图3-2中三部分，数据面、控制面、运维面。</p>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh1.png" alt=""></p>
+<center>图3-2 整体架构</center>
+
+
+<p><strong>解耦k8s</strong></p>
+<p>调研时，我们发现 istio 与 k8s 耦合严重，主要体现在：</p>
+<ol>
+<li>作为注册中心，负责实例注册，状态维护。</li>
+<li>作为配置中心，存储各种流量策略，安全策略等资源。</li>
+<li>sidecar 管理，基于 k8s 的 admissionController 机制，控制 sidecar 注入。</li>
+<li>istio 启动配置，依赖 k8s 的 ConfigMap 。</li>
+<li>网络模型，通过 initContainer 修改 iptables 规则劫持流量。调用时，依赖 k8s 的 service 模型。</li>
+</ol>
+<p>是否要强依赖 K8S，需要思考几个问题：</p>
+<ol>
+<li>内部容器和 kvm 共存，如何兼容？</li>
+<li>k8s 存储是以应用为维度，但是 dubbo 以 service 为维度，如何解决维度不统一问题？</li>
+<li>内部有比较成熟的注册中心和配置中心，一刀切必然引入很多适配问题以及运维成本。</li>
+<li>如有定制化需求，修改 k8s 的成本和影响范围过大。</li>
+</ol>
+<p>因此我们解耦了 k8s， 使用内部注册中心和配置中心，并自研 MCPServer 模块替代 k8s 对接 istio 。</p>
+<p><strong>数据面</strong></p>
+<p>接入 Service Mesh 之后，sdk 只需要负责编解码和与 sidecar 通信。 那么 sdk 原本的功能就需要 sidecar 来实现，这里面有3个问题需要我们思考。</p>
+<ul>
+<li>1.服务状态维护问题，如服务注册、心跳、健康检查、下线等。</li>
+<li>2.sdk 与 sidecar 通信问题，流量如何拦截到 sidecar？通信方式和协议是什么？</li>
+<li>3.每个请求由原来两个节点间通信变成四个节点间通信，如何确保通信的稳定性？</li>
+</ul>
+<ul>
+<li><strong>业务进程的生命周期管理</strong></li>
+</ul>
+<p>原生 istio 依赖 k8s 管理服务生命周期，通过 kubelet 模块来检测容器状态，并注册到 etcd。解耦 k8s 之后，需要我们去维护业务进程的状态，我们基于mosn 提供的灵活的扩展机制，对接了内部注册中心。</p>
+<ul>
+<li><strong>流量拦截</strong></li>
+</ul>
+<p>如何把流量从 sdk 拦截到 sidecar？业界主要使用两种模式：</p>
+<p>1.iptables 拦截</p>
+<p> 2.流量转发</p>
+<p>考虑到 iptables 可运维性和可观察性差，在配置较多时，会出现性能下降。更多的公司采用了流量转发的机制。</p>
+<p>如何将流量转发到本机sidecar，我们想到的4种方式：</p>
+<ol>
+<li>升级 sdk，在 sdk 中直接将请求转发到127.0.0.1。</li>
+<li>对于域名访问，在解析时进行拦截，例如使 用dnsMasq 将 xx.qunar.com 的请求，转发到本机 127.0.0.1。</li>
+<li>基于名字系统，在服务发现返回时，重写实例地址为 127.0.0.1。</li>
+<li>基于 agent 动态修改请求地址。</li>
+</ol>
+<p>结合公司内部情况，我们采用了1，2两种方式。</p>
+<ul>
+<li><strong>uds 通信</strong></li>
+</ul>
+<p>因为业务容器与 sidecar 容器同属一个 pod，我们使用 unix domain socket 进行通信，规避网络栈，优化性能。</p>
+<ul>
+<li><strong>dubbo协议优化</strong></li>
+</ul>
+<p>sidecar 在接收到请求后，第一步是获取路由信息，用以服务寻址，按照 dubbo 原有协议设计，路由信息（ service / method / group 等）存放在 body 中，为避免不必要的 body 反序列化，我们对内部 dubbo 协议做了扩展，将路由信息放置到扩展 header 。</p>
+<ul>
+<li><strong>流量安全</strong></li>
+</ul>
+<p>引入 Service Mesh 后，原来两个服务的调用，现在变成了四个服务间的调用，不稳定性增加，因此需要确保，当 Service Mesh 出现问题时，尽可能的保障流量的安全。</p>
+<ol>
+<li><strong>sdk 自动调用降级</strong><br>当业务进程与 sidecar 连接断开（基于健康检查），降级为直连调用。</li>
+<li><strong>sidecar 节点故障剔除</strong><br>sidecar 会对 upstream 的节点列表进行健康检查，一旦连接异常，快速剔除。</li>
+<li><strong>一键切换 Service Mesh</strong><br>在 captain（新的服务治理平台）中，用户可以一键切换直连模式。</li>
+<li><strong>柔性可用</strong><br>控制面出现问题时，sidecar 使用缓存数据，保证可用。<br>  当注册中心或配置中心出现异常，MCPServer 以及 istio 使用缓存数据，保证可用。</li>
+</ol>
+<p><strong>控制面</strong></p>
+<p>控制面的主要职责是与数据面通信，下发 XDS 配置。  </p>
+<p>这里简单介绍下 XDS ，X 代表一系列的发现服务，如 CDS（ cluster ），RDS（ router ），EDS（ endpoint ），LDS（ Listener ）等。 简单来说，数据面收到 XDS 配置后，就可以知道当前的 sidecar 需要监听哪些端口，接收到流量后，如何路由，如何负载均衡，如何调用等等。   前面我们说过，istio 依赖 k8s 作为注册中心和配置中心，那么</p>
+<ol>
+<li><p>解耦 k8s 之后，我们如何打通内部系统？   </p>
+</li>
+<li><p>istio 在设计之初，完美支持了 http 服务，那么在接入私有协议时，又有哪些问题需要考虑？       </p>
+</li>
+<li><p>XDS 作为标准协议，是否一成不变的落地到服务治理当中？  </p>
+</li>
+</ol>
+<p>在调研和落地过程中，我们也在思考这些问题。</p>
+<ul>
+<li>自研MCPServer</li>
+</ul>
+<p>istio 提供了 mcp（ mesh configuration protocol ）协议，旨在解耦 istio 与底层平台的强依赖。本质上是通过 grpc 双向流，MCPServer 携带DestinationRule，VirtualService，ServiceEntry 等 istio 对象数据，传递给订阅端（istio）。<br><img src="/rdefficiency/medias/images/servicemesh/servicemesh10.png" alt="">   </p>
+<center>图3-3 MCP协议</center>
+
+<p>通过上图3-3可以清晰的看出，MCPServer 所处的位置以及功能。</p>
+<p>MCPServer 实现起来逻辑并不复杂，主要是围绕 istio 对象（即 ServiceEntry，VirtualService 等）的生成、转化、存储、传输等。</p>
+<ul>
+<li>统一注册模型</li>
+</ul>
+<ol>
+<li><p>对于 http 服务，注册中心数据以应用为维度，即应用-实例。  </p>
+</li>
+<li><p>对于 dubbo 服务，注册中心数据则以接口为维度，即接口-实例，这会导致一些问题。</p>
+</li>
+</ol>
+<ul>
+<li><strong>性能问题</strong></li>
+</ul>
+<p>注册数据冗余，当集群规模变大时，服务数据激增，下图3-4为应用-实例注册模型和接口-实例注册模型的对比。</p>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh4.png" alt=""></p>
+<center>图3-4 注册模型性能对比</center>
+
+
+<ul>
+<li><strong>异构体系下互通问题</strong></li>
+</ul>
+<p>注册模型不一致，会导致互通时寻址问题，如图3-5所示。</p>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh5.png" alt=""></p>
+<center>图3-5 寻址问题</center>
+
+
+<ul>
+<li><strong>生成istio资源复杂度问题</strong></li>
+</ul>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh6.png" alt=""></p>
+<center>图3-6 生成istio资源复杂度问题</center>
+
+<p>我们为每个应用生成一个 VirtualService（可参考 <a href="https://istio.io/latest/docs/reference/config/networking/virtual-service/">https://istio.io/latest/docs/reference/config/networking/virtual-service/</a> ），VirtualService 中生成不同的 router。</p>
+<p>上图3-6以 group / service 两个维度为例，展示了其中的一个 router，这个 router 是 MCPServer 负责生成和维护的，如果再增加 method 维度，或者其他路由维度，那需要维护的 router 数量将是指数级的增长，且在实际设计和编码过程中，考虑非常多的 case，复杂性和可维护性都会是个问题。这个本质上是路由粒度问题，粒度越细，问题会变得越复杂。</p>
+<p>基于以上三点考虑，最终的方案是统一注册模型，以应用为维度。我们看到 dubbo 在3.0版本，也是使用了应用级别服务发现，全面拥抱云原生。</p>
+<ul>
+<li>xds 配置按需下发</li>
+</ul>
+<p>原生 istio 会将集群中所有的 xds 资源下发到每个 sidecar，导致 sidecar 内存过大，资源冗余，单个资源的变更会推送到所有 sidecar。 资源占用以及推送风暴大大制约 Service Mesh 集群规模。</p>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh7.png" alt=""></p>
+<center>图3-7 xds配置按需下发</center>
+
+
+
+<ol>
+<li>sidecar 提供 sub 接口，用于业务进程订阅服务列表。</li>
+<li>业务进程启动时，sdk 会扫描要调用的服务，请求 sidecar 订阅接口。</li>
+<li>sidecar 在获取 xds 配置时，会携带订阅信息（此处扩展了 istio 协议）。</li>
+<li>istio 按需下发配置。</li>
+<li>为了避免 sidecar 重启或者升级导致的订阅信息丢失，会持久化到 pod 存储。</li>
+</ol>
+<ul>
+<li>保留用户习惯</li>
+</ul>
+<p>按照 xds协议，在进行服务治理时，通常用到 VirtualService ，DestinationRule 这两个自定义资源对象，我们以一个路由设置为例。</p>
+<ol>
+<li>让用户设置路由来源，比如 header 中包含 user=qunar，以此来生成 VirtualService 的 match 部分。  </li>
+<li>设置路由目的地，比如 labels 包含 env=prod1 ，以此来生成 DestinationRule 的 subset 以及 VirtualService 的 router 部分。</li>
+</ol>
+<p>根据这两步，就生成了一个路由规则，包含了两个资源（ DestinationRule 和 VirtualService ），在此路由规则中，能够设置超时、重试、负载均衡等治理参数。<br>当一个请求过来时，如果 header 中包含 user=qunar，会路由到 labels 包含 env=prod1 的实例集合。</p>
+<p>但是在实际使用中，超时时间等一些治理参数和路由的相关度较低，用户更习惯于，作为服务提供方，配置某个接口的超时时间，或者作为服务调用方，配置下我要调用的那个服务的超时时间。</p>
+<p>在 xds 协议中，超时时间等治理参数都是配置在服务提供方，且与路由绑定， 因此，我们做了部分扩展，用户可以从服务提供方，调用方两个角度来配置，以接口为维度，而不是以路由为维度。这些配置包括超时、重试、备份请求、负载均衡策略等， 调用时生效优先级为 调用方配置&gt;服务方配置&gt;兜底。</p>
+<p><strong>运维面</strong></p>
+<p>运维面主要负责 sidecar 的配置，部署，升级，回滚，灰度等，各种协同系统对接。接入 Service Mesh，pod 中增加了 sidecar 容器，在解耦 k8s 之后，在容器注入，启动，配置等有哪些要注意的？</p>
+<ul>
+<li><strong>sidecar注入和升级</strong></li>
+</ul>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh2.png" alt=""></p>
+<center>图3-8 sidecar注入和升级</center>
+
+<ol>
+<li><p><strong>注入</strong>   </p>
+<p>服务部署时，发布平台会请求 sidecar 管理平台，获取 sidecar 配置，包括是否注入、sidecar 版本、环境变量、配额信息等，然后生成服务的 yaml 配置。</p>
+</li>
+<li><p><strong>升级</strong></p>
+<p>sidecar 升级分为两个场景，1. sidecar 原地升级，不需要服务的重新部署，此时需要确保升级对用户透明，流量无损 。2.服务部署时升级。</p>
+<ul>
+<li><p><strong>原地升级</strong> </p>
+<p>sidecar 容器和业务容器是同属一个 pod 的两个独立容器，MosnAgent 进程作为 sidecar 容器的1号进程，用于管理 sidecar 的生命周期，例如启停，健康状态，升级等。   </p>
+<p>在新版本发布时，会将 sidecar 镜像推送到镜像仓库，同时将二进制包推送到对象存储。   </p>
+<p>我们通过 sidecar 管理平台，可以对 sidecar 容器发送升级指令，mosnAgent 会去拉取对应版本的 mosn 包，之后启动新版本 mosn，并通过 fd 迁移机制，完成无损升级流程。</p>
+</li>
+<li><p><strong>部署时升级</strong>   </p>
+<p>通过在 sidecar 管理平台修改配置，管理应用的 sidecar 版本，在下次部署时自动升级到对应版本。</p>
+</li>
+<li><p><strong>sidecar 容器启动顺序问题</strong></p>
+<p>在 sidecar 容器未启动成功或者配置未拉取成功，但是业务容器已经 ready，会导致请求失败。可以设置 sidecar 先于业务容器启动，并通过配置 k8s 的 postStart 钩子函数，来保证正确的启动顺序。</p>
+</li>
+<li><p><strong>配置下发顺序问题</strong></p>
+<p>istio 下发配置时，可能导致异常发生，新增路由时，应先下发 DestinationRule，再下发 VirtualService 。删除路由时，先下发 VirtualService，再下发 DestinationRule。</p>
+<p>其次可以通过 istio merkel tree 来跟踪资源下发的进度，通过暴露接口，来查询每个资源，是否全量下发到 sidecar。</p>
+</li>
+<li><p><strong>协同系统的对接</strong></p>
+<p>对接内部系统，如内部配置中心，全链路监控系统，报警系统，对接镜像仓库，对接镜像仓库，对象管理系统等，实现sidecar的资源管理</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-5-4-治理功能扩展"><a href="#3-5-4-治理功能扩展" class="headerlink" title="3.5.4    治理功能扩展"></a>3.5.4    治理功能扩展</h3><p>引入 Service Mesh，对于中间件开发者来说收益无疑是巨大的，与业务解耦，缩短推广周期。那么如何让业务开发同学真实感受到接入 Service Mesh 后的收益呢？我们基于 Service Mesh 体系，构建了 captain 服务治理平台，实现治理功能的增强。</p>
+<h4 id="3-5-4-1-统一治理"><a href="#3-5-4-1-统一治理" class="headerlink" title="3.5.4.1 统一治理"></a>3.5.4.1 统一治理</h4><p>mesh 化前，dubbo 和 http 分开治理，功能分布在多个平台，现在统一到 captain，简化用户操作。</p>
+<h4 id="3-5-4-2-备份请求能力"><a href="#3-5-4-2-备份请求能力" class="headerlink" title="3.5.4.2 备份请求能力"></a>3.5.4.2 备份请求能力</h4><p>为减少长尾请求，提供了备份请求（BackupRequest）功能，可选择如图3-9动态、静态策略。</p>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh8.png" alt=""></p>
+<center>图3-9 备份请求配置</center>
+
+<h4 id="3-5-4-3-多种限流策略"><a href="#3-5-4-3-多种限流策略" class="headerlink" title="3.5.4.3    多种限流策略"></a>3.5.4.3    多种限流策略</h4><ol>
+<li><p><strong>简单限流</strong></p>
+<p>不区分流量来源。</p>
+</li>
+<li><p><strong>基于应用限流</strong></p>
+<p>根据流量来源，应用 的不同，设置不同的限流阈值。</p>
+</li>
+<li><p><strong>基于优先级限流</strong></p>
+<p>根据不同的流量来源，设置不同的优先级，优先处理有价值的请求。</p>
+</li>
+</ol>
+<p><img src="/rdefficiency/medias/images/servicemesh/servicemesh9.png" alt=""></p>
+<center>图3-10 多种限流策略</center>
+
+
+
+<p>如图3-10，当流量达到设定的阈值时，触发限流，这时，流量会进入到多个优先级队列，按照优先级处理。</p>
+<h4 id="3-5-4-4-智能推荐"><a href="#3-5-4-4-智能推荐" class="headerlink" title="3.5.4.4    智能推荐"></a>3.5.4.4    智能推荐</h4><p>很多情况下，业务同学设置的超时时间或者限流阈值都比较大或者比较小，未能起到应尽的作用，我们根据监控数据以及合理算法，智能推荐超时，限流等参数。</p>
+<h4 id="3-5-4-5-其他能力"><a href="#3-5-4-5-其他能力" class="headerlink" title="3.5.4.5    其他能力"></a>3.5.4.5    其他能力</h4><ol>
+<li><p><strong>引流</strong></p>
+<p>sidecar 接管了所有流量，因此天然比较适合做流量复制。</p>
+</li>
+<li><p><strong>预热</strong></p>
+<p>部分服务需要一定时间达到最佳服务效果，原因可能是JIT优化或者数据缓存等，在接入 mesh 之前，没有统一的预热方式，因此出现了重复造轮子的现象。接入 mesh 之后，可以实现基于调权或引流两种方式，对 http 、dubbo 服务进行预热。</p>
+</li>
+<li><p><strong>复杂路由</strong></p>
+<p>支持基于目标环境路由，基于 trace 上下文数据的路由，支持内部软路由等多种路由方式。</p>
+</li>
+</ol>
+<h2 id="3-6-总结规划"><a href="#3-6-总结规划" class="headerlink" title="3.6  总结规划"></a>3.6  总结规划</h2><p>总结来看的话，整个微服务的过程里面，我们最佳的实践其实存在好几个方面。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/practice_type.png" alt=""></p>
+<p>第一个是在发现模式、通信模式上的，我们需要去因地制宜做一定的最佳实践；在架构模式里面，比如说像 BASE 模式和 CQRS 模式，我们都可以在合适的场景里面放心大胆，或是尽可能去启用它们的。</p>
+<p>开发效率先行，微服务的初衷其实是提效，那问题复杂化了以后，就需要有这些有力的配套，比如开发插件等来解决我们开发的问题，否则微服务可能只会带来一地的鸡毛。</p>
+<p>第三个就是有效的服务治理，简单的管控手段意义是不大的，它的手段虽然有效，但真实业务的意义是不大的，类似于动态限流这样的模式才能真正解决业务问题。</p>
+<p>第四，ServiceMesh 不可避免地，或者说现在基本上已经成为事实上的下一代微服务通信的架构模式，这个里面模型的设计和性能优化就非常关键。</p>
+<p><strong>最后对于微服务里面的一些要点再进行一下简单的总结</strong>。</p>
+<p><img src="/rdefficiency/medias/images/micro_service/critical_elements.png" alt=""></p>
+<p>业务的拆分就是借鉴业界成熟的模型，本地化为最适合公司现状的业务结构。比如刚才提到的去哪儿网，它其实也是一个线上的电商系统结构，但是它又有旅游、民航或者酒店领域的特殊性，就不可避免地要本地化。</p>
+<p>还有就是架构模式里面，不同场景下的架构模式的支持是不一样的，交易系统的事件驱动，异构数据的 CQRS 都是比较有效的方式。然后开发模式、开发支撑里面需要对微服务进行完善的工具支持。</p>
+<p>在服务度量里面，我们关系、性能、异常、资源，还有刚才提到的防腐都需要比较有效。第五个就是治理的管控，限流、熔断这种方式需要实时生效，最好是把它统一化而且进行业务有效化。最后一个就是演进式，架构的演进需要平滑有序，避免大量的应用改造。</p>
+<p>最后送给你一句话：<strong>架构演进，以提升效率为目标。</strong></p>
+<h1 id="第四章-中间件自动升级"><a href="#第四章-中间件自动升级" class="headerlink" title="第四章    中间件自动升级"></a>第四章    中间件自动升级</h1><h2 id="4-1-背景"><a href="#4-1-背景" class="headerlink" title="4.1    背景"></a>4.1    背景</h2><p>作为公共基础服务的提供方，去哪儿网基础架构团队开发并维护了大量的客户端 SDK ，方便业务接入基础服务。经过多年的发展迭代，目前维护的客户端近30个，线上运行着数百个版本。</p>
+<p>客户端 SDK 在给业务提供使用便利的同时，也给升级推广带来一定的挑战。例如，大规模 0day 漏洞的安全升级（ fastjson/xstream 等）, 重点功能落地推广大规模升级（容器化/ trace /全链路压测等）。每一次的大规模升级，涉及上千个应用，时间和人力的开销巨大，升级过程常常持续数月，严重影响推进效率。此外，随着迭代增加，众多的版本给维护造成了很多困难。一方面，开发新功能时，许多老的API需要费时费力去兼容；另一方面，对于中间件 SDK 本身依赖的第三方包（例如 netty/guava ），不能轻易的升级其版本，否则可能导致业务代码依赖出现兼容性故障。一些业务方为了使用三方包新功能，强行更改第三方包的版本，给兼容性埋下隐患。</p>
+<p>基于以上的现状和问题，基础架构团队构思并建立了一套中间件 SDK 自动升级机制，用较小的成本实现中间件 jar 包版本的自动升级，为后续的 SDK 迭代铺平了道路。</p>
+<h2 id="4-2-实践框架"><a href="#4-2-实践框架" class="headerlink" title="4.2    实践框架"></a>4.2    实践框架</h2><h3 id="4-2-1-难点概述"><a href="#4-2-1-难点概述" class="headerlink" title="4.2.1    难点概述"></a>4.2.1    难点概述</h3><ol>
+<li><p><strong>jar包升级兼容性问题</strong></p>
+<p>传统规范上，jar 包的版本由用户全权控制。一般来说，业务在开发功能时引入相关 jar 包依赖，选择当下合适版本。测试上线后，版本就固化下来。通常，如果没有碰到 bug ，没有性能瓶颈和新功能需求，业务方很少会主动升级这些 jar 包版本。因为升级意味着引入兼容性风险并需要重新回归。因此要让升级自动，首先要解决兼容性问题。</p>
+</li>
+<li><p><strong>升级过程可感知</strong></p>
+<p>升级过程要自动化，打通 CI/CD 系统，升级过程业务可感知，升级历史可追溯，紧急状态下可回滚、可跳过。</p>
+</li>
+<li><p><strong>版本升级要保证质量</strong></p>
+<p>业务手动升级 jar 包时，通常需要做功能回归，以确保质量可靠。自动升级后，风险来到基础部门，相关交付质量保障措施同样需要配套。</p>
+</li>
+</ol>
+<p>目前我们基于这三个难点落地了批量自动化升级方案，整体流程如下图4-1，后面我们将从这以上三个难点来分别阐述。</p>
+<p><img src="/rdefficiency/medias/images/middleware/sdk_auto_upgrade_2.png" alt=""></p>
+<center>图4-1 批量自动化升级方案流程</center>
+
+<h3 id="4-2-2-升级方案选型"><a href="#4-2-2-升级方案选型" class="headerlink" title="4.2.2    升级方案选型"></a>4.2.2    升级方案选型</h3><h4 id="jar-包的兼容性问题"><a href="#jar-包的兼容性问题" class="headerlink" title="jar 包的兼容性问题"></a>jar 包的兼容性问题</h4><ol>
+<li><p><strong>向后兼容</strong></p>
+<p>中间件 SDK 本身 API 的兼容性, 所有对外 API 接口，必须保证向后兼容。如遇废弃 API ，必须确认业务代码中实际无依赖才能真正删除。</p>
+</li>
+<li><p><strong>间接依赖的兼容</strong></p>
+<p>中间件 SDK 间接依赖的第三方 jar 包的兼容性。业务与中间件 SDK 共同依赖的 jar 包，例如 netty / guava / hessian 等。这些 jar 包的各版本 API 存在或多或少的兼容性问题，一旦中间件或业务方单方面升级三方 jar 版本，势必会带来冲突。</p>
+</li>
+</ol>
+<p>相对来说，前者兼容性问题较容易把控，因为是我们自己维护的 SDK ，可以保证新 API 只增加不删除。而后者的三方包冲突，一直是困扰基础架构团队的痛点。举例来说，中间件依赖的 guava ，多年来一直是16.0版本，有业务方反馈版本太老希望我们升级到18.0。但是如果贸然升级，由于18.0与16.0部分 API 不兼容，则一些老用户下次升级中间件就会被影响。因此这些三方包版本几乎无法更新迭代。一些激进的业务方甚至选择冒风险自行升级18.0，不仅流程复杂，隐患也不小。针对三方依赖冲突的问题，我们开始探索依赖隔离的方案。</p>
+<h4 id="依赖隔离方案"><a href="#依赖隔离方案" class="headerlink" title="依赖隔离方案"></a>依赖隔离方案</h4><ol>
+<li><p><strong>进程隔离</strong></p>
+<p>进程隔离方案来源于容器化环境 sidecar 机制，通过将中间件部署到独立sidecar进程中，来实现与业务依赖的完整隔离，这种方式理论上隔离最彻底。但当时公司内还没有推广容器化，缺乏必要的基础环境。此外，进程隔离更适合一些 rpc 通信框架客户端，但不能覆盖所有客户端，例如序列化/监控等，不太适合独立进程。</p>
+</li>
+<li><p><strong>类加载器隔离</strong></p>
+<p>类加载器隔离方式，来源于蚂蚁开源的 ark。通过定制修改运行容器，采用特殊的编译打包结构和类加载模式。通过不同的类加载器来隔离中间件和业务代码依赖的三方包类。该方案实现复杂，依赖较多的定制化设施。另外，实现中需要考虑 API 接口类的转换翻译（因为分别来自不同类加载器）。同时中间件内部一些相互依赖的隔离需要解决。目前还没有看到大规模落地的案例。</p>
+<p>第三种包路径隔离方式是我们最终选择的方案。方案实现非常简单，首先将第三方 jar 包 shade 重新打包, 将所有包路径加上 qunar 特定前缀。由于包路径变了，在 jvm 层面原包和新包的同一个 class 加载后就是不同的类。而后修改中间件，将原生的第三方依赖都换成 shade 之后的三方依赖。从而解决同业务依赖的三方包冲突问题。该方案不需要复杂的周边设施，业务代码无需修改，无感知。也能够最大化的兼容既有客户端。</p>
+</li>
+<li><p><strong>包路径隔离</strong></p>
+<p>我们梳理公司现有的中间件三方包依赖，去掉一些稳定依赖无需处理（版本不再更新，业务和中间件都使用统一版本），剩余大约10多个依赖需要做shade ，改动范围不大，同时中间件内部对这些依赖的版本可以做到统一。同时调研发现 flink / spring / es 等大型开源组件均使用 shade 的方式来一定程度避免依赖冲突，因此论证方案基本可行。</p>
+</li>
+</ol>
+<h4 id="shade-隔离方案落地遇到的困难"><a href="#shade-隔离方案落地遇到的困难" class="headerlink" title="shade 隔离方案落地遇到的困难"></a>shade 隔离方案落地遇到的困难</h4><ol>
+<li><p><strong>接口签名中含有第三方依赖的类</strong></p>
+<p>我们统计出这些三方类数量只有几个，且都是语义稳定的基础类，例如 ListenableFuture 。因此，通过开发转换工具方法，实现原生类与 shade 类相互转换。</p>
+</li>
+<li><p><strong>反射/ SPI 等调用方式变化</strong></p>
+<p>扫描了 shade 的三方包，里面没有发现 SPI 的使用方式。而反射的场景，工具已经做了正确的类包名字符串替换。</p>
+</li>
+<li><p><strong>序列化/反序列化第三方依赖的类</strong></p>
+<p>原因是基础组件 SDK 接口中暴露的 Map 直接使用了 guava的ImmutableMap ，业务方 dubbo 远程调用时，直接序列化了该三方类，当对方没有 shade时，则反序列化出错。我们将对外暴露的 map 实现换成 jdk HashMap 即可。</p>
+</li>
+</ol>
+<h4 id="如何规范中间件-SDK-的开发和使用"><a href="#如何规范中间件-SDK-的开发和使用" class="headerlink" title="如何规范中间件 SDK 的开发和使用"></a>如何规范中间件 SDK 的开发和使用</h4><ol>
+<li>public 类标记 @TCPublic 、 @Internal ，配合 sonar 质量门禁规范接口使用。业务代码不能依赖 @Internal 标记的类（即使它是可见的 public 类）。</li>
+<li>pom 内将 shade 包统一设置为 runtime scope ，防止业务代码误用。（否则业务开发用 IDE 补全很容易误引用到 shade 包）。</li>
+<li>中间件新增接口不再依赖第三方类，全部使用原生类型或自定义类型。</li>
+</ol>
+<h3 id="4-2-3-升级的自动化设施"><a href="#4-2-3-升级的自动化设施" class="headerlink" title="4.2.3    升级的自动化设施"></a>4.2.3    升级的自动化设施</h3><h4 id="升级时机"><a href="#升级时机" class="headerlink" title="升级时机"></a>升级时机</h4><p>我们选择在编译期升级 jar 包，通过在编译开始前修改 pom 文件, 能够固化变更历史到代码仓库，能够充分利用编译期检查。对于一次编译多次部署以及代码回滚等场景，能够保证产物一致性。缺点是依赖于业务代码的主动编译发布，我们后续会通过自动发布来解决。</p>
+<h4 id="升级工具"><a href="#升级工具" class="headerlink" title="升级工具"></a>升级工具</h4><p>为了实现编译期间的 pom 文件修改，我们开发出一套 maven 插件。通过编译前执行 maven shadow:upgrade 命令，对 pom 文件就地修改。执行结果如下图4-2。</p>
+<p><img src="/rdefficiency/medias/images/middleware/sdk_auto_upgrade_1.png" alt=""></p>
+<center>图4-2 执行结果</center>
+
+<p>在 CICD 流水线中，插件会在测试环境编译前执行。插件通过解析 pom 元素，得到现有依赖版本列表。然后查询后台，判定是否满足升级条件，并获取可用的新版本。而后执行 pom 文件内依赖版本号修改，修改完成后将本次改动打上 tag 存入版本仓库固化下来。后续再用该 tag 发布线上时，不再执行升级（即使有更新版本)。确保线上版本和本次测试的中间件版本完全一致，尽量让升级风险在测试过程中暴露。</p>
+<p>在修改pom内依赖版本号过程中，针对pom不同的配置方式，插件做了多样化的适配，自动识别并给出合适的修改。例如对于单模块工程显式引入的依赖 直接修改dependency内version字段值。对于多模块工程且父pom内通过dependencyManagement标签声明版本号的，会修改dependencyManagement中的version。对于使用类似${version}变量定义版本号的，自动修改properties内相关变量值。对于隐式的传递依赖，会自动在dependencyManagement标签内插入版本声明。诸如此类，基本能够覆盖常见的使用方式。</p>
+<p>为了统一管理和控制升级行为，我们还开发出一套升级管理后台辅助升级插件。后台可以配置管控各包的版本，并配置一些前置约束条件检查（例如 jdk 版本是否满足)，以及特殊情况下添加一些黑名单应用跳过升级。</p>
+<h4 id="规模化自动升级"><a href="#规模化自动升级" class="headerlink" title="规模化自动升级"></a>规模化自动升级</h4><p>针对升级需要依赖业务代码编译发布的痛点，后台还提供了批量全自动升级功能。允许批量的发起部署任务，周知相关人员，自动检出业务代码 master 分支版本，并编译升级，而后线上灰度部署，一段时间后全量上线。这样无需业务过多介入就能够完成大批量应用的升级。在</p>
+<p>最近的几次安全漏洞升级和公司全链路压测推广的升级活动中，该功能大大提升了推广速度，以前需要数月完成的升级计划，现在只要2-3天就能完成，显著提升了推广效率，有效减少了对业务的打扰。尤其是全链路压测的推广，在业务试用过程中，各类问题不断暴露，压测客户端本身也不断迭代，几天就有一个新版本。由于产品的特殊性，需要链路上下游的服务都完成升级，那么每一次升级都是不小的工作量。配合批量升级后台，我们每周都能完成1-2次客户端升级，有效保障了迭代测试效率，这在以往是完全无法实现的。</p>
+<h3 id="4-2-4-质量保障机制"><a href="#4-2-4-质量保障机制" class="headerlink" title="4.2.4    质量保障机制"></a>4.2.4    质量保障机制</h3><p>在自动升级这一概念推广过程中，业务方最大的疑问在于质量如何保证。由于 SDK 使用场景复杂，问题原因众多，传统case覆盖边际成本高昂，我们采用了一系列自动化手段确保质量可靠。</p>
+<ol>
+<li><p>三方包的兼容性测试</p>
+<p>由于部分 SDK 接口中历史遗留有少量三方包的类，当允许业务方自由指定三方包的版本后，这部分三方包类的新老版本 api 兼容性必须测试通过。</p>
+</li>
+<li><p>接入了业务接口自动化测试平台，覆盖70多个应用。</p>
+<p>在中间件 SDK 发版前，借助业务自动化测试平台，测试升级新版的 SDK 是否对业务接口有影响。在当时，该自动化测试平台覆盖了70多个业务核心应用，基本涵盖了业务主流程接口。测试通过可基本认为 SDK 没有严重质量问题。</p>
+</li>
+<li><p>测试环境业务应用启动测试</p>
+<p>由于中间件 SDK 通常在业务应用启动过程执行初始化，很多问题会直接导致服务启动失败。利用这一特点，我们借用业务的测试环境自动化执行升级启动测试，也帮助我们发现了不少问题。</p>
+</li>
+</ol>
+<p>在SDK发布首个正式版本之前，上述业务自动化平台测试和启动测试帮助我们发现了20多个问题。在后续上线推广过程中，SDK 也未出现过严重的故障，守住了质量底线。</p>
+<p>此外为了确保升级风险影响可控，我们在后台管理平台上植入了 SDK 灰度升级机制。通过应用重要性级别，给应用按照 P1、P2、P3 分组，不同分组对应升级 SDK 不同版本。因此，新发布的 SDK 会先覆盖边缘的应用，数天后再逐渐覆盖全量应用。遇到极端问题时，不至于影响范围太大。</p>
+<h2 id="4-3-总结展望"><a href="#4-3-总结展望" class="headerlink" title="4.3    总结展望"></a>4.3    总结展望</h2><h3 id="4-3-1-总结"><a href="#4-3-1-总结" class="headerlink" title="4.3.1    总结"></a>4.3.1    总结</h3><p>当我们刚开始思考中间件升级方案时，觉得这是一个不可能完成的项目，其中的风险、挑战都是不可想象的，但是当频繁的安全漏洞升级、中间件依赖和业务依赖冲突带来的成本越来越高时，我们就不得不开始思考这个问题，因此我们通过定义问题（中间件升级困难、成本高）、测量（每次升级横跨好几个月、投入100PD+）、分析（自动升级的关键点：方案选型、质量保障、批量自动化升级等）、改进（方案落地）、控制（提前验证、过程质量控制、逐步接入更多组件等）将自动化升级落地了。目前我们取得了如下成果：</p>
+<ol>
+<li>中间件自动升级机制已覆盖公司绝大部分活跃后端应用。使用 SDK 版本在3个月以内的应用数占比近80%，版本在1个月以内的应用数占比60%，新版覆盖效率大大提升。</li>
+<li>已经接入组件除了基础架构的中间件所有 SDK，还包括许多部分业务基础组件，例如机票基础数据等。</li>
+<li>配合批量升级机制，目前全公司大规模的升级可以在几天内完成。</li>
+<li>质量方面，目前自动升级系统运行稳定，未出现严重故障。业务方从一开始不敢尝试到现在主动要求帮助他们升级。</li>
+</ol>
+<h3 id="4-3-2-展望"><a href="#4-3-2-展望" class="headerlink" title="4.3.2    展望"></a>4.3.2    展望</h3><p>未来我们将会搭建公司级的二方/三方包管理平台，包括依赖数据收集、依赖版本分析、依赖版本控制、依赖自动升级，真正的实现中间件的治理闭环。</p>
+
+            </div>
+            <hr />
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《Part 2 服务化建设》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/rdefficiency/2-service/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                北京趣拿软件科技有限公司 ｜ 基础架构
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="/rdefficiency/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/rdefficiency/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/rdefficiency/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ed98d39f94ff459ee228',
+        clientSecret: '9d04488d8bba75646a9ff2d97092c7379b796690',
+        repo: 'rdefficiency',
+        owner: 'qunarcorp',
+        admin: "zhangcf945",
+        id: '2-service/',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+    <div class="disqus-card card" data-aos="fade-up">
+    <div id="disqus_thread" class="card-content">
+        <noscript>Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+    </div>
+</div>
+
+<script type="text/javascript">
+    disqus_config = function () {
+        this.page.url = 'https://qunarcorp.github.io/rdefficiency/2-service/';
+        this.page.identifier = '/2-service/';
+        this.page.title = 'Part 2 服务化建设';
+    };
+    let disqus_shortname = '';
+
+    (function () { // DON'T EDIT BELOW THIS LINE
+        let d = document, s = d.createElement('script');
+        // 如：s.src = 'https://blinkfox.disqus.com/embed.js';
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/rdefficiency/1-container/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 1 基础设施容器化">
+                        
+                        <span class="card-title">Part 1 基础设施容器化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍云原生已经去哪儿网技术背景，既本书产生背景，同时简单介绍了本书的主要内容
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E4%BA%91%E5%8E%9F%E7%94%9F-%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD/" target="_blank">
+                        <span class="chip bg-color">云原生,研发效能</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/rdefficiency/3-develop/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/rdefficiency/medias/featureimages/cover.jpg" class="responsive-img" alt="Part 3 开发提效">
+                        
+                        <span class="card-title">Part 3 开发提效</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍在serverless方向的探索和实践，包括前端低代码平台、FAAS服务平台、云开发三个部分
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/rdefficiency/tags/%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87/" target="_blank">
+                        <span class="chip bg-color">开发效率</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 去哪儿旅行<br />'
+            + '作者: 北京趣拿软件科技有限公司 ｜ 基础架构<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归去哪儿旅行所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () { bodyElement.removeChild(newdiv); }, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/rdefficiency/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            &copy; 北京趣拿软件科技有限公司. 版权所有
+
+            
+            &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+            <span class="white-color">133.6k</span>
+            
+
+            <br>
+            <span id="sitetime"></span>
+
+            
+            
+            <br>
+            
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <i class="fa fa-heart-o"></i>
+                本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'>
+                人次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+            </span>
+            
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/qunarcorp" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:infra@qunar.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/rdefficiency/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);
+        var pvcountOffset = 0;
+        var uvcountOffset = 0;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int);
+            }
+        }
+    });
+</script>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022, 10, 10, 00, 00, 00); //北京时间2018-2-13 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }/*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/rdefficiency/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/rdefficiency/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+    <script src="/rdefficiency/libs/materialize/materialize.min.js"></script>
+    <script src="/rdefficiency/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/rdefficiency/libs/aos/aos.js"></script>
+    <script src="/rdefficiency/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/rdefficiency/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/rdefficiency/js/matery.js"></script>
+
+    <script type="text/javascript"> var OriginTitile = document.title, st; document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "喔哟，崩溃啦！", clearTimeout(st)) : (document.title = "咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) })
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    
+
+    
+    <script async src="/rdefficiency/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+</body>
+
+</html>
