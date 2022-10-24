@@ -1,10 +1,1 @@
-https://qunarcorp.github.io/rdefficiency/0-starter/
-https://qunarcorp.github.io/rdefficiency/1-container/
-https://qunarcorp.github.io/rdefficiency/2-service/
-https://qunarcorp.github.io/rdefficiency/3-develop/
-https://qunarcorp.github.io/rdefficiency/4-quality/
-https://qunarcorp.github.io/rdefficiency/5-cicd/
-https://qunarcorp.github.io/rdefficiency/6-observability/
-https://qunarcorp.github.io/rdefficiency/7-stability/
-https://qunarcorp.github.io/rdefficiency/8-digital/
-https://qunarcorp.github.io/rdefficiency/9-end/
+https://qunarcorp.github.io/rdefficiency/efficiency/
